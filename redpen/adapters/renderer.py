@@ -29,7 +29,7 @@ def _paper_colour(img: Image.Image) -> Tuple[int, int, int]:
 
 
 class InkRenderer:
-    def __init__(self, seed: int = 11, note_writer_seed: int = 5):
+    def __init__(self, seed: int = 11, note_writer_seed: int = 3):  # writer 3: most legible of 8 compared on every hint note
         self.seed = seed
         self.note_writer_seed = note_writer_seed
 

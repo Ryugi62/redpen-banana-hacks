@@ -22,7 +22,7 @@ SAMPLES = {  # id: (lines, seed, hard page = paper texture + tilt + blur)
     "s1": (["3x-5=10", "3x=5", "x=5/3"], 3, False),
     "s2": (["x^2+2x=6x", "x^2=4x", "x=4"], 21, False),
     "s3": (["x^2-5x+6=0", "(x-2)(x-3)=0", "x=2 or x=3"], 8, False),
-    "s4": (["4(x-2)=2x+6", "4x-2=2x+6", "2x=8", "x=4", "4(4-2)=2(4)+6"], 12, True),
+    "s4": (["4(x-2)=2x+6", "4x-2=2x+6", "2x=8", "x=4", "4(4-2)=2(4)+6"], 14, True),
 }
 
 out_dir = os.path.join(os.path.dirname(__file__), "..", "public", "samples")
