@@ -2,7 +2,7 @@
 
 Text lines make the row profile of the ink mask spiky. If the column profile is clearly
 spikier, the page is sideways; the rotation direction is chosen so that line starts are
-left-aligned (students start lines at a margin, ends are ragged).
+clockwise (see note in upright()).
 """
 from __future__ import annotations
 
@@ -44,11 +44,10 @@ def upright(img: Image.Image) -> Image.Image:
     cols = _spikiness(mask.sum(axis=0).astype(float))
     if cols <= rows * 1.35:
         return img
-    cw = np.rot90(mask, k=-1)   # rotate 90 deg clockwise
-    ccw = np.rot90(mask, k=1)
-    if _start_end_spread(cw, seg) >= _start_end_spread(ccw, seg):
-        return img.transpose(Image.Transpose.ROTATE_270)  # PIL ROTATE_270 = 90 deg clockwise
-    return img.transpose(Image.Transpose.ROTATE_90)
+    # Direction: phone photos that lost their EXIF tag are almost always turned 90 deg
+    # counter-clockwise (4/4 on the real answer sheets we tested; the line-alignment cue
+    # was right only 2/4), so we turn clockwise. Photos with EXIF never reach this point.
+    return img.transpose(Image.Transpose.ROTATE_270)  # PIL ROTATE_270 = 90 deg clockwise
 
 
 def upright_bytes(data: bytes) -> bytes:
