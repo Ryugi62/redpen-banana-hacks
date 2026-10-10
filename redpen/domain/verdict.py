@@ -3,7 +3,7 @@ from __future__ import annotations
 
 from typing import List, Optional
 
-from .algebra import Line, Unreadable, Unsupported, check_line_holds, classify_hint, is_check_line, parse_line, relate
+from .algebra import Line, Unreadable, Unsupported, check_line_holds, classify_hint, is_check_line, is_solved, parse_line, relate
 from .model import Hint, Relation, Step, Verdict
 
 
@@ -49,7 +49,7 @@ def judge(steps: List[Step]) -> Verdict:
             relations.append(Relation.START)
             anchor = line
             continue
-        if is_check_line(line) and not is_check_line(anchor):
+        if is_check_line(line) and is_solved(anchor):
             # numbers substituted back in to check an answer: true -> fine, false -> arithmetic slip;
             # the chain keeps comparing with the last real equation
             try:

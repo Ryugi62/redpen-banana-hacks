@@ -73,7 +73,7 @@
     }
     const edited = out.steps.map((s, i) => (s.text !== current.read[i] ? i + 1 : 0)).filter(Boolean);
     if (edited.length) {
-      $("explain").textContent += ` Line${edited.length > 1 ? "s" : ""} ${edited.join(", ")} checked as you typed ${edited.length > 1 ? "them" : "it"}; the photo still shows the original ink.`;
+      $("explain").textContent += ` Line${edited.length > 1 ? "s" : ""} ${edited.join(", ")} checked as you typed ${edited.length > 1 ? "them" : "it"} (no tick on the old ink).`;
     }
     $("marked").src = out.image;
     $("download").href = out.image;
@@ -137,7 +137,10 @@
 
   $("recheck").addEventListener("click", async () => {
     if (!current) return;
-    const steps = current.steps.map((s, i) => ({ text: document.querySelector(`#lines input[data-i="${i}"]`).value, box: s.box, kind: s.kind }));
+    const steps = current.steps.map((s, i) => {
+      const text = document.querySelector(`#lines input[data-i="${i}"]`).value;
+      return { text, box: s.box, kind: s.kind, edited: text !== current.read[i] };
+    });
     $("recheck").disabled = true; $("recheck").textContent = "Re-checking…";
     try {
       const out = await post("/api/regrade", { image: current.image, steps });

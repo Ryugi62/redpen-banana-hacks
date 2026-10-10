@@ -59,8 +59,16 @@ class Line:
     decimals: int = 0  # most digits written after a decimal point (rounded answers are accepted to that precision)
 
 
+_LEAD = re.compile(r"^\s*(?:=>|⇒|->|→|∴|therefore\b|so\b|hence\b)\s*", re.I)
+_TRAIL = re.compile(r"\s*(?://+|■|□|✓|✔|#+)\s*$")
+_OR_V = re.compile(r"(?<=[0-9a-zA-Z)])\s+[vV]\s+(?=[a-zA-Z(\-0-9])")
+
+
 def normalise(text: str) -> str:
     t = text.strip()
+    t = _LEAD.sub("", t)  # students' arrows / "therefore" before a line
+    t = _TRAIL.sub("", t)  # end-of-answer marks
+    t = _OR_V.sub(" or ", t)  # "x=-1 v x=-3" means "or"
     for a, b in _REPLACEMENTS:
         t = t.replace(a, b)
     t = re.sub(r"\\frac\(([^()]*)\)\(([^()]*)\)", r"((\1)/(\2))", t)
@@ -260,6 +268,14 @@ def equations_equivalent(prev: Line, cur: Line) -> Optional[bool]:
 def is_check_line(line: Line) -> bool:
     """An equation with no unknowns, e.g. "3(5)-5=10" written to check an answer."""
     return line.kind == "eq" and not line.exprs[0].free_symbols
+
+
+def is_solved(line: Line) -> bool:
+    """x = number (or a list of those): the point where a student checks an answer."""
+    for lhs, rhs in line.sides:
+        if not (isinstance(lhs, sp.Symbol) and not rhs.free_symbols) and not (isinstance(rhs, sp.Symbol) and not lhs.free_symbols):
+            return False
+    return bool(line.sides) and line.kind in ("eq", "sols")
 
 
 def check_line_holds(anchor: Line, line: Line) -> Optional[bool]:

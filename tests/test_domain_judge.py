@@ -170,3 +170,28 @@ def test_pathological_input_returns_fast(text):
     v = judge(steps("x=1", text))
     assert time.perf_counter() - t < 2.0
     assert v.relations[1] in (Relation.UNSUPPORTED, Relation.UNREADABLE)
+
+
+# --- round-2 mock judges: common student notation -------------------------------------------
+
+@pytest.mark.parametrize("prefix", ["=> ", "⇒", "∴ ", "→", "-> ", "therefore "])
+def test_leading_arrows_and_therefore_are_ignored(prefix):
+    v = judge(steps("2x+3=7", prefix + "2x=10", "x=5"))
+    assert v.first_slip == 1 and v.hint == Hint.SIGN
+
+
+@pytest.mark.parametrize("sep", [" v ", " V ", " or "])
+def test_v_between_solutions_means_or(sep):
+    v = judge(steps("x^2+4x+3=0", "(x+1)(x+3)=0", "x=-1" + sep + "x=-3"))
+    assert v.first_slip is None
+
+
+@pytest.mark.parametrize("suffix", ["//", " //", " ■", " ✓", " #"])
+def test_trailing_end_marks_are_ignored(suffix):
+    v = judge(steps("2x+3=7", "2x=4", "x=2" + suffix))
+    assert v.first_slip is None and v.relations[2] == Relation.EQUIVALENT
+
+
+def test_true_numeric_line_counts_as_a_check_only_after_a_solved_line():
+    v = judge(steps("2x=4", "0=0"))
+    assert v.first_slip == 1  # 2x=4 does not turn into 0=0

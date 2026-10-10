@@ -35,3 +35,7 @@ def test_hidden_hint_chip_really_hides_and_edits_are_disclosed():
 def test_progress_text_does_not_pretend_to_know_the_server_stage():
     js = read("app.js")
     assert "STAGES" not in js and "WAIT_TEXT" in js
+
+
+def test_phone_users_can_pick_a_saved_photo():
+    assert 'capture="environment"' not in read("index.html")

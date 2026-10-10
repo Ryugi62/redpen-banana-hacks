@@ -18,6 +18,7 @@ class StepEdit:
     box: Optional[LineBox]
     confidence: float = 1.0
     kind: str = "math"
+    edited: bool = False
 
 
 @dataclass
@@ -138,5 +139,5 @@ class Regrade:
         self.renderer = renderer
 
     def execute(self, image: bytes, edits: List[StepEdit]) -> GradeResult:
-        steps = [Step(index=i, text=e.text, confidence=e.confidence, box=e.box, kind=e.kind) for i, e in enumerate(edits)]
+        steps = [Step(index=i, text=e.text, confidence=e.confidence, box=e.box, kind=e.kind, edited=e.edited) for i, e in enumerate(edits)]
         return _finish(image, steps, self.renderer, {})

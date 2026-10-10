@@ -34,3 +34,16 @@ def test_unreadable_gets_query_mark():
     s[1] = Step(index=1, text="2x=4", confidence=0.1, box=s[1].box)
     plan = plan_markup(s, judge(s))
     assert [m.step for m in plan.marks if m.kind == MarkKind.QUERY] == [1]
+
+
+def test_edited_lines_get_no_tick_on_the_original_ink():
+    """Round-2 judges: after a fix, RedPen ticked the student's ORIGINAL wrong ink."""
+    from redpen.domain.model import Step as S
+    s = mk(["3x-5=10", "3x=15", "x=5"])
+    s[1] = S(index=1, text="3x=15", confidence=1.0, box=s[1].box, edited=True)
+    s[2] = S(index=2, text="x=5", confidence=1.0, box=s[2].box, edited=True)
+    plan = plan_markup(s, judge(s))
+    ticks = [m.step for m in plan.marks if m.kind == MarkKind.TICK]
+    assert ticks == [0]
+    summary = [m for m in plan.marks if m.kind == MarkKind.SUMMARY][0]
+    assert "typed" in summary.text

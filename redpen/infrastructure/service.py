@@ -78,7 +78,7 @@ def to_json(res: GradeResult, model: str = "") -> Dict[str, Any]:
         steps.append({
             "index": s.index, "text": s.text, "confidence": round(s.confidence, 2), "kind": s.kind,
             "box": [s.box.x0, s.box.y0, s.box.x1, s.box.y1] if s.box else None, "relation": rel.value,
-            "doubtful": s.doubtful,
+            "doubtful": s.doubtful, "edited": s.edited,
         })
     maths = [r for r in v.relations if r.value != "prose"]
     return {
@@ -126,7 +126,7 @@ def regrade(payload: Dict[str, Any]) -> Dict[str, Any]:
         box = s.get("box")
         lb = LineBox(*[int(v) for v in box[:4]]) if isinstance(box, list) and len(box) >= 4 else None
         kind = "prose" if s.get("kind") == "prose" else "math"
-        edits.append(StepEdit(text, lb, 1.0, kind))
+        edits.append(StepEdit(text, lb, 1.0, kind, bool(s.get("edited"))))
     res = Regrade(InkRenderer()).execute(image, edits)
     return to_json(res, "none (no model call)")
 
