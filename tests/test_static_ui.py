@@ -25,3 +25,8 @@ def test_every_sample_is_a_recorded_model_run():
         assert f'id: "{sid}"' in js
         data = json.load(open(os.path.join(ROOT, "samples", f"{sid}.result.json")))
         assert data.get("recorded") is True and "no model call" not in data["model"]
+
+
+def test_hidden_hint_chip_really_hides_and_edits_are_disclosed():
+    assert ".chip[hidden]" in read("style.css")
+    assert "checked as you typed" in read("app.js")

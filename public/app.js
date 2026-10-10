@@ -45,8 +45,9 @@
   };
   const REL_LABEL = { start: "start", equivalent: "holds", not_equivalent: "breaks", unreadable: "can't read", unsupported: "not checked", prose: "words", doubtful: "read 2 ways" };
 
-  function render(out, image) {
-    current = { image, steps: out.steps };
+  function render(out, image, read) {
+    // read = what RedPen originally read from the photo (kept across re-checks)
+    current = { image, steps: out.steps, read: read || out.steps.map((s) => s.text) };
     const v = out.verdict;
     const card = $("verdictCard");
     card.classList.remove("slip", "ok", "unsure");
@@ -72,6 +73,10 @@
       $("bigSub").textContent = v.checked === v.maths_lines ? "steps hold — nice work" : "lines verified (some couldn't be read)";
       $("hintChip").hidden = true;
       $("explain").textContent = v.checked === v.maths_lines ? "Every line follows from the one before." : "Open “What RedPen read” and fix the lines marked “can't read”.";
+    }
+    const edited = out.steps.map((s, i) => (s.text !== current.read[i] ? i + 1 : 0)).filter(Boolean);
+    if (edited.length) {
+      $("explain").textContent += ` Line${edited.length > 1 ? "s" : ""} ${edited.join(", ")} checked as you typed ${edited.length > 1 ? "them" : "it"}; the photo still shows the original ink.`;
     }
     $("marked").src = out.image;
     $("download").href = out.image;
@@ -139,7 +144,7 @@
     $("recheck").disabled = true; $("recheck").textContent = "Re-checking…";
     try {
       const out = await post("/api/regrade", { image: current.image, steps });
-      render(out, current.image);
+      render(out, current.image, current.read);
       $("readDetails").open = true;
     } catch (err) { fail(err.message); }
     finally { $("recheck").disabled = false; $("recheck").textContent = "Re-check — no AI call"; }

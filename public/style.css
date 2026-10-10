@@ -38,6 +38,7 @@ h1 { font-size: 30px; line-height: 1.25; margin: 12px 0 12px; letter-spacing: -0
 .verdict.ok .num { color: var(--ok); }
 .verdict.unsure .num { color: var(--warn); }
 .tag.doubtful { color: var(--warn); background: color-mix(in srgb, var(--warn) 14%, transparent); }
+.chip[hidden] { display: none; }
 .hero { margin: 0 0 28px; }
 .hero img { width: 100%; height: auto; border-radius: var(--radius); border: 1px solid var(--line); display: block; }
 .verdict .sub { font-size: 16px; color: var(--muted); margin-top: 4px; }
