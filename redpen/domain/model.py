@@ -51,6 +51,7 @@ class Step:
     confidence: float = 1.0
     box: Optional[LineBox] = None
     kind: str = "math"
+    doubtful: bool = False  # two readings of this line disagreed: never accuse it, restart the chain after it
 
     @property
     def readable(self) -> bool:

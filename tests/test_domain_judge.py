@@ -117,3 +117,56 @@ def test_substituting_values_starts_a_new_chain_not_a_slip():
     assert v.first_slip is None
     v = judge(steps("=5((5)^2-3(16))", "=5(-4)"))
     assert v.first_slip == 1
+
+
+# --- found by mock judges 2026-10-10 20:3x -------------------------------------------------
+
+def test_true_answer_check_line_is_not_a_slip():
+    v = judge(steps("3x-5=10", "3x=15", "x=5", "3(5)-5=10"))
+    assert v.first_slip is None
+    assert v.relations[3] == Relation.EQUIVALENT
+    v = judge(steps("2x+3=7", "x=2", "2(2)+3=7", "7=7"))
+    assert v.first_slip is None
+
+
+def test_false_answer_check_line_is_an_arithmetic_slip():
+    v = judge(steps("2x+3=7", "x=2", "2(2)+3=8"))
+    assert v.first_slip == 2 and v.hint == Hint.ARITHMETIC
+
+
+def test_contradiction_after_no_solution_equation_is_correct():
+    v = judge(steps("2x+3=2x+5", "3=5"))
+    assert v.first_slip is None
+
+
+def test_lines_after_a_check_still_compare_with_the_last_equation():
+    v = judge(steps("2x+3=7", "x=2", "2(2)+3=7", "x=3"))
+    assert v.first_slip == 3
+
+
+@pytest.mark.parametrize("a,b", [("3x=1", "x=0.33"), ("3x=1", "x=0.333"), ("x^2=2", "x=1.41 or x=-1.41"), ("7x=22", "x=3.14")])
+def test_rounded_decimals_are_accepted(a, b):
+    assert judge(steps(a, b)).first_slip is None
+
+
+@pytest.mark.parametrize("a,b", [("3x=1", "x=0.5"), ("3x=1", "x=0.31"), ("x^2=2", "x=1.5 or x=-1.5")])
+def test_wrong_decimals_are_still_slips(a, b):
+    assert judge(steps(a, b)).first_slip == 1
+
+
+def test_doubtful_line_is_not_accused_and_breaks_the_chain():
+    s = steps("5(x+9)=40", "5x+45=80", "5x=35", "x=7")
+    s[0] = Step(index=0, text="5(x+9)=40", confidence=0.99, doubtful=True)
+    v = judge(s)
+    assert v.relations[0] == Relation.UNREADABLE
+    assert v.relations[1] == Relation.START
+    assert v.first_slip is None
+
+
+@pytest.mark.parametrize("text", ["9^9^9=x", "2^999999=x", "x=" + "9" * 40])
+def test_pathological_input_returns_fast(text):
+    import time
+    t = time.perf_counter()
+    v = judge(steps("x=1", text))
+    assert time.perf_counter() - t < 2.0
+    assert v.relations[1] in (Relation.UNSUPPORTED, Relation.UNREADABLE)

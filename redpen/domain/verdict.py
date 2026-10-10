@@ -3,7 +3,7 @@ from __future__ import annotations
 
 from typing import List, Optional
 
-from .algebra import Line, Unreadable, Unsupported, classify_hint, parse_line, relate
+from .algebra import Line, Unreadable, Unsupported, check_line_holds, classify_hint, is_check_line, parse_line, relate
 from .model import Hint, Relation, Step, Verdict
 
 
@@ -27,6 +27,10 @@ def judge(steps: List[Step]) -> Verdict:
     anchor: Optional[Line] = None  # last readable, supported line
 
     for i, step in enumerate(steps):
+        if step.doubtful and step.kind != "prose":
+            relations.append(Relation.UNREADABLE)
+            anchor = None  # what came before cannot be trusted to judge what comes after
+            continue
         failed, line = _parse(step)
         if failed is not None:
             relations.append(failed)
@@ -44,6 +48,22 @@ def judge(steps: List[Step]) -> Verdict:
         if anchor is None:
             relations.append(Relation.START)
             anchor = line
+            continue
+        if is_check_line(line) and not is_check_line(anchor):
+            # numbers substituted back in to check an answer: true -> fine, false -> arithmetic slip;
+            # the chain keeps comparing with the last real equation
+            try:
+                holds = check_line_holds(anchor, line)
+            except Exception:
+                holds = None
+            if holds is None:
+                relations.append(Relation.UNSUPPORTED)
+            elif holds:
+                relations.append(Relation.EQUIVALENT)
+            else:
+                relations.append(Relation.NOT_EQUIVALENT)
+                if first_slip is None:
+                    first_slip, hint = i, Hint.ARITHMETIC
             continue
         try:
             rel = relate(anchor, line)

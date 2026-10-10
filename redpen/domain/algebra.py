@@ -56,6 +56,7 @@ class Line:
     head: Optional[sp.Expr] = None  # expr chains: first piece (compared with the previous line)
     internal_slip: bool = False  # a chain like "a = b = c" where b != c
     raw_head: Optional[sp.Expr] = None  # unevaluated first piece (structure, for substitution detection)
+    decimals: int = 0  # most digits written after a decimal point (rounded answers are accepted to that precision)
 
 
 def normalise(text: str) -> str:
@@ -82,6 +83,10 @@ def _parse(t: str, evaluate: bool = True) -> sp.Expr:
         raise Unreadable("empty")
     if not _SAFE_CHARS.match(t):
         raise Unreadable(f"characters: {t!r}")
+    if len(t) > 160 or re.search(r"\d{16,}", t):
+        raise Unreadable("too long")
+    if re.search(r"\^[^+\-=]*\^", t) or re.search(r"\^\s*\(?\s*-?\d{3,}", t):
+        raise Unsupported("huge power")  # power towers / huge exponents: outside school algebra, and slow
     for word in re.findall(r"[A-Za-z]{2,}", t):
         if word not in _ALLOWED_WORDS and not all(c in "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ" for c in word):
             raise Unreadable(word)
@@ -119,8 +124,19 @@ def _chain_consistent(pieces: List[str]) -> bool:
     return all(expressions_equivalent(a, b) for a, b in zip(exprs, exprs[1:]))
 
 
+def _decimals(t: str) -> int:
+    return max((len(m) for m in re.findall(r"\d\.(\d+)", t)), default=0)
+
+
 def parse_line(text: str) -> Line:
+    from dataclasses import replace as _replace
     t = normalise(text)
+    line = _parse_line(t)
+    d = _decimals(t)
+    return _replace(line, decimals=d) if d else line
+
+
+def _parse_line(t: str) -> Line:
     _check_unsupported(t)
     continuation = t.startswith("=")
     if continuation:
@@ -205,13 +221,13 @@ def _solution_set(line: Line, var: sp.Symbol):
     return sets[0]
 
 
-def _sets_equal(s1, s2) -> bool:
+def _sets_equal(s1, s2, tol: float = 1e-9) -> bool:
     if s1 == s2:
         return True
     if isinstance(s1, sp.FiniteSet) and isinstance(s2, sp.FiniteSet):
         v1 = sorted(complex(sp.N(v)).real for v in s1)
         v2 = sorted(complex(sp.N(v)).real for v in s2)
-        return len(v1) == len(v2) and all(abs(x - y) < 1e-9 for x, y in zip(v1, v2))
+        return len(v1) == len(v2) and all(abs(x - y) <= tol for x, y in zip(v1, v2))
     try:
         return bool(sp.Complement(s1, s2) == sp.EmptySet and sp.Complement(s2, s1) == sp.EmptySet)
     except Exception:
@@ -234,10 +250,28 @@ def equations_equivalent(prev: Line, cur: Line) -> Optional[bool]:
     if len(syms) == 1:
         s1, s2 = _solution_set(prev, syms[0]), _solution_set(cur, syms[0])
         if s1 is not None and s2 is not None:
-            return _sets_equal(s1, s2)
+            tol = 0.5 * 10 ** (-cur.decimals) + 1e-9 if cur.decimals else 1e-9
+            return _sets_equal(s1, s2, tol)
     if prev.kind == "eq" and cur.kind == "eq":
         return _proportional(prev.exprs[0], cur.exprs[0])
     return None
+
+
+def is_check_line(line: Line) -> bool:
+    """An equation with no unknowns, e.g. "3(5)-5=10" written to check an answer."""
+    return line.kind == "eq" and not line.exprs[0].free_symbols
+
+
+def check_line_holds(anchor: Line, line: Line) -> Optional[bool]:
+    truth = sp.simplify(line.exprs[0]) == 0
+    if truth:
+        return True
+    syms = _symbols(anchor)
+    if anchor.kind != "expr" and len(syms) == 1:
+        s = _solution_set(anchor, syms[0])
+        if s == sp.EmptySet:
+            return True  # "3=5" after an equation with no solution is the right conclusion
+    return False
 
 
 def relate(prev: Line, cur: Line) -> Relation:
