@@ -90,6 +90,11 @@ class InkRenderer:
             elif m.kind == MarkKind.QUERY:
                 strokes, _ = writer.layout("?", box.x1 + 0.35 * cap, box.y1 - 0.15 * box.height, 0.9 * cap)
                 draw([smooth(s) for s in strokes], pen)
+            elif m.kind == MarkKind.CIRCLE and m.box is not None:  # just the wrong term
+                tb = m.box
+                rx = tb.width / 2 + 0.22 * cap
+                ry = max(tb.height, 0.7 * box.height) / 2 + 0.12 * cap
+                draw([smooth(wobbly_ellipse((tb.x0 + tb.x1) / 2, (box.y0 + box.y1) / 2, rx, ry, rng), 2)], pen * 1.1)
             elif m.kind == MarkKind.CIRCLE:
                 gap = self._vertical_room(box, boxes)
                 rx = box.width / 2 + 0.25 * cap

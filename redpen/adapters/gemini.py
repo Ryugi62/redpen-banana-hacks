@@ -152,6 +152,33 @@ def parse_free(payload: dict, size: Tuple[int, int]) -> List[Tuple[LineBox, Read
     return res
 
 
+PROMPT_TERM = """This image is one line of a student's handwritten maths, enlarged.
+Find the part of the line that is written as: {term}
+Return box_2d = [ymin, xmin, ymax, xmax] normalised to 0-1000 around exactly that part (only those characters).
+If it is not in the image, set found to false. Return JSON only."""
+
+SCHEMA_TERM = {
+    "type": "OBJECT",
+    "properties": {"found": {"type": "BOOLEAN"}, "box_2d": {"type": "ARRAY", "items": {"type": "INTEGER"}}},
+    "required": ["found", "box_2d"],
+}
+
+
+def parse_term(payload: dict, crop_origin: Tuple[int, int], crop_size: Tuple[int, int], scale: float) -> Optional[LineBox]:
+    """Map the model's box in the enlarged crop back to page pixels. Bad / missing -> None."""
+    if not isinstance(payload, dict) or not payload.get("found"):
+        return None
+    try:
+        y0, x0, y1, x1 = [int(v) for v in payload["box_2d"]][:4]
+    except (KeyError, TypeError, ValueError):
+        return None
+    if not (0 <= x0 < x1 <= 1000 and 0 <= y0 < y1 <= 1000):
+        return None
+    w, h = crop_size
+    ox, oy = crop_origin
+    return LineBox(int(ox + x0 * w / 1000 / scale), int(oy + y0 * h / 1000 / scale), int(ox + x1 * w / 1000 / scale), int(oy + y1 * h / 1000 / scale))
+
+
 class GeminiTranscriber:
     def __init__(self, api_key: Optional[str] = None, model: Optional[str] = None, timeout: int = 45):
         self.api_key = api_key or os.environ.get("GEMINI_API_KEY", "")
@@ -209,6 +236,17 @@ class GeminiTranscriber:
             y += c.height + 40
         payload = self._call(PROMPT_MARKED, mark_boxes(sheet, new_boxes), SCHEMA_MARKED)
         return parse_marked(payload, len(boxes))
+
+    def locate_term(self, image: bytes, box: LineBox, term: str) -> Optional[LineBox]:
+        """Vision grounding: where inside this line is the written term? (circle the term, not the whole line)"""
+        img = load_rgb(image, max_side=4000)
+        pad = int(0.25 * box.height)
+        x0, y0 = max(0, box.x0 - pad), max(0, box.y0 - pad)
+        crop = img.crop((x0, y0, min(img.width, box.x1 + pad), min(img.height, box.y1 + pad)))
+        scale = max(1.0, 160 / max(1, crop.height))
+        big = crop.resize((int(crop.width * scale), int(crop.height * scale)), Image.LANCZOS)
+        payload = self._call(PROMPT_TERM.format(term=term), big, SCHEMA_TERM)
+        return parse_term(payload, (x0, y0), big.size, scale)
 
     def locate_and_transcribe(self, image: bytes) -> List[Tuple[LineBox, Reading]]:
         img = load_rgb(image)

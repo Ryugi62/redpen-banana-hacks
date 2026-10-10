@@ -92,6 +92,8 @@ def to_json(res: GradeResult, model: str = "") -> Dict[str, Any]:
             "checked": sum(1 for r in maths if r.value in ("start", "equivalent")),
             "maths_lines": len(maths),
             "uncertain_lines": [i + 1 for i in res.uncertain],
+            "culprit": v.culprit,
+            "term_circled": any(m.kind.value == "circle" and m.box is not None for m in res.plan.marks),
         },
         "image": "data:image/png;base64," + base64.b64encode(res.image_png).decode(),
         "mode": res.mode,

@@ -528,3 +528,76 @@ def classify_hint(prev: Line, cur: Line) -> Hint:
     except Exception:
         pass
     return Hint.CHECK_STEP
+
+
+# ---------------------------------------------------------------- culprit (which written term to circle)
+
+def _top_terms(side: str, offset: int) -> List[Tuple[int, int]]:
+    """(start, end) spans of top-level additive terms in `side`, sign included, positions in the full text."""
+    spans, depth, start = [], 0, 0
+    for i, ch in enumerate(side):
+        if ch in "([":
+            depth += 1
+        elif ch in ")]":
+            depth -= 1
+        elif ch in "+-" and depth == 0 and i > 0 and side[i - 1] not in "^*/(+-":
+            if side[start:i].strip():
+                spans.append((offset + start, offset + i))
+            start = i
+    if side[start:].strip():
+        spans.append((offset + start, offset + len(side)))
+    return spans
+
+
+def culprit_term(prev_text: str, cur_text: str) -> Optional[str]:
+    """The single written term of the slip line that, if it were different, would make the step valid.
+
+    Returns the term as the student wrote it (e.g. "10" in 2x+3=7 -> 2x=10), never the corrected value.
+    None when the step is fine, or when no single term explains the slip (then the whole line is circled).
+    """
+    try:
+        prev, cur = parse_line(prev_text), parse_line(cur_text)
+        if relate(prev, cur) != Relation.NOT_EQUIVALENT:
+            return None
+    except Exception:
+        return None
+    t = normalise(cur_text)
+    lead = 1 if t.startswith("=") else 0
+    body = t[lead:]
+    if body.count("=") > 1:
+        return None
+    sides = body.split("=")
+    spans, off = [], lead
+    for sd in sides:
+        spans += _top_terms(sd, off)
+        off += len(sd) + 1
+    k = sp.Symbol("k_fix")
+    ranked = sorted(spans, key=lambda s: (not re.fullmatch(r"\s*[+-]?\s*[0-9.]+\s*", t[s[0]:s[1]]), s[0]))
+    for a, b in ranked:
+        term = t[a:b].strip()
+        sign = "-" if term.startswith("-") else "+"
+        cand_text = t[:a] + (sign if a > lead and t[a - 1] not in "=(" or sign == "-" else "") + "(k_fix)" + t[b:]
+        try:
+            cand = parse_line(cand_text.replace("k_fix", "K"))
+        except Exception:
+            continue
+        K = sp.Symbol("K")
+        try:
+            if cand.kind == "expr" and prev.kind == "expr":
+                ks = _solve_for_k_expr(prev.exprs[0], cand.exprs[0] if cand.head is None else cand.head, K)
+                ok = any(expressions_equivalent(prev.exprs[0], (cand.exprs[0] if cand.head is None else cand.head).subs(K, v)) for v in ks)
+            else:
+                syms = sorted(set(_symbols(prev)) - {K}, key=lambda s: s.name)
+                if len(syms) != 1:
+                    continue
+                sols = _solution_set(prev, syms[0])
+                if not isinstance(sols, sp.FiniteSet) or len(sols) == 0:
+                    continue
+                x0 = list(sols)[0]
+                ks = [v for v in sp.solve(cand.exprs[0].subs(syms[0], x0), K) if v.is_real]
+                ok = any(equations_equivalent(prev, Line("eq", (sp.expand(cand.exprs[0].subs(K, v)),))) for v in ks)
+        except Exception:
+            continue
+        if ok:
+            return term.lstrip("+").strip()
+    return None

@@ -104,6 +104,7 @@ class Verdict:
     relations: List[Relation]
     first_slip: Optional[int]
     hint: Optional[Hint]
+    culprit: Optional[str] = None  # the written term of the slip line to circle (as written, never the fix)
 
     @property
     def held(self) -> int:
@@ -125,6 +126,7 @@ class Mark:
     kind: MarkKind
     step: Optional[int]
     text: str = ""
+    box: Optional[LineBox] = None  # circle this part of the line instead of the whole line
 
 
 @dataclass(frozen=True)

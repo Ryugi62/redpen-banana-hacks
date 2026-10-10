@@ -93,5 +93,19 @@ class FallbackTranscriber:
     def reread(self, image: bytes, boxes: List[LineBox]) -> List[Reading]:
         return self._try("reread", image, boxes)
 
+    def locate_term(self, image: bytes, box: LineBox, term: str):
+        """One short try on the model that just read the page; a miss only means the whole line is circled."""
+        t = next((t for t in self.transcribers if self._name(t) == self.used), self.transcribers[0] if self.transcribers else None)
+        if t is None or not hasattr(t, "locate_term"):
+            return None
+        old = getattr(t, "timeout", None)
+        try:
+            if old is not None:
+                t.timeout = min(old, 10)
+            return t.locate_term(image, box, term)
+        finally:
+            if old is not None:
+                t.timeout = old
+
     def locate_and_transcribe(self, image: bytes):
         return self._try("locate_and_transcribe", image)

@@ -6,7 +6,7 @@ from dataclasses import dataclass, field, replace
 from typing import Dict, List, Optional
 
 from redpen.domain.markup import plan_markup
-from redpen.domain.model import LineBox, MarkupPlan, Reading, Step, Verdict
+from redpen.domain.model import LineBox, MarkKind, MarkupPlan, Reading, Step, Verdict
 from redpen.domain.verdict import judge
 
 from .ports import LineLocator, LineSegmenter, MarkupRenderer, Transcriber
@@ -44,11 +44,38 @@ def plausible_lines(boxes: List[LineBox], page: Optional[tuple]) -> bool:
     return True
 
 
-def _finish(image: bytes, steps: List[Step], renderer: MarkupRenderer, timings: Dict[str, int], mode: str = "cv-segmented") -> GradeResult:
+def _term_box(image: bytes, steps: List[Step], verdict: Verdict, locator) -> Optional[LineBox]:
+    """Ask the vision model where the wrong term sits inside the slip line (circle it, not the whole line)."""
+    locate = getattr(locator, "locate_term", None)
+    if locate is None or verdict.first_slip is None or not verdict.culprit:
+        return None
+    line = steps[verdict.first_slip].box
+    if line is None:
+        return None
+    try:
+        b = locate(image, line, verdict.culprit)
+    except Exception:
+        return None
+    if b is None or b.width < 3 or b.height < 3:
+        return None
+    pad = 0.35 * line.height
+    inside = b.x0 >= line.x0 - pad and b.x1 <= line.x1 + pad and b.y0 >= line.y0 - pad and b.y1 <= line.y1 + pad
+    if not inside or b.width > 0.9 * line.width:
+        return None
+    return b
+
+
+def _finish(image: bytes, steps: List[Step], renderer: MarkupRenderer, timings: Dict[str, int], mode: str = "cv-segmented", locator=None) -> GradeResult:
     t = time.perf_counter()
     verdict = judge(steps)
     plan = plan_markup(steps, verdict)
     timings["verify"] = int((time.perf_counter() - t) * 1000)
+    if locator is not None:
+        t = time.perf_counter()
+        tb = _term_box(image, steps, verdict, locator)
+        if tb is not None:
+            plan = MarkupPlan(tuple(replace(m, box=tb) if m.kind == MarkKind.CIRCLE else m for m in plan.marks))
+        timings["locate"] = int((time.perf_counter() - t) * 1000)
     t = time.perf_counter()
     png = renderer.render(image, steps, plan)
     timings["render"] = int((time.perf_counter() - t) * 1000)
@@ -116,7 +143,7 @@ class GradePage:
             t = time.perf_counter()
             steps, rechecked, uncertain = confirm_slip(image, steps, self.locator)
             timings["confirm"] = int((time.perf_counter() - t) * 1000)
-            res = _finish(image, steps, self.renderer, timings, mode="model-located")
+            res = _finish(image, steps, self.renderer, timings, mode="model-located", locator=self.locator)
             res.rechecked, res.uncertain = rechecked, uncertain
             return res
         t = time.perf_counter()
@@ -129,7 +156,7 @@ class GradePage:
         t = time.perf_counter()
         steps, rechecked, uncertain = confirm_slip(image, steps, self.transcriber)
         timings["confirm"] = int((time.perf_counter() - t) * 1000)
-        res = _finish(image, steps, self.renderer, timings)
+        res = _finish(image, steps, self.renderer, timings, locator=self.transcriber)
         res.rechecked, res.uncertain = rechecked, uncertain
         return res
 

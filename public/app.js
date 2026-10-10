@@ -93,6 +93,7 @@
       <p><b>Line finding:</b> ${out.mode === "model-located" ? "the photo didn't look like neat lines, so the vision model located them" : "classical computer vision (projection profile + deskew)"}.</p>
       <p><b>Reading:</b> ${out.model || "—"}. The model only copies what is written; it is told never to fix mistakes.</p>
       <p><b>Before circling:</b> ${out.rechecked ? "the suspect line and the one before it were read a second time, zoomed in. " + (unsure.length ? "The readings disagreed, so RedPen asks instead of accusing." : "The readings agreed.") : "nothing to circle, no second reading needed."}</p>
+      ${out.verdict.culprit ? `<p><b>Pointing:</b> SymPy found that the written “${out.verdict.culprit.replace(/[<>&]/g, "")}” is the part that breaks the step; ${out.verdict.term_circled ? "the vision model located it on your photo, so only that part is circled." : "the vision model could not place it, so the whole line is circled."}</p>` : ""}
       <p><b>Verifying:</b> SymPy compares each line with the previous readable one — solution sets for equations, symbolic + numeric identity for expressions. Lines it can't read are skipped, never called wrong.</p>
       <p><b>Time:</b> ${Object.entries(t).map(([k, ms]) => `${k} ${ms} ms`).join(" · ") || "—"}</p>`;
     show("result");

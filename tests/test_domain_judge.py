@@ -201,3 +201,28 @@ def test_angle_sign_is_part_of_the_name():
     v = judge(steps("90+2∠B=180", "2∠B=90", "∠B=45"))
     assert v.first_slip is None and v.relations[2] == Relation.EQUIVALENT
     assert judge(steps("90+2∠B=180", "2∠B=90", "∠B=50")).first_slip == 2
+
+
+# --- culprit: which written part of the slip line is wrong (to circle the term, not the whole line) ---
+from redpen.domain.algebra import culprit_term  # noqa: E402
+
+
+@pytest.mark.parametrize("prev,cur,want", [
+    ("2x+3=7", "2x=10", "10"),
+    ("3x-5=10", "3x=5", "5"),
+    ("4(x-2)=2x+6", "4x-2=2x+6", "-2"),
+    ("2x+3=7", "2x=5", "5"),
+    ("5(x+1)+2(x-2)", "5x+5+2x-4", None),  # correct: no culprit
+])
+def test_culprit_term(prev, cur, want):
+    assert culprit_term(prev, cur) == want
+
+
+def test_culprit_term_never_contains_the_fix():
+    # it names what the student wrote, not what it should be
+    assert culprit_term("2x+3=7", "2x=10") == "10"
+
+
+def test_verdict_carries_the_culprit_term():
+    v = judge(steps("2x+3=7", "2x=10", "x=5"))
+    assert v.first_slip == 1 and v.culprit == "10"

@@ -132,3 +132,43 @@ def test_genuine_slip_survives_reread():
     tr = Genuine(["2x+3=7", "2x=10", "x=5"])
     res = GradePage(FakeSegmenter(), tr, FakeRenderer()).execute(b"img")
     assert res.verdict.first_slip == 1
+
+
+class TermLocator(FakeTranscriber):
+    def __init__(self, texts, result):
+        super().__init__(texts)
+        self.result, self.asked = result, []
+
+    def reread(self, image, boxes):
+        return [Reading(t, 0.95) for t in ("2x+3=7", "2x=10")]
+
+    def locate_term(self, image, box, term):
+        self.asked.append(term)
+        if isinstance(self.result, Exception):
+            raise self.result
+        return self.result
+
+
+def test_circle_goes_round_the_wrong_term_when_vision_finds_it():
+    from redpen.domain.model import MarkKind
+    tr = TermLocator(["2x+3=7", "2x=10", "x=5"], LineBox(60, 52, 95, 88))
+    res = GradePage(FakeSegmenter(), tr, FakeRenderer()).execute(b"img")
+    assert tr.asked == ["10"]
+    circle = [m for m in res.plan.marks if m.kind == MarkKind.CIRCLE][0]
+    assert circle.box == LineBox(60, 52, 95, 88)
+
+
+def test_whole_line_is_circled_when_the_term_cannot_be_found():
+    from redpen.domain.model import MarkKind
+    tr = TermLocator(["2x+3=7", "2x=10", "x=5"], RuntimeError("no"))
+    res = GradePage(FakeSegmenter(), tr, FakeRenderer()).execute(b"img")
+    circle = [m for m in res.plan.marks if m.kind == MarkKind.CIRCLE][0]
+    assert circle.box is None and res.verdict.first_slip == 1
+
+
+def test_term_box_outside_the_line_is_ignored():
+    from redpen.domain.model import MarkKind
+    tr = TermLocator(["2x+3=7", "2x=10", "x=5"], LineBox(0, 300, 50, 340))
+    res = GradePage(FakeSegmenter(), tr, FakeRenderer()).execute(b"img")
+    circle = [m for m in res.plan.marks if m.kind == MarkKind.CIRCLE][0]
+    assert circle.box is None

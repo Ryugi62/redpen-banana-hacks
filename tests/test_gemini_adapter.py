@@ -25,3 +25,13 @@ def test_free_mode_boxes_are_scaled_and_sorted():
     res = parse_free(payload, (1000, 2000))
     assert [r.text for _, r in res] == ["2x=4", "x=2"]
     assert res[0][0].y0 == 200 and res[0][0].x1 == 900
+
+
+def test_term_box_maps_back_to_page_pixels():
+    from redpen.adapters.gemini import parse_term
+    from redpen.domain.model import LineBox
+    b = parse_term({"found": True, "box_2d": [100, 500, 900, 750]}, (40, 200), (800, 160), 2.0)
+    assert b == LineBox(40 + 200, 200 + 8, 40 + 300, 200 + 72)
+    assert parse_term({"found": False, "box_2d": [0, 0, 1, 1]}, (0, 0), (10, 10), 1.0) is None
+    assert parse_term({"found": True, "box_2d": [500, 600, 400, 700]}, (0, 0), (10, 10), 1.0) is None
+    assert parse_term("junk", (0, 0), (10, 10), 1.0) is None
