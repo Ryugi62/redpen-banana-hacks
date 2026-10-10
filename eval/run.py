@@ -24,6 +24,7 @@ from eval.seeded import generate
 from eval.synth import render_page
 from redpen.adapters.gemini import GeminiTranscriber, VisionUnavailable
 from redpen.adapters.imageio import load_rgb, normalise_bytes
+from redpen.adapters.orient import upright_bytes
 from redpen.adapters.segmenter import ProjectionSegmenter
 from redpen.application.grade import GradePage, plausible_lines
 from redpen.domain.model import LineBox
@@ -176,7 +177,7 @@ def eval_real(model: str, workers: int):
     rows = []
 
     def one(lab):
-        img = normalise_bytes(open(os.path.join(HERE, "real", lab["file"]), "rb").read())
+        img = upright_bytes(normalise_bytes(open(os.path.join(HERE, "real", lab["file"]), "rb").read()))
         res = run_pipeline(img, model)
         maths_idx = [i for i, s in enumerate(res.steps) if s.kind != "prose"]
         pred = res.verdict.first_slip

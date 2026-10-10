@@ -11,6 +11,7 @@ from typing import Any, Dict, List
 from redpen.adapters.fallback import FallbackTranscriber
 from redpen.adapters.gemini import GeminiTranscriber, VisionUnavailable
 from redpen.adapters.imageio import normalise_bytes
+from redpen.adapters.orient import upright_bytes
 from redpen.adapters.renderer import InkRenderer
 from redpen.adapters.segmenter import ProjectionSegmenter
 from redpen.application.grade import GradePage, GradeResult, Regrade, StepEdit
@@ -62,7 +63,7 @@ def _decode_image(payload: Dict[str, Any]) -> bytes:
     if len(raw) > MAX_IMAGE_BYTES:
         raise BadRequest("image too large (max 4 MB)")
     try:
-        return normalise_bytes(raw)
+        return upright_bytes(normalise_bytes(raw))
     except Exception as e:
         raise BadRequest("could not decode image") from e
 

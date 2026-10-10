@@ -11,7 +11,7 @@
   "baseline_first_slip_acc": 0.5,
   "baseline_false_alarm": 0.0,
   "baseline_overall_acc": 0.75,
-  "line_read_exact": 0.8461538461538461,
+  "line_read_exact": 0.9230769230769231,
   "model_located_pages": 0,
   "baseline_no_answer": 0
  },
@@ -58,25 +58,25 @@
     "5x=35",
     "x=7"
    ],
-   "pred_line": 2,
+   "pred_line": 1,
    "pred_flagged": true,
    "mode": "cv-segmented",
    "relations": [
     "start",
-    "equivalent",
     "not_equivalent",
+    "equivalent",
     "equivalent"
    ],
    "texts": [
     "5(x+9)=40",
-    "5x+45=40",
+    "5x+45=80",
     "5x=35",
     "x=7"
    ],
    "baseline": 0,
    "reads_exact": [
     false,
-    false,
+    true,
     true,
     true
    ],
