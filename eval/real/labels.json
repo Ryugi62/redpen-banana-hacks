@@ -1,0 +1,83 @@
+[
+ {
+  "file": "real01-004.jpg",
+  "sheet": "004",
+  "lines": [
+   "5((5)^2-3(10))",
+   "=5(-4)",
+   "=-20"
+  ],
+  "first_slip": 1,
+  "note": "25-30 is -5, not -4"
+ },
+ {
+  "file": "real02-005.jpg",
+  "sheet": "005",
+  "lines": [
+   "5((5)^2-3(10))",
+   "=5(-4)",
+   "=-20"
+  ],
+  "first_slip": 1,
+  "note": "25-30 is -5, not -4"
+ },
+ {
+  "file": "real03-021.jpg",
+  "sheet": "021",
+  "lines": [
+   "(5)^2+2(10)-3abc=-25",
+   "25+20-3abc=-25",
+   "45-3abc=-25",
+   "3abc=-25-45",
+   "3abc=-70",
+   "abc=-70/3"
+  ],
+  "first_slip": 3,
+  "note": "moving 45 across: 3abc = 25+45"
+ },
+ {
+  "file": "real04-032.jpg",
+  "sheet": "032",
+  "lines": [
+   "(2)^3+(2)^2-2(2)+a=0",
+   "8+4-4+a=0",
+   "8+a=0"
+  ],
+  "first_slip": null,
+  "note": "correct"
+ },
+ {
+  "file": "real05-029.jpg",
+  "sheet": "029",
+  "lines": [
+   "=2x^3+5x^2-5x-2",
+   "=2(1)^3+5(1)^2-5(1)-2",
+   "=2+5-5-2",
+   "=7-7",
+   "=0"
+  ],
+  "first_slip": null,
+  "note": "correct (value substitution)"
+ },
+ {
+  "file": "real06-029.jpg",
+  "sheet": "029",
+  "lines": [
+   "-7+sqrt((7)^2-4*2*2)",
+   "-7+sqrt(49-16)",
+   "-7+sqrt(33)"
+  ],
+  "first_slip": null,
+  "note": "correct (x used as times sign)"
+ },
+ {
+  "file": "real07-015.jpg",
+  "sheet": "015",
+  "lines": [
+   "p(1)=2(1)^3+5(1)^2-5(1)-2",
+   "=2+5-5-2=0"
+  ],
+  "first_slip": null,
+  "note": "correct"
+ }
+]
