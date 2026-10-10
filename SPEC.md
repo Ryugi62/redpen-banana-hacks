@@ -57,6 +57,13 @@ Essence: *not* "an app that solves math from a photo" (Photomath) but "an image 
 - AC-9 Given a plan with a FirstSlip When rendered Then the output PNG has the same size as the input and red pixels appear inside the slip box's neighbourhood and nowhere over other lines' interiors.
 - AC-10 The seeded-set eval meets S1 (CI gate).
 
+- AC-11 Given the zoomed second reading of the slip line (or the line before it) differs from the first When graded Then the slip stands only if both readings break at the same line; otherwise the changed lines are `doubtful` (shown "?"), nothing is circled, and the chain restarts after them. (`tests/test_application.py`)
+- AC-12 Given an answer check `3(5)-5=10` after a solved line `x=5` When judged Then it is `equivalent`; a false check is an `arithmetic` slip; `2x=4 → 0=0` is a slip. Rounded decimals are accepted to the precision written. (`tests/test_domain_judge.py`)
+- AC-13 Given `=>`, `⇒`, `∴`, `→`, `therefore` before a line, `//` or `■` after it, or `v` between solutions When judged Then they are ignored / read as "or".
+- AC-14 Given a slip When graded Then SymPy names the single written term that breaks the step (`Verdict.culprit`, never the corrected value) and the vision model is asked for its box inside the line; a box inside the line → only that term is circled, otherwise the whole line.
+- AC-15 Given the student retyped a line When re-checked Then that line gets no tick on the old ink and the summary says "checks out as typed".
+- AC-16 Given a read or re-read When the first model is silent for 7 s Then a backup model starts in parallel; each call has a 26 s deadline so a request stays under the 60 s platform limit.
+
 ## 7. Architecture (dependencies point inward)
 ```
 redpen/domain/  ←  redpen/application/  ←  redpen/adapters/  ←  redpen/infrastructure/ (composition root, HTTP handler)
@@ -73,3 +80,4 @@ api/grade.py (Vercel entry) → redpen.infrastructure      public/ (static UI)  
 
 ## 10. Change log
 - v0.1 2026-10-10 first version (after opening ceremony).
+- v0.2 2026-10-10 evening, after three rounds of mock judging: AC-11..AC-16. S4 revised: one read call + one confirm call + one pointing call per slipped page (measured 8–25 s end to end on the free tier).
