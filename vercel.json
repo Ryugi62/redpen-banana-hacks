@@ -1,0 +1,6 @@
+{
+  "functions": {
+    "api/grade.py": { "maxDuration": 60, "includeFiles": "{redpen/**,data/glyphs.json}" },
+    "api/regrade.py": { "maxDuration": 30, "includeFiles": "{redpen/**,data/glyphs.json}" }
+  }
+}

@@ -86,7 +86,7 @@ class Writer:
                 i += 1
                 continue
             scale_mul = 0.62 if sup else 1.0
-            lift = 0.55 if sup else 0.0
+            lift = 0.42 if sup else 0.0
             h_rel, bottom = _METRICS.get(key, _CAP)
             jitter = 1 + self.rng.uniform(-0.07, 0.07)
             size = cap_px * scale_mul * jitter
@@ -98,7 +98,7 @@ class Writer:
                 sy = h_rel * size / max(gh, 1e-6)
                 sx = sy
             width = gw * sx
-            base = baseline - (bottom + lift) * cap_px * scale_mul - self.rng.uniform(-1, 1) * self.wobble * cap_px
+            base = baseline - bottom * cap_px * scale_mul - lift * cap_px - self.rng.uniform(-1, 1) * self.wobble * cap_px
             top = base - gh * sy
             for s in g["s"]:
                 pts = []

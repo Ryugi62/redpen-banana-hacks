@@ -1,0 +1,79 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>RedPen — your algebra, marked like a teacher would</title>
+<meta name="description" content="Photograph your handwritten algebra. RedPen returns your own page marked in red pen: ticks on lines that hold, a circle on the first line that breaks. It never gives the answer.">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Cpath d='M6 26l3-8L22 5l5 5-13 13z' fill='%23d0162a'/%3E%3C/svg%3E">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<header class="top">
+  <div class="brand"><svg width="22" height="22" viewBox="0 0 32 32" aria-hidden="true"><path d="M6 26l3-8L22 5l5 5-13 13z" fill="var(--ink)"/><path d="M6 26l3-8 5 5z" fill="var(--text)"/></svg><span>RedPen</span></div>
+  <a class="gh" href="https://github.com/Ryugi62/redpen-banana-hacks" target="_blank" rel="noopener">GitHub</a>
+</header>
+
+<main id="app">
+  <section id="home" class="screen">
+    <h1>Snap your algebra.<br>Get it back marked.</h1>
+    <p class="lead">RedPen finds the <b>first line where your work breaks</b> and circles it on <b>your own page</b>, like a teacher's red pen. It never writes the answer.</p>
+
+    <h2 class="sec">Try a sample</h2>
+    <div class="samples" id="samples"></div>
+    <p class="caption">Samples are handwriting built from real human pen strokes (Google MathWriting). Your own photo works too.</p>
+
+    <h2 class="sec">How it decides</h2>
+    <ol class="how">
+      <li><b>Find lines</b><span>Classical computer vision finds each written line on the photo.</span></li>
+      <li><b>Read</b><span>A vision model copies each numbered line exactly — mistakes included.</span></li>
+      <li><b>Verify</b><span>A symbolic maths engine (SymPy) checks every line against the one before. The model never decides what is right.</span></li>
+      <li><b>Mark</b><span>Your photo comes back with ticks, a circle on the first slip and a short hint in handwriting.</span></li>
+    </ol>
+  </section>
+
+  <section id="loading" class="screen" hidden>
+    <div class="skel big"></div>
+    <div class="skel line"></div>
+    <div class="skel img"></div>
+    <p class="caption center">Finding lines, reading, verifying…</p>
+  </section>
+
+  <section id="result" class="screen" hidden>
+    <div class="card verdict" id="verdictCard">
+      <div class="num" id="bigNum">Line 2</div>
+      <div class="sub" id="bigSub">is where it first breaks</div>
+      <div class="chip" id="hintChip" hidden></div>
+      <p class="explain" id="explain"></p>
+    </div>
+
+    <figure class="card paper">
+      <img id="marked" alt="Your page, marked in red pen">
+      <figcaption><a id="download" download="redpen-marked.png">Save marked page</a></figcaption>
+    </figure>
+
+    <details class="card" id="readDetails">
+      <summary>What RedPen read <span class="muted">(fix a misread line, then re-check)</span></summary>
+      <ol id="lines" class="lines"></ol>
+      <button class="secondary" id="recheck" type="button">Re-check — no AI call</button>
+    </details>
+
+    <details class="card">
+      <summary>How it decided</summary>
+      <div id="howDecided" class="small"></div>
+    </details>
+    <div class="spacer"></div>
+  </section>
+
+  <p id="error" class="error" role="alert" hidden></p>
+</main>
+
+<div class="cta">
+  <label class="primary" id="ctaLabel">
+    <input id="file" type="file" accept="image/*" capture="environment" hidden>
+    <span id="ctaText">Check my work — take a photo</span>
+  </label>
+</div>
+<script src="app.js"></script>
+</body>
+</html>

@@ -77,12 +77,12 @@ class Hint(str, Enum):
 
 
 HINT_NOTES = {
-    Hint.SIGN: "sign?",
+    Hint.SIGN: "check the sign",
     Hint.ARITHMETIC: "recheck arithmetic",
     Hint.DISTRIBUTION: "distribute to every term",
     Hint.DROPPED_TERM: "a term went missing",
     Hint.LOST_SOLUTION: "lost a solution",
-    Hint.EXTRA_SOLUTION: "extra solution?",
+    Hint.EXTRA_SOLUTION: "extra solution",
     Hint.CHECK_STEP: "check this step",
 }
 
