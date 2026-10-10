@@ -116,7 +116,10 @@ def eval_synth(model: str, n: int, workers: int):
         img, gt = render_page(it.lines, seed=5000 + i, hard=(i % 4 == 0))
         img = normalise_bytes(img)
         # GT boxes must be in the same (normalised) pixel space: synth pages are <= 1600 px, unchanged
-        res = run_pipeline(img, model)
+        try:
+            res = run_pipeline(img, model)
+        except VisionUnavailable as e:
+            return {"i": i, "template": it.template, "gt": it.first_slip, "error": str(e), "pred_line": None, "baseline": None, "mode": "error"}
         pred = res.verdict.first_slip
         pred_gt = None
         if pred is not None and res.steps[pred].box is not None:
@@ -142,6 +145,8 @@ def eval_synth(model: str, n: int, workers: int):
 
 
 def summarise(rows, model, name):
+    errors = [r for r in rows if r.get("mode") == "error"]
+    rows = [r for r in rows if r.get("mode") != "error"]
     def correct_pipe(r):
         return (r["gt"] is None and not r["pred_flagged"]) or (r["gt"] is not None and r["pred_line"] == r["gt"])
 
@@ -164,6 +169,7 @@ def summarise(rows, model, name):
         "line_read_exact": sum(reads) / max(1, len(reads)),
         "model_located_pages": sum(r["mode"] == "model-located" for r in rows),
         "baseline_no_answer": sum(r["baseline"] is None for r in rows),
+        "pages_skipped_model_error": len(errors),
     }
     out = os.path.join(HERE, "results", f"{name}-{model}.json")
     os.makedirs(os.path.dirname(out), exist_ok=True)
@@ -177,6 +183,12 @@ def eval_real(model: str, workers: int):
     rows = []
 
     def one(lab):
+        try:
+            return _one_real(lab)
+        except VisionUnavailable as e:
+            return {"file": lab["file"], "gt": lab["first_slip"], "error": str(e), "pred_line": None, "baseline": None, "mode": "error"}
+
+    def _one_real(lab):
         img = upright_bytes(normalise_bytes(open(os.path.join(HERE, "real", lab["file"]), "rb").read()))
         res = run_pipeline(img, model)
         maths_idx = [i for i, s in enumerate(res.steps) if s.kind != "prose"]
