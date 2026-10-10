@@ -1,0 +1,860 @@
+{
+ "summary": {
+  "set": "real",
+  "model": "gemma-4-26b-a4b-it",
+  "pages": 30,
+  "slipped": 12,
+  "clean": 18,
+  "pipeline_first_slip_acc": 0.75,
+  "pipeline_false_alarm": 0.1111111111111111,
+  "pipeline_overall_acc": 0.8333333333333334,
+  "baseline_first_slip_acc": 0.6666666666666666,
+  "baseline_false_alarm": 0.2777777777777778,
+  "baseline_overall_acc": 0.7,
+  "line_read_exact": 0.0,
+  "model_located_pages": 28,
+  "baseline_no_answer": 0,
+  "pages_skipped_model_error": 0,
+  "pipeline_asked_instead": 3,
+  "pipeline_wrong_accusations": 3,
+  "baseline_wrong_accusations": 8,
+  "pipeline_missed_slip_silently": 1,
+  "baseline_missed_slip": 1,
+  "baseline": "reasoned (transcribe + step-by-step, same model)"
+ },
+ "rows": [
+  {
+   "file": "real01-004.jpg",
+   "gt": 1,
+   "lines": [
+    "5((5)^2-3(10))",
+    "=5(-4)",
+    "=-20"
+   ],
+   "pred_line": 1,
+   "pred_flagged": true,
+   "mode": "model-located",
+   "relations": [
+    "start",
+    "not_equivalent",
+    "equivalent"
+   ],
+   "texts": [
+    "5((5)^2-3(10))",
+    "=5(-4)",
+    "=-20"
+   ],
+   "baseline": 2,
+   "reads_exact": [],
+   "rechecked": true,
+   "uncertain": [],
+   "baseline_reasoned": 2
+  },
+  {
+   "file": "real02-005.jpg",
+   "gt": 1,
+   "lines": [
+    "5((5)^2-3(10))",
+    "=5(-4)",
+    "=-20"
+   ],
+   "pred_line": 1,
+   "pred_flagged": true,
+   "mode": "cv-segmented",
+   "relations": [
+    "start",
+    "not_equivalent",
+    "equivalent"
+   ],
+   "texts": [
+    "5((5)^2-3(10))",
+    "=5(-4)",
+    "= -20 //"
+   ],
+   "baseline": 2,
+   "reads_exact": [],
+   "rechecked": true,
+   "uncertain": [],
+   "baseline_reasoned": 2
+  },
+  {
+   "file": "real03-021.jpg",
+   "gt": 3,
+   "lines": [
+    "(5)^2+2(10)-3abc=-25",
+    "25+20-3abc=-25",
+    "45-3abc=-25",
+    "3abc=-25-45",
+    "3abc=-70",
+    "abc=-70/3"
+   ],
+   "pred_line": 3,
+   "pred_flagged": true,
+   "mode": "model-located",
+   "relations": [
+    "start",
+    "equivalent",
+    "equivalent",
+    "not_equivalent",
+    "equivalent",
+    "equivalent"
+   ],
+   "texts": [
+    "(5)^2 + 2(10) - 3abc = -25",
+    "25 + 20 - 3abc = -25",
+    "45 - 3abc = -25",
+    "3abc = -25 - 45",
+    "3abc = -70",
+    "abc = (-70)/(3)"
+   ],
+   "baseline": 4,
+   "reads_exact": [],
+   "rechecked": true,
+   "uncertain": [],
+   "baseline_reasoned": 4
+  },
+  {
+   "file": "real04-032.jpg",
+   "gt": null,
+   "lines": [
+    "(2)^3+(2)^2-2(2)+a=0",
+    "8+4-4+a=0",
+    "8+a=0"
+   ],
+   "pred_line": null,
+   "pred_flagged": false,
+   "mode": "model-located",
+   "relations": [
+    "start",
+    "equivalent",
+    "equivalent"
+   ],
+   "texts": [
+    "(2)^3+(2)^2-2(2)+a=0",
+    "8+4-4+a=0",
+    "8+a=0"
+   ],
+   "baseline": 0,
+   "reads_exact": [],
+   "rechecked": false,
+   "uncertain": [],
+   "baseline_reasoned": 0
+  },
+  {
+   "file": "real05-029.jpg",
+   "gt": null,
+   "lines": [
+    "=2x^3+5x^2-5x-2",
+    "=2(1)^3+5(1)^2-5(1)-2",
+    "=2+5-5-2",
+    "=7-7",
+    "=0"
+   ],
+   "pred_line": null,
+   "pred_flagged": false,
+   "mode": "model-located",
+   "relations": [
+    "start",
+    "start",
+    "equivalent",
+    "equivalent",
+    "equivalent"
+   ],
+   "texts": [
+    "= 2x^3 + 5x^2 - 5x - 2",
+    "= 2(1)^3 + 5(1)^2 - 5(1) - 2",
+    "= 2 + 5 - 5 - 2",
+    "= 7 - 7",
+    "= 0"
+   ],
+   "baseline": 0,
+   "reads_exact": [],
+   "rechecked": false,
+   "uncertain": [],
+   "baseline_reasoned": 0
+  },
+  {
+   "file": "real06-029.jpg",
+   "gt": null,
+   "lines": [
+    "-7+sqrt((7)^2-4*2*2)",
+    "-7+sqrt(49-16)",
+    "-7+sqrt(33)"
+   ],
+   "pred_line": null,
+   "pred_flagged": false,
+   "mode": "model-located",
+   "relations": [
+    "unreadable",
+    "unreadable",
+    "unreadable"
+   ],
+   "texts": [
+    "-7 + sqrt((-7)^2 - 4x2x2",
+    "-7 + sqrt(49 - 16",
+    "-7 + sqrt(33"
+   ],
+   "baseline": 0,
+   "reads_exact": [],
+   "rechecked": false,
+   "uncertain": [],
+   "baseline_reasoned": 0
+  },
+  {
+   "file": "real07-015.jpg",
+   "gt": null,
+   "lines": [
+    "p(1)=2(1)^3+5(1)^2-5(1)-2",
+    "=2+5-5-2=0"
+   ],
+   "pred_line": null,
+   "pred_flagged": false,
+   "mode": "model-located",
+   "relations": [
+    "start",
+    "start"
+   ],
+   "texts": [
+    "p(1) = 2(1)^3 + 5(1)^2 - 5(1) - 2",
+    "= 2 + 5 - 5 - 2 = 0"
+   ],
+   "baseline": 0,
+   "reads_exact": [],
+   "rechecked": false,
+   "uncertain": [],
+   "baseline_reasoned": 0
+  },
+  {
+   "file": "held01-002.jpg",
+   "gt": 1,
+   "lines": [
+    "a+b+c=18+10+c=42",
+    "18+c=42",
+    "c=42-18=24"
+   ],
+   "pred_line": 0,
+   "pred_flagged": true,
+   "mode": "model-located",
+   "relations": [
+    "not_equivalent",
+    "not_equivalent",
+    "equivalent"
+   ],
+   "texts": [
+    "a+b+c = 18+10+c = 42",
+    "18+c = 42",
+    "c = 42-18 = 24"
+   ],
+   "baseline": 0,
+   "reads_exact": [],
+   "rechecked": true,
+   "uncertain": [],
+   "baseline_reasoned": 0
+  },
+  {
+   "file": "held02-002.jpg",
+   "gt": 1,
+   "lines": [
+    "sqrt(11(11-11)(11-6)(11-15))",
+    "sqrt(11*11*5*-4)"
+   ],
+   "pred_line": null,
+   "pred_flagged": false,
+   "mode": "model-located",
+   "relations": [
+    "unreadable",
+    "unreadable"
+   ],
+   "texts": [
+    "= sqrt((11-11)(11-6)(11-15))",
+    "= sqrt(11x11x5) x-4"
+   ],
+   "baseline": 2,
+   "reads_exact": [],
+   "rechecked": true,
+   "uncertain": [
+    0,
+    1
+   ],
+   "baseline_reasoned": 2
+  },
+  {
+   "file": "held03-003.jpg",
+   "gt": 3,
+   "lines": [
+    "sqrt(21*(3)(11)(7))",
+    "sqrt(21*231)",
+    "sqrt(4851)",
+    "95"
+   ],
+   "pred_line": null,
+   "pred_flagged": false,
+   "mode": "model-located",
+   "relations": [
+    "unreadable",
+    "unreadable",
+    "unreadable",
+    "start"
+   ],
+   "texts": [
+    "= sqrt(21x(3)(11)(7)",
+    "= sqrt(21x231",
+    "= sqrt(4851",
+    "= 95"
+   ],
+   "baseline": 2,
+   "reads_exact": [],
+   "rechecked": false,
+   "uncertain": [],
+   "baseline_reasoned": 2
+  },
+  {
+   "file": "held04-007.jpg",
+   "gt": 2,
+   "lines": [
+    "P(2)=4(2)^3+a(2)^2+6(2)-5",
+    "4(8)+4(a)+12-5",
+    "41+4a"
+   ],
+   "pred_line": 2,
+   "pred_flagged": true,
+   "mode": "model-located",
+   "relations": [
+    "start",
+    "start",
+    "not_equivalent"
+   ],
+   "texts": [
+    "P(2) = 4(2)^2 + a(2)^2 + 6(2) - 5",
+    "= 4(8) + 4(a) + 12 - 5",
+    "= 41 + 4a"
+   ],
+   "baseline": 2,
+   "reads_exact": [],
+   "rechecked": true,
+   "uncertain": [],
+   "baseline_reasoned": 2
+  },
+  {
+   "file": "held05-007.jpg",
+   "gt": null,
+   "lines": [
+    "Q(2)=(2)^3+(2)^2-2(2)+a",
+    "8+4-4+a",
+    "8+a"
+   ],
+   "pred_line": null,
+   "pred_flagged": false,
+   "mode": "model-located",
+   "relations": [
+    "start",
+    "start",
+    "equivalent"
+   ],
+   "texts": [
+    "Q(2) - (2)^3 + (2)^2 - 2(2) + a",
+    "8 + 4 - 4 + a",
+    "= 8 + a"
+   ],
+   "baseline": 0,
+   "reads_exact": [],
+   "rechecked": false,
+   "uncertain": [],
+   "baseline_reasoned": 0
+  },
+  {
+   "file": "held06-007.jpg",
+   "gt": null,
+   "lines": [
+    "41+4a=8+a",
+    "41-8=a-4a",
+    "33=-3a",
+    "a=-11"
+   ],
+   "pred_line": null,
+   "pred_flagged": false,
+   "mode": "model-located",
+   "relations": [
+    "start",
+    "equivalent",
+    "equivalent",
+    "unreadable"
+   ],
+   "texts": [
+    "41+4a = 8+a",
+    "41-8 = a-4a",
+    "33 = -3a",
+    "a = -11/4"
+   ],
+   "baseline": 0,
+   "reads_exact": [],
+   "rechecked": true,
+   "uncertain": [
+    3
+   ],
+   "baseline_reasoned": 0
+  },
+  {
+   "file": "held07-009.jpg",
+   "gt": 1,
+   "lines": [
+    "4x^3+6x^2-5x-2",
+    "4(x-1)^3+6(x-1)^2-5(x-1)-2",
+    "(x-1)(4x^2+7x+2)"
+   ],
+   "pred_line": 1,
+   "pred_flagged": true,
+   "mode": "model-located",
+   "relations": [
+    "start",
+    "not_equivalent",
+    "not_equivalent"
+   ],
+   "texts": [
+    "4x^3+6x^2-5x-2",
+    "=4(x-1)^3+6(x-1)^2-5(x-1)-2",
+    "=(x-1)(4x^2+7x+2)"
+   ],
+   "baseline": 2,
+   "reads_exact": [],
+   "rechecked": true,
+   "uncertain": [],
+   "baseline_reasoned": 2
+  },
+  {
+   "file": "held08-009.jpg",
+   "gt": 1,
+   "lines": [
+    "4x^2+7x+2",
+    "(4x+1)(x+2)"
+   ],
+   "pred_line": 1,
+   "pred_flagged": true,
+   "mode": "model-located",
+   "relations": [
+    "start",
+    "not_equivalent"
+   ],
+   "texts": [
+    "= 4x^2 + 7x + 2",
+    "= (4x + 1)(x + 2)"
+   ],
+   "baseline": 2,
+   "reads_exact": [],
+   "rechecked": true,
+   "uncertain": [],
+   "baseline_reasoned": 2
+  },
+  {
+   "file": "held09-010.jpg",
+   "gt": null,
+   "lines": [
+    "f(1)=4(1)^3+6(1)^2-5(1)-2",
+    "4+6-5-2=3"
+   ],
+   "pred_line": 1,
+   "pred_flagged": true,
+   "mode": "model-located",
+   "relations": [
+    "start",
+    "not_equivalent"
+   ],
+   "texts": [
+    "f(1) = 4(1)^3 + 6(1)^2 - 5(1) - 2",
+    "- 4 + 6 - 5 - 2 = 3"
+   ],
+   "baseline": 0,
+   "reads_exact": [],
+   "rechecked": true,
+   "uncertain": [],
+   "baseline_reasoned": 0
+  },
+  {
+   "file": "held10-012.jpg",
+   "gt": null,
+   "lines": [
+    "180-(69+31)",
+    "180-100",
+    "80\u00b0"
+   ],
+   "pred_line": null,
+   "pred_flagged": false,
+   "mode": "model-located",
+   "relations": [
+    "start",
+    "equivalent",
+    "unreadable"
+   ],
+   "texts": [
+    "= 180 - (69 + 31)",
+    "= 180 - 100",
+    "= 80^o"
+   ],
+   "baseline": 0,
+   "reads_exact": [],
+   "rechecked": true,
+   "uncertain": [
+    2
+   ],
+   "baseline_reasoned": 0
+  },
+  {
+   "file": "held11-012.jpg",
+   "gt": null,
+   "lines": [
+    "90+2\u2220B=180",
+    "2\u2220B=90",
+    "\u2220B=45=\u2220C"
+   ],
+   "pred_line": null,
+   "pred_flagged": false,
+   "mode": "cv-segmented",
+   "relations": [
+    "start",
+    "equivalent",
+    "unreadable"
+   ],
+   "texts": [
+    "90 + 2LB = 180",
+    "2LB = 90",
+    "LB = 45 = LC"
+   ],
+   "baseline": 0,
+   "reads_exact": [],
+   "rechecked": false,
+   "uncertain": [],
+   "baseline_reasoned": 0
+  },
+  {
+   "file": "held12-014.jpg",
+   "gt": null,
+   "lines": [
+    "p(2)=2(2)^3+-3(2)^2+3(2)-5",
+    "16-12+6-5",
+    "5"
+   ],
+   "pred_line": null,
+   "pred_flagged": false,
+   "mode": "model-located",
+   "relations": [
+    "start",
+    "start",
+    "equivalent"
+   ],
+   "texts": [
+    "p(2) = 2(2)^3 + -3(2)^2 + 3(2) - 5",
+    "= 16 - 12 + 6 - 5",
+    "= 5"
+   ],
+   "baseline": 0,
+   "reads_exact": [],
+   "rechecked": false,
+   "uncertain": [],
+   "baseline_reasoned": 0
+  },
+  {
+   "file": "held13-014.jpg",
+   "gt": null,
+   "lines": [
+    "g(2)=(2)^3+(2)^2-2(2)+(-3)",
+    "8+4-4-3",
+    "5"
+   ],
+   "pred_line": null,
+   "pred_flagged": false,
+   "mode": "model-located",
+   "relations": [
+    "start",
+    "start",
+    "equivalent"
+   ],
+   "texts": [
+    "g(2) = (2)^3 + (2)^2 - 2(2) + (-3)",
+    "= 8 + 4 - 4 - 3",
+    "= 5"
+   ],
+   "baseline": 0,
+   "reads_exact": [],
+   "rechecked": false,
+   "uncertain": [],
+   "baseline_reasoned": 0
+  },
+  {
+   "file": "held14-015.jpg",
+   "gt": null,
+   "lines": [
+    "p(-1)=2(-1)^3+5(-1)^2-5(-1)-2",
+    "-2+5+5-2\u22600"
+   ],
+   "pred_line": null,
+   "pred_flagged": false,
+   "mode": "model-located",
+   "relations": [
+    "start",
+    "unsupported"
+   ],
+   "texts": [
+    "p(-1) = 2(-1)^3 + 5(-1)^2 - 5(-1) - 2",
+    "= -2 + 5 + 5 - 2 \u2260 0"
+   ],
+   "baseline": 0,
+   "reads_exact": [],
+   "rechecked": false,
+   "uncertain": [],
+   "baseline_reasoned": 0
+  },
+  {
+   "file": "held15-018.jpg",
+   "gt": null,
+   "lines": [
+    "\u2220BAC+69+31=180",
+    "\u2220BAC=180-100",
+    "\u2220BAC=80\u00b0"
+   ],
+   "pred_line": null,
+   "pred_flagged": false,
+   "mode": "model-located",
+   "relations": [
+    "start",
+    "equivalent",
+    "equivalent"
+   ],
+   "texts": [
+    "\u2220BAC + 69 + 31 = 180",
+    "\u2234 \u2220BAC = 180 - 100",
+    "\u2220BAC = 80\u00b0"
+   ],
+   "baseline": 0,
+   "reads_exact": [],
+   "rechecked": false,
+   "uncertain": [],
+   "baseline_reasoned": 0
+  },
+  {
+   "file": "held16-020.jpg",
+   "gt": null,
+   "lines": [
+    "69\u00b0+31\u00b0+\u2220BAC=180\u00b0",
+    "100\u00b0+\u2220BAC=180\u00b0",
+    "\u2220BAC=180\u00b0-100\u00b0",
+    "\u2220BAC=80\u00b0"
+   ],
+   "pred_line": null,
+   "pred_flagged": false,
+   "mode": "model-located",
+   "relations": [
+    "unreadable",
+    "unreadable",
+    "unreadable",
+    "unreadable"
+   ],
+   "texts": [
+    "69^o + 31^o + \u2122BAC = 180^o",
+    "100^o + \u2122BAC = 180^o",
+    "\u2122BAC = 180^o - 100^o",
+    "\u2122BAC = 80^o"
+   ],
+   "baseline": 0,
+   "reads_exact": [],
+   "rechecked": false,
+   "uncertain": [],
+   "baseline_reasoned": 0
+  },
+  {
+   "file": "held17-023.jpg",
+   "gt": null,
+   "lines": [
+    "\u2220A+\u2220B+\u2220C=180",
+    "90+2\u2220B=180",
+    "2\u2220B=180-90=90",
+    "\u2220B=(90)/(2)=45\u00b0"
+   ],
+   "pred_line": null,
+   "pred_flagged": false,
+   "mode": "model-located",
+   "relations": [
+    "unreadable",
+    "unreadable",
+    "unreadable",
+    "unreadable"
+   ],
+   "texts": [
+    "LA + LB + LC = 180",
+    "90 + 2 \u2103B = 180",
+    "2 \u2103B = 180 - 90 = 90",
+    "LB = (90)/(2) = 45\u0000"
+   ],
+   "baseline": 0,
+   "reads_exact": [],
+   "rechecked": false,
+   "uncertain": [],
+   "baseline_reasoned": 0
+  },
+  {
+   "file": "held18-027.jpg",
+   "gt": null,
+   "lines": [
+    "(2)^3+(2)^2-2(2)+a",
+    "8+4-4+a",
+    "8+a=0",
+    "a=-8"
+   ],
+   "pred_line": null,
+   "pred_flagged": false,
+   "mode": "model-located",
+   "relations": [
+    "unreadable",
+    "unreadable",
+    "unreadable",
+    "unreadable"
+   ],
+   "texts": [
+    "=) (2)^3 + (2)^2 - 2(2) + 9",
+    "=) 8 + 4 - 4 + 9",
+    "=) 8 + 9 = 0",
+    "=) 9 = -8"
+   ],
+   "baseline": 3,
+   "reads_exact": [],
+   "rechecked": false,
+   "uncertain": [],
+   "baseline_reasoned": 3
+  },
+  {
+   "file": "held19-031.jpg",
+   "gt": null,
+   "lines": [
+    "(5)^2=a^2+b^2+c^2+2(10)",
+    "25=a^2+b^2+c^2+20",
+    "25-20=5=a^2+b^2+c^2"
+   ],
+   "pred_line": 2,
+   "pred_flagged": true,
+   "mode": "model-located",
+   "relations": [
+    "not_equivalent",
+    "equivalent",
+    "not_equivalent"
+   ],
+   "texts": [
+    "25 - 20 = 5 = a^2 + b^2 + c^2",
+    "25 = a^2 + b^2 + c^2 + 20",
+    "(5) c^2 = a^2 + b^2 + c^2 (10)"
+   ],
+   "baseline": null,
+   "reads_exact": [],
+   "rechecked": true,
+   "uncertain": [],
+   "baseline_reasoned": null
+  },
+  {
+   "file": "held20-031.jpg",
+   "gt": 2,
+   "lines": [
+    "a^3+b^3+c^3-3abc=(5)(5-(10))",
+    "(5)(-5)",
+    "a^3+b^3+c^3-3ab=-25"
+   ],
+   "pred_line": 2,
+   "pred_flagged": true,
+   "mode": "model-located",
+   "relations": [
+    "start",
+    "not_equivalent"
+   ],
+   "texts": [
+    "a^3+b^3+c^3-3abc=(5)(5-10)",
+    "a^3+b^3+c^3-3ab=-25"
+   ],
+   "baseline": null,
+   "reads_exact": [],
+   "rechecked": true,
+   "uncertain": [],
+   "baseline_reasoned": null
+  },
+  {
+   "file": "held21-034.jpg",
+   "gt": null,
+   "lines": [
+    "P(1)=2(1)^3+5(1)^2-5(1)-2",
+    "2+5-5-2=0"
+   ],
+   "pred_line": null,
+   "pred_flagged": false,
+   "mode": "model-located",
+   "relations": [
+    "start",
+    "start"
+   ],
+   "texts": [
+    "P(1) = 2(1)^3 + 5(1)^2 - 5(1) - 2",
+    "= 2 + 5 - 5 - 2 = 0"
+   ],
+   "baseline": 0,
+   "reads_exact": [],
+   "rechecked": false,
+   "uncertain": [],
+   "baseline_reasoned": 0
+  },
+  {
+   "file": "held22-034.jpg",
+   "gt": 1,
+   "lines": [
+    "2x^2+3x-2",
+    "2x^2+4x-1-2",
+    "2x(x+2)-1(x+2)",
+    "(2x-1)(x+2)"
+   ],
+   "pred_line": 1,
+   "pred_flagged": true,
+   "mode": "model-located",
+   "relations": [
+    "start",
+    "not_equivalent",
+    "not_equivalent",
+    "equivalent"
+   ],
+   "texts": [
+    "2x^2+3x-2",
+    "2x^2+4x-1-2",
+    "2x(x+2)-1(x+2)",
+    "(2x-1)(x+2)"
+   ],
+   "baseline": 2,
+   "reads_exact": [],
+   "rechecked": true,
+   "uncertain": [],
+   "baseline_reasoned": 2
+  },
+  {
+   "file": "held23-021.jpg",
+   "gt": 1,
+   "lines": [
+    "a^3+b^3+c^3-3abc=-25",
+    "a^2+b^2+c^2+a+b+c-3abc=-25",
+    "(a+b+c)^2+5-3abc=-25",
+    "a^2+b^2+c^2+2ab+2bc+2ca-3abc=-25"
+   ],
+   "pred_line": 1,
+   "pred_flagged": true,
+   "mode": "model-located",
+   "relations": [
+    "start",
+    "not_equivalent",
+    "not_equivalent",
+    "not_equivalent"
+   ],
+   "texts": [
+    "a^3 + b^3 + c^3 - 3abc = -25",
+    "a^2 + b^2 + c^2 + a + b + c - 3abc = -25",
+    "(a + b + c)^2 + 5 - 3abc = -25",
+    "a^2 + b^2 + c^2 + 2ab + 2bc + 2ca - 3abc = -25"
+   ],
+   "baseline": 2,
+   "reads_exact": [],
+   "rechecked": true,
+   "uncertain": [],
+   "baseline_reasoned": 2
+  }
+ ]
+}

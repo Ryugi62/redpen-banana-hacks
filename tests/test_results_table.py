@@ -14,3 +14,10 @@ def test_mcnemar_and_wilson():
     assert (b, c) == (8, 0) and abs(p - 2 / 256) < 1e-12
     lo, hi = wilson(5, 10)
     assert 0.23 < lo < 0.24 and 0.76 < hi < 0.77
+
+
+def test_answer_leak_detector():
+    from eval.answer_leak import mentions
+    assert mentions("dividing 30 by 6 should result in 5, not 180", [5])
+    assert not mentions("line 3 is wrong; check 15/3", [5])
+    assert not mentions("x = 50", [5])

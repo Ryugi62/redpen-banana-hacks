@@ -67,30 +67,41 @@ def stats(name):
     }
 
 
-def table(names):
+def table(names, other="same model asked directly"):
     ss = [stats(n) for n in names]
     head = "| | " + " | ".join(f"{s['set']} pages (n={s['pages']}: {s['slipped']} with a slip, {s['clean']} correct)" for s in ss) + " |"
     sep = "|---|" + "---|" * len(ss)
     rows = [
-        ("**Right answer about the page**, RedPen", "pipe_overall"), ("Right answer about the page, same model asked directly", "base_overall"),
-        ("First slip found on the right line, RedPen", "pipe_slip"), ("First slip found on the right line, same model asked directly", "base_slip"),
-        ("**Correct pages wrongly accused**, RedPen", "pipe_fa"), ("Correct pages wrongly accused, same model asked directly", "base_fa"),
+        ("**Right answer about the page**, RedPen", "pipe_overall"), (f"Right answer about the page, {other}", "base_overall"),
+        ("First slip found on the right line, RedPen", "pipe_slip"), (f"First slip found on the right line, {other}", "base_slip"),
+        ("**Correct pages wrongly accused**, RedPen", "pipe_fa"), (f"Correct pages wrongly accused, {other}", "base_fa"),
     ]
     out = [head, sep]
     for label, k in rows:
         out.append(f"| {label} | " + " | ".join(str(s[k]) for s in ss) + " |")
-    out.append("| Pages where RedPen pointed at a wrong line / same model asked directly | " + " | ".join(f"{s['pipe_wrong']} / {s['base_wrong']}" for s in ss) + " |")
+    out.append(f"| Pages where RedPen pointed at a wrong line / {other} | " + " | ".join(f"{s['pipe_wrong']} / {s['base_wrong']}" for s in ss) + " |")
     out.append("| Pages where RedPen asked \"?\" instead of accusing | " + " | ".join(str(s["asked"]) for s in ss) + " |")
-    out.append("| Paired comparison (pages only RedPen got right / only the direct model got right, exact McNemar p) | " + " | ".join(f"{s['b']} / {s['c']}, " + (f"p = {s['p']:.3f}" if s['p'] >= 0.001 else "p < 0.001") for s in ss) + " |")
+    out.append(f"| Paired comparison (pages only RedPen got right / only {other} got right, exact McNemar p) | " + " | ".join(f"{s['b']} / {s['c']}, " + (f"p = {s['p']:.3f}" if s['p'] >= 0.001 else "p < 0.001") for s in ss) + " |")
     out.append("")
     out.append("Percentages with 95 % Wilson intervals in brackets.")
     return "\n".join(out)
 
 
+def put(s, tag, t):
+    return re.sub(rf"(<!-- {tag}:start -->)(.*?)(<!-- {tag}:end -->)", lambda m: m.group(1) + "\n" + t + "\n" + m.group(3), s, flags=re.S)
+
+
 if __name__ == "__main__":
-    t = table(sys.argv[1:])
+    args = sys.argv[1:]
+    reasoned = []
+    if "--reasoned" in args:
+        k = args.index("--reasoned")
+        args, reasoned = args[:k], args[k + 1:]
+    t = table(args)
     path = os.path.join(ROOT, "README.md")
     s = open(path, encoding="utf-8").read()
+    if reasoned:
+        s = put(s, "reasoned", table(reasoned, "same model told to transcribe and reason step by step"))
     s = re.sub(r"(<!-- results:start -->)(.*?)(<!-- results:end -->)", lambda m: m.group(1) + "\n" + t + "\n" + m.group(3), s, flags=re.S)
     s = s.replace("RESULTS_TABLE", "<!-- results:start -->\n" + t + "\n<!-- results:end -->")
     open(path, "w", encoding="utf-8").write(s)

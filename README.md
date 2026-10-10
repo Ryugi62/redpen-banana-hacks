@@ -46,10 +46,33 @@ Reader for both: `gemma-4-26b-a4b-it`, the first model the live site uses. Synth
 | Correct pages wrongly accused, same model asked directly | 19/42 = 45 % (31–60) | 5/18 = 28 % (12–51) |
 | Pages where RedPen pointed at a wrong line / same model asked directly | 3 / 27 | 3 / 8 |
 | Pages where RedPen asked "?" instead of accusing | 6 | 3 |
-| Paired comparison (pages only RedPen got right / only the direct model got right, exact McNemar p) | 32 / 7, p < 0.001 | 8 / 4, p = 0.388 |
+| Paired comparison (pages only RedPen got right / only same model asked directly got right, exact McNemar p) | 32 / 7, p < 0.001 | 8 / 4, p = 0.388 |
 
 Percentages with 95 % Wilson intervals in brackets.
 <!-- results:end -->
+
+**Stronger baseline.** Judges asked whether a better prompt closes the gap. It does: when the same model is told to copy
+every line and reason step by step before answering (`eval/baseline_reasoned.py`), its accuracy is about the same as RedPen's.
+
+<!-- reasoned:start -->
+| | synthetic pages (n=150: 108 with a slip, 42 correct) | real pages (n=30: 12 with a slip, 18 correct) |
+|---|---|---|
+| **Right answer about the page**, RedPen | 139/150 = 93 % (87–96) | 25/30 = 83 % (66–93) |
+| Right answer about the page, same model told to transcribe and reason step by step | 137/150 = 91 % (86–95) | 24/30 = 80 % (63–90) |
+| First slip found on the right line, RedPen | 100/108 = 93 % (86–96) | 9/12 = 75 % (47–91) |
+| First slip found on the right line, same model told to transcribe and reason step by step | 102/108 = 94 % (88–97) | 8/12 = 67 % (39–86) |
+| **Correct pages wrongly accused**, RedPen | 3/42 = 7 % (2–19) | 2/18 = 11 % (3–33) |
+| Correct pages wrongly accused, same model told to transcribe and reason step by step | 5/42 = 12 % (5–25) | 1/18 = 6 % (1–26) |
+| Pages where RedPen pointed at a wrong line / same model told to transcribe and reason step by step | 3 / 6 | 3 / 3 |
+| Pages where RedPen asked "?" instead of accusing | 6 | 3 |
+| Paired comparison (pages only RedPen got right / only same model told to transcribe and reason step by step got right, exact McNemar p) | 10 / 8, p = 0.815 | 3 / 2, p = 1.000 |
+
+Percentages with 95 % Wilson intervals in brackets.
+<!-- reasoned:end -->
+
+So the honest claim is not "more accurate than any prompt". It is: **as accurate as the best prompt we tried, without giving the answer away.**
+In <!-- leak:start -->23 of the 66 slipped synthetic pages whose final answer was wrong, that model's explanation stated the correct answer<!-- leak:end --> (`eval/answer_leak.py`). RedPen's hints never contain a number (tested), the decision is made by SymPy and is the same every
+time for the same reading, and the mark lands on the student's own photo instead of in a paragraph of text.
 
 * **Verifier alone** (`python -m eval.verifier_eval`): 400 generated solutions with one injected slip each (or none). First-slip accuracy 100 %, false alarms 0 %, hint accuracy 98.6 %. This only shows the verifier is correct on clean text. The generator and the verifier share no code, but they were written by the same team, so this is a unit test, not a real-world number.
 * **Line finding** (`tests/test_segmenter.py`): 97.7 % of ground-truth lines found with IoU ≥ 0.5 on 40 synthetic pages (98.7 % on the 24 pages the CI test uses).
