@@ -1,0 +1,397 @@
+"""Parsing and relating lines of algebra. Pure Python + SymPy (no I/O).
+
+A line is one of:
+  * Expression     e.g. ``2(x+3)``  (a leading ``=`` means "continues the previous expression")
+  * Equation       e.g. ``2x+3=7``
+  * SolutionList   e.g. ``x=2 or x=3`` / ``x=2, x=-3`` / ``x=±2``
+"""
+from __future__ import annotations
+
+import random
+import re
+from dataclasses import dataclass
+from fractions import Fraction
+from typing import Iterable, List, Optional, Sequence, Tuple
+
+import sympy as sp
+from sympy.parsing.sympy_parser import (
+    convert_xor,
+    implicit_multiplication_application,
+    parse_expr,
+    standard_transformations,
+)
+
+from .model import Hint, Relation
+
+
+class Unreadable(ValueError):
+    """Text cannot be parsed as algebra (treated as a misread, never as wrong)."""
+
+
+class Unsupported(ValueError):
+    """Valid maths outside the supported scope (calculus, matrices, inequalities...)."""
+
+
+_TRANSFORMS = standard_transformations + (implicit_multiplication_application, convert_xor)
+_LETTERS = {c: sp.Symbol(c) for c in "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ"}
+_LOCALS = dict(_LETTERS, sqrt=sp.sqrt, pi=sp.pi)
+_ALLOWED_WORDS = {"sqrt", "pi"}
+_UNSUPPORTED_MARKERS = ("∫", "integral", "int(", "lim", "sum", "matrix", "[", "]", "d/dx", "dy/dx", "<", ">", "≤", "≥", "≠", "!=")
+_SAFE_CHARS = re.compile(r"^[0-9A-Za-z+\-*/^().=, ]*$")
+
+_REPLACEMENTS = [
+    ("−", "-"), ("–", "-"), ("—", "-"), ("·", "*"), ("×", "*"), ("÷", "/"), ("∙", "*"),
+    ("²", "^2"), ("³", "^3"), ("√", "sqrt"), ("\\cdot", "*"), ("\\times", "*"), ("\\div", "/"),
+    ("{", "("), ("}", ")"), ("\\left", ""), ("\\right", ""), ("$", ""),
+]
+
+
+@dataclass(frozen=True)
+class Line:
+    kind: str  # "expr" | "eq" | "sols"
+    exprs: Tuple[sp.Expr, ...]  # expr: (e,)  eq: (lhs - rhs,)  sols: (lhs_i - rhs_i, ...)
+    sides: Tuple[Tuple[sp.Expr, sp.Expr], ...] = ()  # unevaluated (lhs, rhs) per equation, for hints
+    raw: Optional[sp.Expr] = None  # unevaluated expression, for hints
+
+
+def normalise(text: str) -> str:
+    t = text.strip()
+    for a, b in _REPLACEMENTS:
+        t = t.replace(a, b)
+    t = re.sub(r"\\frac\(([^()]*)\)\(([^()]*)\)", r"((\1)/(\2))", t)
+    t = re.sub(r"\\sqrt", "sqrt", t)
+    t = re.sub(r"\s+", " ", t).strip().rstrip(".;")
+    return t
+
+
+def _check_unsupported(t: str) -> None:
+    low = t.lower()
+    for m in _UNSUPPORTED_MARKERS:
+        if m in low:
+            raise Unsupported(m)
+
+
+def _parse(t: str, evaluate: bool = True) -> sp.Expr:
+    t = t.strip()
+    if not t:
+        raise Unreadable("empty")
+    if not _SAFE_CHARS.match(t):
+        raise Unreadable(f"characters: {t!r}")
+    for word in re.findall(r"[A-Za-z]{2,}", t):
+        if word not in _ALLOWED_WORDS and not all(c in "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ" for c in word):
+            raise Unreadable(word)
+        if word not in _ALLOWED_WORDS and len(word) > 3:
+            raise Unreadable(word)  # long letter runs are almost always misreads, not products
+    try:
+        e = parse_expr(t, local_dict=dict(_LOCALS), transformations=_TRANSFORMS, evaluate=evaluate)
+    except Exception as exc:  # SymPy raises many types for malformed input
+        raise Unreadable(str(exc)) from exc
+    if not isinstance(e, sp.Expr):
+        raise Unreadable(f"not an expression: {t!r}")
+    return e
+
+
+def _split_solutions(t: str) -> List[str]:
+    parts = re.split(r"\s*(?:,|;|\bor\b|\band\b)\s*", t)
+    parts = [p for p in parts if p]
+    out: List[str] = []
+    var = None
+    for p in parts:
+        if "=" in p:
+            var = p.split("=")[0].strip()
+        elif var:
+            p = f"{var}={p}"
+        if "±" in p or "+-" in p:
+            p = p.replace("+-", "±")
+            out += [p.replace("±", "+", 1), p.replace("±", "-", 1)]
+        else:
+            out.append(p)
+    return out
+
+
+def parse_line(text: str) -> Line:
+    t = normalise(text)
+    _check_unsupported(t)
+    if t.startswith("="):
+        t = t[1:]
+    if "=" not in t:
+        if "±" in t:
+            raise Unsupported("±")
+        raw = _parse(t, evaluate=False)
+        return Line("expr", (_parse(t),), raw=raw)
+    pieces = _split_solutions(t) if re.search(r",|;|\bor\b|\band\b|±|\+-", t) else [t]
+    exprs, sides = [], []
+    for p in pieces:
+        if p.count("=") != 1:
+            raise Unreadable(f"equation: {p!r}")
+        lhs_t, rhs_t = p.split("=")
+        lhs, rhs = _parse(lhs_t), _parse(rhs_t)
+        exprs.append(sp.expand(lhs - rhs))
+        sides.append((_parse(lhs_t, evaluate=False), _parse(rhs_t, evaluate=False)))
+    kind = "eq" if len(pieces) == 1 else "sols"
+    return Line(kind, tuple(exprs), tuple(sides))
+
+
+# ---------------------------------------------------------------- equivalence
+
+def _symbols(*lines: Line) -> List[sp.Symbol]:
+    syms = set()
+    for ln in lines:
+        for e in ln.exprs:
+            syms |= e.free_symbols
+    return sorted(syms, key=lambda s: s.name)
+
+
+def _num_equal(a: sp.Expr, b: sp.Expr, syms: Sequence[sp.Symbol], rng: random.Random, trials: int = 12) -> bool:
+    good = 0
+    for _ in range(trials * 3):
+        point = {s: sp.Rational(rng.randint(-40, 40), rng.randint(1, 9)) for s in syms}
+        try:
+            va, vb = complex(sp.N(a.subs(point), 30)), complex(sp.N(b.subs(point), 30))
+        except (TypeError, ValueError, ZeroDivisionError):
+            continue
+        if any(map(lambda z: z != z or abs(z) == float("inf"), (va, vb))):
+            continue
+        if abs(va - vb) > 1e-9 * max(1.0, abs(va), abs(vb)):
+            return False
+        good += 1
+        if good >= trials:
+            return True
+    return good >= 3
+
+
+def expressions_equivalent(a: sp.Expr, b: sp.Expr) -> bool:
+    diff = sp.simplify(a - b)
+    if diff == 0:
+        return True
+    return _num_equal(a, b, sorted(a.free_symbols | b.free_symbols, key=lambda s: s.name), random.Random(7))
+
+
+def _solution_set(line: Line, var: sp.Symbol):
+    sets = []
+    for e in line.exprs:
+        s = sp.solveset(e, var, domain=sp.S.Reals)
+        if isinstance(s, sp.ConditionSet):
+            return None
+        sets.append(s)
+    if line.kind == "sols":
+        return sp.Union(*sets)
+    return sets[0]
+
+
+def _sets_equal(s1, s2) -> bool:
+    if s1 == s2:
+        return True
+    if isinstance(s1, sp.FiniteSet) and isinstance(s2, sp.FiniteSet):
+        v1 = sorted(complex(sp.N(v)).real for v in s1)
+        v2 = sorted(complex(sp.N(v)).real for v in s2)
+        return len(v1) == len(v2) and all(abs(x - y) < 1e-9 for x, y in zip(v1, v2))
+    try:
+        return bool(sp.Complement(s1, s2) == sp.EmptySet and sp.Complement(s2, s1) == sp.EmptySet)
+    except Exception:
+        return False
+
+
+def _proportional(a: sp.Expr, b: sp.Expr) -> bool:
+    if a == 0 or b == 0:
+        return a == b
+    ratio = sp.simplify(a / b)
+    return ratio.is_number and ratio != 0
+
+
+def equations_equivalent(prev: Line, cur: Line) -> Optional[bool]:
+    syms = _symbols(prev, cur)
+    if len(syms) == 0:
+        # e.g. "0=0" vs "5=5": compare truth values
+        tv = lambda ln: all(sp.simplify(e) == 0 for e in ln.exprs)
+        return tv(prev) == tv(cur)
+    if len(syms) == 1:
+        s1, s2 = _solution_set(prev, syms[0]), _solution_set(cur, syms[0])
+        if s1 is not None and s2 is not None:
+            return _sets_equal(s1, s2)
+    if prev.kind == "eq" and cur.kind == "eq":
+        return _proportional(prev.exprs[0], cur.exprs[0])
+    return None
+
+
+def relate(prev: Line, cur: Line) -> Relation:
+    if prev.kind == "expr" and cur.kind == "expr":
+        return Relation.EQUIVALENT if expressions_equivalent(prev.exprs[0], cur.exprs[0]) else Relation.NOT_EQUIVALENT
+    if prev.kind == "expr" or cur.kind == "expr":
+        return Relation.UNSUPPORTED
+    eq = equations_equivalent(prev, cur)
+    if eq is None:
+        return Relation.UNSUPPORTED
+    return Relation.EQUIVALENT if eq else Relation.NOT_EQUIVALENT
+
+
+# ---------------------------------------------------------------- hints
+
+def _rebuild(e: sp.Basic) -> sp.Basic:
+    if not e.args:
+        return e
+    return e.func(*[_rebuild(a) for a in e.args])
+
+
+def _terms(e: sp.Expr) -> List[sp.Expr]:
+    return list(e.args) if isinstance(e, sp.Add) else [e]
+
+
+def _as_eq_line(lhs: sp.Expr, rhs: sp.Expr) -> Line:
+    l, r = _rebuild(lhs), _rebuild(rhs)
+    return Line("eq", (sp.expand(l - r),), ((lhs, rhs),))
+
+
+def _as_expr_line(e: sp.Expr) -> Line:
+    return Line("expr", (_rebuild(e),), raw=e)
+
+
+def _replace_term(side: sp.Expr, i: int, new: Optional[sp.Expr]) -> sp.Expr:
+    ts = _terms(side)
+    ts = ts[:i] + ([new] if new is not None else []) + ts[i + 1:]
+    if not ts:
+        return sp.Integer(0)
+    return sp.Add(*ts, evaluate=False) if len(ts) > 1 else ts[0]
+
+
+def _variants_sign(prev: Line) -> Iterable[Line]:
+    if prev.kind == "eq":
+        lhs, rhs = prev.sides[0]
+        for side_i, side in enumerate((lhs, rhs)):
+            for i, t in enumerate(_terms(side)):
+                new_side = _replace_term(side, i, sp.Mul(-1, t, evaluate=False))
+                yield _as_eq_line(new_side, rhs) if side_i == 0 else _as_eq_line(lhs, new_side)
+    elif prev.kind == "expr" and prev.raw is not None:
+        for i, t in enumerate(_terms(prev.raw)):
+            yield _as_expr_line(_replace_term(prev.raw, i, sp.Mul(-1, t, evaluate=False)))
+
+
+def _bad_distributions(e: sp.Expr) -> Iterable[sp.Expr]:
+    """Yield copies of e where one c*(a+b+...) is distributed to only one term."""
+    if isinstance(e, sp.Mul):
+        factors = list(e.args)
+        for i, f in enumerate(factors):
+            if isinstance(f, sp.Add):
+                others = factors[:i] + factors[i + 1:]
+                c = sp.Mul(*others, evaluate=False) if len(others) > 1 else (others[0] if others else sp.Integer(1))
+                ts = list(f.args)
+                for j in range(len(ts)):
+                    new_terms = [sp.Mul(c, t, evaluate=False) if k == j else t for k, t in enumerate(ts)]
+                    yield sp.Add(*new_terms, evaluate=False)
+    for idx, a in enumerate(e.args):
+        for sub in _bad_distributions(a):
+            args = list(e.args)
+            args[idx] = sub
+            yield e.func(*args, evaluate=False)
+
+
+def _variants_distribution(prev: Line) -> Iterable[Line]:
+    if prev.kind == "eq":
+        lhs, rhs = prev.sides[0]
+        for v in _bad_distributions(lhs):
+            yield _as_eq_line(v, rhs)
+        for v in _bad_distributions(rhs):
+            yield _as_eq_line(lhs, v)
+    elif prev.kind == "expr" and prev.raw is not None:
+        for v in _bad_distributions(prev.raw):
+            yield _as_expr_line(v)
+
+
+def _variants_dropped(prev: Line) -> Iterable[Line]:
+    if prev.kind == "eq":
+        lhs, rhs = prev.sides[0]
+        for side_i, side in enumerate((lhs, rhs)):
+            ts = _terms(side)
+            if len(ts) < 2:
+                continue
+            for i in range(len(ts)):
+                new_side = _replace_term(side, i, None)
+                yield _as_eq_line(new_side, rhs) if side_i == 0 else _as_eq_line(lhs, new_side)
+    elif prev.kind == "expr" and prev.raw is not None:
+        ts = _terms(prev.raw)
+        if len(ts) >= 2:
+            for i in range(len(ts)):
+                yield _as_expr_line(_replace_term(prev.raw, i, None))
+
+
+def _arithmetic_fixable(prev: Line, cur: Line) -> bool:
+    """Can changing ONE number in the current line make it follow from the previous one?"""
+    k = sp.Symbol("k_fix")
+    if cur.kind == "expr" and cur.raw is not None:
+        target = cur.raw
+        numbers = [a for a in sp.preorder_traversal(target) if isinstance(a, sp.Integer) and a not in (sp.Integer(-1),)]
+        for n in set(numbers):
+            replaced = target.xreplace({n: k})
+            for cand in _solve_for_k_expr(prev.exprs[0], _rebuild(replaced), k):
+                if expressions_equivalent(prev.exprs[0], _rebuild(replaced).subs(k, cand)):
+                    return True
+        return False
+    if cur.kind == "eq":
+        lhs, rhs = cur.sides[0]
+        syms = _symbols(prev)
+        if len(syms) != 1:
+            return False
+        sols = _solution_set(prev, syms[0])
+        if not isinstance(sols, sp.FiniteSet) or len(sols) == 0:
+            return False
+        x0 = list(sols)[0]
+        for side_i, side in enumerate((lhs, rhs)):
+            numbers = {a for a in sp.preorder_traversal(side) if isinstance(a, sp.Integer) and a not in (sp.Integer(-1),)}
+            for n in numbers:
+                new_side = side.xreplace({n: k})
+                cand_line_l, cand_line_r = (new_side, rhs) if side_i == 0 else (lhs, new_side)
+                d = sp.expand(_rebuild(cand_line_l) - _rebuild(cand_line_r))
+                try:
+                    ks = sp.solve(d.subs(syms[0], x0), k)
+                except Exception:
+                    continue
+                for kv in ks:
+                    if not kv.is_real:
+                        continue
+                    fixed = Line("eq", (sp.expand(d.subs(k, kv)),))
+                    if equations_equivalent(prev, fixed):
+                        return True
+    return False
+
+
+def _solve_for_k_expr(a: sp.Expr, b_with_k: sp.Expr, k: sp.Symbol) -> List[sp.Expr]:
+    syms = sorted((a.free_symbols | b_with_k.free_symbols) - {k}, key=lambda s: s.name)
+    point = {s: sp.Rational(7, 3) + i for i, s in enumerate(syms)}
+    try:
+        return [v for v in sp.solve(sp.Eq(a.subs(point), b_with_k.subs(point)), k) if v.is_real]
+    except Exception:
+        return []
+
+
+def _matches_any(variants: Iterable[Line], cur: Line) -> bool:
+    for v in variants:
+        try:
+            if relate(v, cur) == Relation.EQUIVALENT:
+                return True
+        except Exception:
+            continue
+    return False
+
+
+def classify_hint(prev: Line, cur: Line) -> Hint:
+    if prev.kind != "expr" and cur.kind != "expr":
+        syms = _symbols(prev, cur)
+        if len(syms) == 1:
+            s1, s2 = _solution_set(prev, syms[0]), _solution_set(cur, syms[0])
+            if s1 is not None and s2 is not None and s2 != sp.EmptySet and s1 != s2:
+                if sp.Complement(s2, s1) == sp.EmptySet:
+                    return Hint.LOST_SOLUTION
+                if sp.Complement(s1, s2) == sp.EmptySet:
+                    return Hint.EXTRA_SOLUTION
+    if _matches_any(_variants_distribution(prev), cur):
+        return Hint.DISTRIBUTION
+    if _matches_any(_variants_sign(prev), cur):
+        return Hint.SIGN
+    if _matches_any(_variants_dropped(prev), cur):
+        return Hint.DROPPED_TERM
+    try:
+        if _arithmetic_fixable(prev, cur):
+            return Hint.ARITHMETIC
+    except Exception:
+        pass
+    return Hint.CHECK_STEP
