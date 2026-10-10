@@ -110,3 +110,10 @@ def test_prose_lines_are_ignored_and_keep_the_chain():
 
 def test_units_are_ignored():
     assert judge(steps("a + 10 = 28", "a = 18 cm")).first_slip is None
+
+
+def test_substituting_values_starts_a_new_chain_not_a_slip():
+    v = judge(steps("a^3+b^3+c^3-3abc", "=(a+b+c)((a+b+c)^2-3(ab+bc+ca))", "=5((5)^2-3(16))", "=5(-23)", "=-115"))
+    assert v.first_slip is None
+    v = judge(steps("=5((5)^2-3(16))", "=5(-4)"))
+    assert v.first_slip == 1

@@ -1,6 +1,12 @@
 {
-  "functions": {
-    "api/grade.py": { "maxDuration": 60, "includeFiles": "{redpen/**,data/glyphs.json}" },
-    "api/regrade.py": { "maxDuration": 30, "includeFiles": "{redpen/**,data/glyphs.json}" }
-  }
+  "builds": [
+    { "src": "api/grade.py", "use": "@vercel/python", "config": { "maxDuration": 60, "includeFiles": ["redpen/**", "data/glyphs.json"] } },
+    { "src": "api/regrade.py", "use": "@vercel/python", "config": { "maxDuration": 30, "includeFiles": ["redpen/**", "data/glyphs.json"] } },
+    { "src": "public/**", "use": "@vercel/static" }
+  ],
+  "routes": [
+    { "src": "/api/grade", "dest": "/api/grade.py" },
+    { "src": "/api/regrade", "dest": "/api/regrade.py" },
+    { "src": "/(.*)", "dest": "/public/$1" }
+  ]
 }

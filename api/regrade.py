@@ -5,4 +5,8 @@ sys.path.insert(0, os.path.join(os.path.dirname(__file__), ".."))
 
 from redpen.infrastructure.http import make_handler  # noqa: E402
 
-handler = make_handler("regrade")
+_Base = make_handler("regrade")
+
+
+class handler(_Base):  # noqa: N801  (Vercel looks for a top-level "handler" class)
+    pass

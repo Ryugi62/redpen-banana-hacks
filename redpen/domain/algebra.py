@@ -55,6 +55,7 @@ class Line:
     raw: Optional[sp.Expr] = None  # unevaluated expression, for hints
     head: Optional[sp.Expr] = None  # expr chains: first piece (compared with the previous line)
     internal_slip: bool = False  # a chain like "a = b = c" where b != c
+    raw_head: Optional[sp.Expr] = None  # unevaluated first piece (structure, for substitution detection)
 
 
 def normalise(text: str) -> str:
@@ -132,7 +133,8 @@ def parse_line(text: str) -> Line:
         if continuation or not (_parse(pieces[0]).free_symbols):
             ok = _chain_consistent(pieces)
             if continuation:
-                return Line("expr", (_parse(pieces[-1]),), raw=_parse(pieces[-1], evaluate=False), head=_parse(pieces[0]), internal_slip=not ok)
+                return Line("expr", (_parse(pieces[-1]),), raw=_parse(pieces[-1], evaluate=False), head=_parse(pieces[0]),
+                            internal_slip=not ok, raw_head=_parse(pieces[0], evaluate=False))
         else:
             ok = _chain_consistent(pieces[1:])
         lhs_t, rhs_t = pieces[0], pieces[-1]
@@ -241,6 +243,12 @@ def equations_equivalent(prev: Line, cur: Line) -> Optional[bool]:
 def relate(prev: Line, cur: Line) -> Relation:
     if prev.kind == "expr" and cur.kind == "expr":
         head = cur.head if cur.head is not None else cur.exprs[0]
+        before, after = prev.exprs[0].free_symbols, head.free_symbols
+        if before and after < before and not expressions_equivalent(prev.exprs[0], head):
+            cur_raw = cur.raw_head if cur.raw_head is not None else cur.raw
+            cur_shape = sp.count_ops(cur_raw if cur_raw is not None else head)
+            if cur_shape >= 2:  # numbers written into a structure (e.g. 5((5)^2-3(16))), not a collapse to one number
+                return Relation.UNSUPPORTED  # values were substituted into the same shape: new chain
         return Relation.EQUIVALENT if expressions_equivalent(prev.exprs[0], head) else Relation.NOT_EQUIVALENT
     if prev.kind == "expr" or cur.kind == "expr":
         return Relation.UNSUPPORTED
