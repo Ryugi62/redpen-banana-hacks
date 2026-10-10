@@ -1,0 +1,5107 @@
+{
+ "summary": {
+  "set": "synthetic",
+  "model": "gemma-4-26b-a4b-it",
+  "pages": 150,
+  "slipped": 108,
+  "clean": 42,
+  "pipeline_first_slip_acc": 0.9259259259259259,
+  "pipeline_false_alarm": 0.09523809523809523,
+  "pipeline_overall_acc": 0.92,
+  "baseline_first_slip_acc": 0.8425925925925926,
+  "baseline_false_alarm": 0.4523809523809524,
+  "baseline_overall_acc": 0.76,
+  "line_read_exact": 0.9369747899159664,
+  "model_located_pages": 0,
+  "baseline_no_answer": 0,
+  "pages_skipped_model_error": 0,
+  "pipeline_asked_instead": 6,
+  "pipeline_wrong_accusations": 4,
+  "baseline_wrong_accusations": 27,
+  "pipeline_missed_slip_silently": 3,
+  "baseline_missed_slip": 9
+ },
+ "rows": [
+  {
+   "i": 0,
+   "template": "two_step",
+   "kind": null,
+   "gt": null,
+   "lines": [
+    "2x+5=7",
+    "2x=2",
+    "x=1"
+   ],
+   "pred_line": null,
+   "pred_flagged": false,
+   "mode": "cv-segmented",
+   "relations": [
+    "start",
+    "equivalent",
+    "equivalent"
+   ],
+   "texts": [
+    "2x+5=7",
+    "2x=2",
+    "x=1"
+   ],
+   "baseline": 0,
+   "reads_exact": [
+    true,
+    true,
+    true
+   ],
+   "hard": true,
+   "rechecked": false,
+   "uncertain": []
+  },
+  {
+   "i": 1,
+   "template": "two_step",
+   "kind": "sign",
+   "gt": 1,
+   "lines": [
+    "6x-5=-41",
+    "6x=-46",
+    "x=-23/3"
+   ],
+   "pred_line": null,
+   "pred_flagged": false,
+   "mode": "cv-segmented",
+   "relations": [
+    "unreadable",
+    "start",
+    "equivalent"
+   ],
+   "texts": [
+    "6x-5=-4)",
+    "6x=-46",
+    "x=-23/3"
+   ],
+   "baseline": 2,
+   "reads_exact": [
+    false,
+    true,
+    true
+   ],
+   "hard": false,
+   "rechecked": false,
+   "uncertain": []
+  },
+  {
+   "i": 2,
+   "template": "two_step",
+   "kind": "arithmetic",
+   "gt": 1,
+   "lines": [
+    "6x+2=50",
+    "6x=50",
+    "x=25/3"
+   ],
+   "pred_line": 1,
+   "pred_flagged": true,
+   "mode": "cv-segmented",
+   "relations": [
+    "start",
+    "not_equivalent",
+    "equivalent"
+   ],
+   "texts": [
+    "6x+2=50",
+    "6x=50",
+    "x=25/3"
+   ],
+   "baseline": 2,
+   "reads_exact": [
+    true,
+    true,
+    true
+   ],
+   "hard": false,
+   "rechecked": true,
+   "uncertain": []
+  },
+  {
+   "i": 3,
+   "template": "two_step",
+   "kind": "arithmetic",
+   "gt": 2,
+   "lines": [
+    "6x-5=25",
+    "6x=30",
+    "x=180"
+   ],
+   "pred_line": 2,
+   "pred_flagged": true,
+   "mode": "cv-segmented",
+   "relations": [
+    "start",
+    "equivalent",
+    "not_equivalent"
+   ],
+   "texts": [
+    "6x-5=25",
+    "6x=30",
+    "x=180"
+   ],
+   "baseline": 3,
+   "reads_exact": [
+    true,
+    true,
+    true
+   ],
+   "hard": false,
+   "rechecked": true,
+   "uncertain": []
+  },
+  {
+   "i": 4,
+   "template": "two_step",
+   "kind": null,
+   "gt": null,
+   "lines": [
+    "2x-3=-15",
+    "2x=-12",
+    "x=-6"
+   ],
+   "pred_line": null,
+   "pred_flagged": false,
+   "mode": "cv-segmented",
+   "relations": [
+    "start",
+    "equivalent",
+    "equivalent"
+   ],
+   "texts": [
+    "2x-3=-15",
+    "2x=-12",
+    "x=-6"
+   ],
+   "baseline": 0,
+   "reads_exact": [
+    true,
+    true,
+    true
+   ],
+   "hard": true,
+   "rechecked": false,
+   "uncertain": []
+  },
+  {
+   "i": 5,
+   "template": "two_step",
+   "kind": "sign",
+   "gt": 1,
+   "lines": [
+    "2x-12=-2",
+    "2x=-14",
+    "x=-7"
+   ],
+   "pred_line": 1,
+   "pred_flagged": true,
+   "mode": "cv-segmented",
+   "relations": [
+    "start",
+    "not_equivalent",
+    "equivalent"
+   ],
+   "texts": [
+    "2x-12=-2",
+    "2x=-14",
+    "x=-7"
+   ],
+   "baseline": 2,
+   "reads_exact": [
+    true,
+    true,
+    true
+   ],
+   "hard": false,
+   "rechecked": true,
+   "uncertain": []
+  },
+  {
+   "i": 6,
+   "template": "two_step",
+   "kind": "arithmetic",
+   "gt": 1,
+   "lines": [
+    "7x+10=52",
+    "7x=43",
+    "x=43/7"
+   ],
+   "pred_line": 1,
+   "pred_flagged": true,
+   "mode": "cv-segmented",
+   "relations": [
+    "start",
+    "not_equivalent",
+    "equivalent"
+   ],
+   "texts": [
+    "7x+10=52",
+    "7x=43",
+    "x=43/7"
+   ],
+   "baseline": 2,
+   "reads_exact": [
+    true,
+    true,
+    true
+   ],
+   "hard": false,
+   "rechecked": true,
+   "uncertain": []
+  },
+  {
+   "i": 7,
+   "template": "two_step",
+   "kind": "arithmetic",
+   "gt": 2,
+   "lines": [
+    "3x-4=5",
+    "3x=9",
+    "x=27"
+   ],
+   "pred_line": 2,
+   "pred_flagged": true,
+   "mode": "cv-segmented",
+   "relations": [
+    "start",
+    "equivalent",
+    "not_equivalent"
+   ],
+   "texts": [
+    "3x-4=5",
+    "3x=9",
+    "x=27"
+   ],
+   "baseline": 3,
+   "reads_exact": [
+    true,
+    true,
+    true
+   ],
+   "hard": false,
+   "rechecked": true,
+   "uncertain": []
+  },
+  {
+   "i": 8,
+   "template": "two_step",
+   "kind": null,
+   "gt": null,
+   "lines": [
+    "4x+12=24",
+    "4x=12",
+    "x=3"
+   ],
+   "pred_line": null,
+   "pred_flagged": false,
+   "mode": "cv-segmented",
+   "relations": [
+    "start",
+    "equivalent",
+    "equivalent"
+   ],
+   "texts": [
+    "4x+12=24",
+    "4x=12",
+    "x=3"
+   ],
+   "baseline": 0,
+   "reads_exact": [
+    true,
+    true,
+    true
+   ],
+   "hard": true,
+   "rechecked": false,
+   "uncertain": []
+  },
+  {
+   "i": 9,
+   "template": "two_step",
+   "kind": "sign",
+   "gt": 1,
+   "lines": [
+    "6x+12=-30",
+    "6x=-18",
+    "x=-3"
+   ],
+   "pred_line": 1,
+   "pred_flagged": true,
+   "mode": "cv-segmented",
+   "relations": [
+    "start",
+    "not_equivalent",
+    "equivalent"
+   ],
+   "texts": [
+    "6x+12=-30",
+    "6x=-18",
+    "x=-3"
+   ],
+   "baseline": 0,
+   "reads_exact": [
+    true,
+    true,
+    true
+   ],
+   "hard": false,
+   "rechecked": true,
+   "uncertain": []
+  },
+  {
+   "i": 10,
+   "template": "two_step",
+   "kind": "arithmetic",
+   "gt": 1,
+   "lines": [
+    "4x+6=-22",
+    "4x=-27",
+    "x=-27/4"
+   ],
+   "pred_line": 1,
+   "pred_flagged": true,
+   "mode": "cv-segmented",
+   "relations": [
+    "start",
+    "not_equivalent",
+    "equivalent"
+   ],
+   "texts": [
+    "4x+6=-22",
+    "4x=-27",
+    "x=-27/4"
+   ],
+   "baseline": 2,
+   "reads_exact": [
+    true,
+    true,
+    true
+   ],
+   "hard": false,
+   "rechecked": true,
+   "uncertain": []
+  },
+  {
+   "i": 11,
+   "template": "two_step",
+   "kind": "arithmetic",
+   "gt": 2,
+   "lines": [
+    "4x-8=12",
+    "4x=20",
+    "x=16"
+   ],
+   "pred_line": 2,
+   "pred_flagged": true,
+   "mode": "cv-segmented",
+   "relations": [
+    "start",
+    "equivalent",
+    "not_equivalent"
+   ],
+   "texts": [
+    "4x-8=12",
+    "4x=20",
+    "x=16"
+   ],
+   "baseline": 3,
+   "reads_exact": [
+    true,
+    true,
+    true
+   ],
+   "hard": false,
+   "rechecked": true,
+   "uncertain": []
+  },
+  {
+   "i": 12,
+   "template": "two_step",
+   "kind": null,
+   "gt": null,
+   "lines": [
+    "7x-3=60",
+    "7x=63",
+    "x=9"
+   ],
+   "pred_line": 2,
+   "pred_flagged": true,
+   "mode": "cv-segmented",
+   "relations": [
+    "start",
+    "equivalent",
+    "not_equivalent"
+   ],
+   "texts": [
+    "7x-3=60",
+    "7x=63",
+    "x=1"
+   ],
+   "baseline": 3,
+   "reads_exact": [
+    true,
+    true,
+    false
+   ],
+   "hard": true,
+   "rechecked": true,
+   "uncertain": []
+  },
+  {
+   "i": 13,
+   "template": "two_step",
+   "kind": "sign",
+   "gt": 1,
+   "lines": [
+    "2x-1=3",
+    "2x=2",
+    "x=1"
+   ],
+   "pred_line": 1,
+   "pred_flagged": true,
+   "mode": "cv-segmented",
+   "relations": [
+    "start",
+    "not_equivalent",
+    "equivalent"
+   ],
+   "texts": [
+    "2x-1=3",
+    "2x=2",
+    "x=1"
+   ],
+   "baseline": 2,
+   "reads_exact": [
+    true,
+    true,
+    true
+   ],
+   "hard": false,
+   "rechecked": true,
+   "uncertain": []
+  },
+  {
+   "i": 14,
+   "template": "two_step",
+   "kind": "arithmetic",
+   "gt": 1,
+   "lines": [
+    "5x-10=10",
+    "5x=22",
+    "x=22/5"
+   ],
+   "pred_line": 1,
+   "pred_flagged": true,
+   "mode": "cv-segmented",
+   "relations": [
+    "start",
+    "not_equivalent",
+    "equivalent"
+   ],
+   "texts": [
+    "5x-10=10",
+    "5x=22",
+    "x=22/5"
+   ],
+   "baseline": 2,
+   "reads_exact": [
+    true,
+    true,
+    true
+   ],
+   "hard": false,
+   "rechecked": true,
+   "uncertain": []
+  },
+  {
+   "i": 15,
+   "template": "two_step",
+   "kind": "arithmetic",
+   "gt": 2,
+   "lines": [
+    "6x+4=52",
+    "6x=48",
+    "x=42"
+   ],
+   "pred_line": 2,
+   "pred_flagged": true,
+   "mode": "cv-segmented",
+   "relations": [
+    "start",
+    "equivalent",
+    "not_equivalent"
+   ],
+   "texts": [
+    "6x+4=52",
+    "6x=48",
+    "x=42"
+   ],
+   "baseline": 2,
+   "reads_exact": [
+    true,
+    true,
+    true
+   ],
+   "hard": false,
+   "rechecked": true,
+   "uncertain": []
+  },
+  {
+   "i": 16,
+   "template": "two_step",
+   "kind": null,
+   "gt": null,
+   "lines": [
+    "5x+8=43",
+    "5x=35",
+    "x=7"
+   ],
+   "pred_line": null,
+   "pred_flagged": false,
+   "mode": "cv-segmented",
+   "relations": [
+    "start",
+    "equivalent",
+    "equivalent"
+   ],
+   "texts": [
+    "5x+8=43",
+    "5x=35",
+    "x=7"
+   ],
+   "baseline": 0,
+   "reads_exact": [
+    true,
+    true,
+    true
+   ],
+   "hard": true,
+   "rechecked": false,
+   "uncertain": []
+  },
+  {
+   "i": 17,
+   "template": "two_step",
+   "kind": "sign",
+   "gt": 1,
+   "lines": [
+    "5x+5=20",
+    "5x=25",
+    "x=5"
+   ],
+   "pred_line": 1,
+   "pred_flagged": true,
+   "mode": "cv-segmented",
+   "relations": [
+    "start",
+    "not_equivalent",
+    "equivalent"
+   ],
+   "texts": [
+    "5x+5=20",
+    "5x=25",
+    "x=5"
+   ],
+   "baseline": 2,
+   "reads_exact": [
+    true,
+    true,
+    true
+   ],
+   "hard": false,
+   "rechecked": true,
+   "uncertain": []
+  },
+  {
+   "i": 18,
+   "template": "two_step",
+   "kind": "arithmetic",
+   "gt": 1,
+   "lines": [
+    "4x+7=23",
+    "4x=18",
+    "x=9/2"
+   ],
+   "pred_line": null,
+   "pred_flagged": false,
+   "mode": "cv-segmented",
+   "relations": [
+    "start",
+    "unreadable",
+    "start"
+   ],
+   "texts": [
+    "4x+7=23",
+    "4x=18",
+    "x=9/2"
+   ],
+   "baseline": 3,
+   "reads_exact": [
+    true,
+    true,
+    true
+   ],
+   "hard": false,
+   "rechecked": true,
+   "uncertain": [
+    1
+   ]
+  },
+  {
+   "i": 19,
+   "template": "two_step",
+   "kind": "arithmetic",
+   "gt": 2,
+   "lines": [
+    "6x-12=30",
+    "6x=42",
+    "x=36"
+   ],
+   "pred_line": 2,
+   "pred_flagged": true,
+   "mode": "cv-segmented",
+   "relations": [
+    "start",
+    "equivalent",
+    "not_equivalent"
+   ],
+   "texts": [
+    "6x-12=30",
+    "6x=42",
+    "x=36"
+   ],
+   "baseline": 3,
+   "reads_exact": [
+    true,
+    true,
+    true
+   ],
+   "hard": false,
+   "rechecked": true,
+   "uncertain": []
+  },
+  {
+   "i": 20,
+   "template": "two_step",
+   "kind": null,
+   "gt": null,
+   "lines": [
+    "3x+11=-13",
+    "3x=-24",
+    "x=-8"
+   ],
+   "pred_line": null,
+   "pred_flagged": false,
+   "mode": "cv-segmented",
+   "relations": [
+    "start",
+    "equivalent",
+    "equivalent"
+   ],
+   "texts": [
+    "3x+11=-13",
+    "3x=-24",
+    "x=-8"
+   ],
+   "baseline": 0,
+   "reads_exact": [
+    true,
+    true,
+    true
+   ],
+   "hard": true,
+   "rechecked": false,
+   "uncertain": []
+  },
+  {
+   "i": 21,
+   "template": "two_step",
+   "kind": "sign",
+   "gt": 1,
+   "lines": [
+    "6x+11=-25",
+    "6x=-14",
+    "x=-7/3"
+   ],
+   "pred_line": 1,
+   "pred_flagged": true,
+   "mode": "cv-segmented",
+   "relations": [
+    "start",
+    "not_equivalent",
+    "equivalent"
+   ],
+   "texts": [
+    "6x+11=-25",
+    "6x=-14",
+    "x=-7/3"
+   ],
+   "baseline": 2,
+   "reads_exact": [
+    true,
+    true,
+    true
+   ],
+   "hard": false,
+   "rechecked": true,
+   "uncertain": []
+  },
+  {
+   "i": 22,
+   "template": "two_step",
+   "kind": "arithmetic",
+   "gt": 1,
+   "lines": [
+    "6x+4=28",
+    "6x=23",
+    "x=23/6"
+   ],
+   "pred_line": 1,
+   "pred_flagged": true,
+   "mode": "cv-segmented",
+   "relations": [
+    "start",
+    "not_equivalent",
+    "equivalent"
+   ],
+   "texts": [
+    "6x+4=28",
+    "6x=23",
+    "x=23/6"
+   ],
+   "baseline": 2,
+   "reads_exact": [
+    true,
+    true,
+    true
+   ],
+   "hard": false,
+   "rechecked": true,
+   "uncertain": []
+  },
+  {
+   "i": 23,
+   "template": "two_step",
+   "kind": "arithmetic",
+   "gt": 2,
+   "lines": [
+    "5x-9=-19",
+    "5x=-10",
+    "x=-15"
+   ],
+   "pred_line": 2,
+   "pred_flagged": true,
+   "mode": "cv-segmented",
+   "relations": [
+    "start",
+    "equivalent",
+    "not_equivalent"
+   ],
+   "texts": [
+    "5x-9=-19",
+    "5x=-10",
+    "x=-15"
+   ],
+   "baseline": 3,
+   "reads_exact": [
+    true,
+    true,
+    true
+   ],
+   "hard": false,
+   "rechecked": true,
+   "uncertain": []
+  },
+  {
+   "i": 24,
+   "template": "two_step",
+   "kind": null,
+   "gt": null,
+   "lines": [
+    "5x+11=41",
+    "5x=30",
+    "x=6"
+   ],
+   "pred_line": null,
+   "pred_flagged": false,
+   "mode": "cv-segmented",
+   "relations": [
+    "start",
+    "equivalent",
+    "equivalent"
+   ],
+   "texts": [
+    "5x+11=41",
+    "5x=30",
+    "x=6"
+   ],
+   "baseline": 3,
+   "reads_exact": [
+    true,
+    true,
+    true
+   ],
+   "hard": true,
+   "rechecked": false,
+   "uncertain": []
+  },
+  {
+   "i": 25,
+   "template": "two_step",
+   "kind": "sign",
+   "gt": 1,
+   "lines": [
+    "6x+6=0",
+    "6x=6",
+    "x=1"
+   ],
+   "pred_line": 1,
+   "pred_flagged": true,
+   "mode": "cv-segmented",
+   "relations": [
+    "start",
+    "not_equivalent",
+    "equivalent"
+   ],
+   "texts": [
+    "6x+6=0",
+    "6x=6",
+    "x=1"
+   ],
+   "baseline": 2,
+   "reads_exact": [
+    true,
+    true,
+    true
+   ],
+   "hard": false,
+   "rechecked": true,
+   "uncertain": []
+  },
+  {
+   "i": 26,
+   "template": "two_step",
+   "kind": "arithmetic",
+   "gt": 1,
+   "lines": [
+    "5x+6=6",
+    "5x=2",
+    "x=2/5"
+   ],
+   "pred_line": 1,
+   "pred_flagged": true,
+   "mode": "cv-segmented",
+   "relations": [
+    "start",
+    "not_equivalent",
+    "equivalent"
+   ],
+   "texts": [
+    "5x+6=6",
+    "5x=2",
+    "x=2/5"
+   ],
+   "baseline": 2,
+   "reads_exact": [
+    true,
+    true,
+    true
+   ],
+   "hard": false,
+   "rechecked": true,
+   "uncertain": []
+  },
+  {
+   "i": 27,
+   "template": "two_step",
+   "kind": "arithmetic",
+   "gt": 2,
+   "lines": [
+    "5x-6=14",
+    "5x=20",
+    "x=100"
+   ],
+   "pred_line": 2,
+   "pred_flagged": true,
+   "mode": "cv-segmented",
+   "relations": [
+    "start",
+    "equivalent",
+    "not_equivalent"
+   ],
+   "texts": [
+    "5x-6=14",
+    "5x=20",
+    "x=100"
+   ],
+   "baseline": 3,
+   "reads_exact": [
+    true,
+    true,
+    true
+   ],
+   "hard": false,
+   "rechecked": true,
+   "uncertain": []
+  },
+  {
+   "i": 28,
+   "template": "two_step",
+   "kind": null,
+   "gt": null,
+   "lines": [
+    "4x-11=-47",
+    "4x=-36",
+    "x=-9"
+   ],
+   "pred_line": null,
+   "pred_flagged": false,
+   "mode": "cv-segmented",
+   "relations": [
+    "start",
+    "equivalent",
+    "equivalent"
+   ],
+   "texts": [
+    "4x-11=-47",
+    "4x=-36",
+    "x=-9"
+   ],
+   "baseline": 0,
+   "reads_exact": [
+    true,
+    true,
+    true
+   ],
+   "hard": true,
+   "rechecked": false,
+   "uncertain": []
+  },
+  {
+   "i": 29,
+   "template": "two_step",
+   "kind": "sign",
+   "gt": 1,
+   "lines": [
+    "3x+5=20",
+    "3x=25",
+    "x=25/3"
+   ],
+   "pred_line": 1,
+   "pred_flagged": true,
+   "mode": "cv-segmented",
+   "relations": [
+    "start",
+    "not_equivalent",
+    "equivalent"
+   ],
+   "texts": [
+    "3x+5=20",
+    "3x=25",
+    "x=25/3"
+   ],
+   "baseline": 2,
+   "reads_exact": [
+    true
+   ],
+   "hard": false,
+   "rechecked": true,
+   "uncertain": []
+  },
+  {
+   "i": 30,
+   "template": "distribute",
+   "kind": null,
+   "gt": null,
+   "lines": [
+    "5(x+3)=5",
+    "5x+15=5",
+    "5x=-10",
+    "x=-2"
+   ],
+   "pred_line": null,
+   "pred_flagged": false,
+   "mode": "cv-segmented",
+   "relations": [
+    "start",
+    "equivalent",
+    "equivalent",
+    "equivalent"
+   ],
+   "texts": [
+    "5(x+3)=5",
+    "5x+15=5",
+    "5x=-10",
+    "x=-2"
+   ],
+   "baseline": 0,
+   "reads_exact": [
+    true,
+    true,
+    true,
+    true
+   ],
+   "hard": false,
+   "rechecked": false,
+   "uncertain": []
+  },
+  {
+   "i": 31,
+   "template": "distribute",
+   "kind": "distribution",
+   "gt": 1,
+   "lines": [
+    "4(x+7)=52",
+    "4x+7=52",
+    "4x=45",
+    "x=45/4"
+   ],
+   "pred_line": 1,
+   "pred_flagged": true,
+   "mode": "cv-segmented",
+   "relations": [
+    "start",
+    "not_equivalent",
+    "equivalent",
+    "equivalent"
+   ],
+   "texts": [
+    "4(x+7)=52",
+    "4x+7=52",
+    "4x=45",
+    "x=45/4"
+   ],
+   "baseline": 2,
+   "reads_exact": [
+    true,
+    true,
+    true,
+    true
+   ],
+   "hard": false,
+   "rechecked": true,
+   "uncertain": []
+  },
+  {
+   "i": 32,
+   "template": "distribute",
+   "kind": "sign",
+   "gt": 1,
+   "lines": [
+    "-2(x+7)=-24",
+    "-2x+14=-24",
+    "-2x=-38",
+    "x=19"
+   ],
+   "pred_line": 1,
+   "pred_flagged": true,
+   "mode": "cv-segmented",
+   "relations": [
+    "start",
+    "not_equivalent",
+    "equivalent",
+    "equivalent"
+   ],
+   "texts": [
+    "-2(x+7)=-24",
+    "-2x+14=-24",
+    "-2x=-38",
+    "x=19"
+   ],
+   "baseline": 2,
+   "reads_exact": [
+    true,
+    true,
+    true,
+    true
+   ],
+   "hard": true,
+   "rechecked": true,
+   "uncertain": []
+  },
+  {
+   "i": 33,
+   "template": "distribute",
+   "kind": null,
+   "gt": null,
+   "lines": [
+    "-2(x-8)=14",
+    "-2x+16=14",
+    "-2x=-2",
+    "x=1"
+   ],
+   "pred_line": null,
+   "pred_flagged": false,
+   "mode": "cv-segmented",
+   "relations": [
+    "start",
+    "start",
+    "equivalent",
+    "equivalent"
+   ],
+   "texts": [
+    "-2(x-9)+14",
+    "-2x+16=14",
+    "-2x=-2",
+    "x=1"
+   ],
+   "baseline": 2,
+   "reads_exact": [
+    false,
+    true,
+    true,
+    true
+   ],
+   "hard": false,
+   "rechecked": false,
+   "uncertain": []
+  },
+  {
+   "i": 34,
+   "template": "distribute",
+   "kind": "distribution",
+   "gt": 1,
+   "lines": [
+    "4(x+6)=4",
+    "4x+6=4",
+    "4x=-2",
+    "x=-1/2"
+   ],
+   "pred_line": 1,
+   "pred_flagged": true,
+   "mode": "cv-segmented",
+   "relations": [
+    "start",
+    "not_equivalent",
+    "equivalent",
+    "equivalent"
+   ],
+   "texts": [
+    "4(x+6)=4",
+    "4x+6=4",
+    "4x=-2",
+    "x=-1/2"
+   ],
+   "baseline": 2,
+   "reads_exact": [
+    true,
+    true,
+    true,
+    true
+   ],
+   "hard": false,
+   "rechecked": true,
+   "uncertain": []
+  },
+  {
+   "i": 35,
+   "template": "distribute",
+   "kind": "sign",
+   "gt": 2,
+   "lines": [
+    "5(x+8)=40",
+    "5x+40=40",
+    "5x=80",
+    "x=16"
+   ],
+   "pred_line": 2,
+   "pred_flagged": true,
+   "mode": "cv-segmented",
+   "relations": [
+    "start",
+    "equivalent",
+    "not_equivalent",
+    "equivalent"
+   ],
+   "texts": [
+    "5(x+8)=40",
+    "5x+40=40",
+    "5x=-80",
+    "x=-16"
+   ],
+   "baseline": 3,
+   "reads_exact": [
+    false,
+    false
+   ],
+   "hard": false,
+   "rechecked": true,
+   "uncertain": []
+  },
+  {
+   "i": 36,
+   "template": "distribute",
+   "kind": null,
+   "gt": null,
+   "lines": [
+    "5(x-4)=5",
+    "5x-20=5",
+    "5x=25",
+    "x=5"
+   ],
+   "pred_line": null,
+   "pred_flagged": false,
+   "mode": "cv-segmented",
+   "relations": [
+    "start",
+    "equivalent",
+    "equivalent",
+    "equivalent"
+   ],
+   "texts": [
+    "5(x-4)=5",
+    "5x-20=5",
+    "5x=25",
+    "x=5"
+   ],
+   "baseline": 0,
+   "reads_exact": [
+    true,
+    true,
+    true,
+    true
+   ],
+   "hard": true,
+   "rechecked": false,
+   "uncertain": []
+  },
+  {
+   "i": 37,
+   "template": "distribute",
+   "kind": "distribution",
+   "gt": 1,
+   "lines": [
+    "-3(x+7)=-3",
+    "-3x+7=-3",
+    "-3x=-10",
+    "x=10/3"
+   ],
+   "pred_line": 1,
+   "pred_flagged": true,
+   "mode": "cv-segmented",
+   "relations": [
+    "start",
+    "not_equivalent",
+    "equivalent",
+    "equivalent"
+   ],
+   "texts": [
+    "-3(x+7)=-3",
+    "-3x+7=-3",
+    "-3x=-10",
+    "x=10/3"
+   ],
+   "baseline": 2,
+   "reads_exact": [
+    true,
+    true,
+    true,
+    true
+   ],
+   "hard": false,
+   "rechecked": true,
+   "uncertain": []
+  },
+  {
+   "i": 38,
+   "template": "distribute",
+   "kind": "sign",
+   "gt": 1,
+   "lines": [
+    "-3(x-1)=-18",
+    "-3x-3=-18",
+    "-3x=-15",
+    "x=5"
+   ],
+   "pred_line": 1,
+   "pred_flagged": true,
+   "mode": "cv-segmented",
+   "relations": [
+    "start",
+    "not_equivalent",
+    "equivalent",
+    "equivalent"
+   ],
+   "texts": [
+    "-3(x-1)=-18",
+    "-3x-3=-18",
+    "-3x=-15",
+    "x=5"
+   ],
+   "baseline": 0,
+   "reads_exact": [
+    true,
+    true,
+    true,
+    true
+   ],
+   "hard": false,
+   "rechecked": true,
+   "uncertain": []
+  },
+  {
+   "i": 39,
+   "template": "distribute",
+   "kind": null,
+   "gt": null,
+   "lines": [
+    "4(x-6)=-32",
+    "4x-24=-32",
+    "4x=-8",
+    "x=-2"
+   ],
+   "pred_line": null,
+   "pred_flagged": false,
+   "mode": "cv-segmented",
+   "relations": [
+    "start",
+    "equivalent",
+    "equivalent",
+    "equivalent"
+   ],
+   "texts": [
+    "4(x-6)=-32",
+    "4x-24=-32",
+    "4x=-8",
+    "x=-2"
+   ],
+   "baseline": 0,
+   "reads_exact": [
+    true,
+    true,
+    true,
+    true
+   ],
+   "hard": false,
+   "rechecked": false,
+   "uncertain": []
+  },
+  {
+   "i": 40,
+   "template": "distribute",
+   "kind": "distribution",
+   "gt": 1,
+   "lines": [
+    "-3(x+5)=-3",
+    "-3x+5=-3",
+    "-3x=-8",
+    "x=8/3"
+   ],
+   "pred_line": 1,
+   "pred_flagged": true,
+   "mode": "cv-segmented",
+   "relations": [
+    "start",
+    "not_equivalent",
+    "equivalent",
+    "equivalent"
+   ],
+   "texts": [
+    "-3(x+5)=-3",
+    "-3x+5=-3",
+    "-3x=-8",
+    "x=8/3"
+   ],
+   "baseline": 2,
+   "reads_exact": [
+    true,
+    true,
+    true,
+    true
+   ],
+   "hard": true,
+   "rechecked": true,
+   "uncertain": []
+  },
+  {
+   "i": 41,
+   "template": "distribute",
+   "kind": "sign",
+   "gt": 2,
+   "lines": [
+    "5(x-9)=-75",
+    "5x-45=-75",
+    "5x=-120",
+    "x=-24"
+   ],
+   "pred_line": null,
+   "pred_flagged": false,
+   "mode": "cv-segmented",
+   "relations": [
+    "start",
+    "unreadable",
+    "start",
+    "equivalent"
+   ],
+   "texts": [
+    "5(x-9)=-45",
+    "5x-45=-45",
+    "5x=-120",
+    "x=-24"
+   ],
+   "baseline": 3,
+   "reads_exact": [
+    false,
+    false,
+    true,
+    true
+   ],
+   "hard": false,
+   "rechecked": true,
+   "uncertain": [
+    1
+   ]
+  },
+  {
+   "i": 42,
+   "template": "distribute",
+   "kind": null,
+   "gt": null,
+   "lines": [
+    "2(x+6)=0",
+    "2x+12=0",
+    "2x=-12",
+    "x=-6"
+   ],
+   "pred_line": null,
+   "pred_flagged": false,
+   "mode": "cv-segmented",
+   "relations": [
+    "start",
+    "equivalent",
+    "equivalent",
+    "equivalent"
+   ],
+   "texts": [
+    "2(x+6)=0",
+    "2x+12=0",
+    "2x=-12",
+    "x=-6"
+   ],
+   "baseline": 0,
+   "reads_exact": [
+    true,
+    true,
+    true,
+    true
+   ],
+   "hard": false,
+   "rechecked": false,
+   "uncertain": []
+  },
+  {
+   "i": 43,
+   "template": "distribute",
+   "kind": "distribution",
+   "gt": 1,
+   "lines": [
+    "-2(x-3)=8",
+    "-2x-3=8",
+    "-2x=11",
+    "x=-11/2"
+   ],
+   "pred_line": 1,
+   "pred_flagged": true,
+   "mode": "cv-segmented",
+   "relations": [
+    "start",
+    "not_equivalent",
+    "not_equivalent",
+    "equivalent"
+   ],
+   "texts": [
+    "-2(x-3)=6",
+    "-2x-3=6",
+    "-2x=11",
+    "x=-11/2"
+   ],
+   "baseline": 2,
+   "reads_exact": [
+    false,
+    false,
+    true,
+    true
+   ],
+   "hard": false,
+   "rechecked": true,
+   "uncertain": []
+  },
+  {
+   "i": 44,
+   "template": "distribute",
+   "kind": "sign",
+   "gt": 2,
+   "lines": [
+    "2(x-8)=-16",
+    "2x-16=-16",
+    "2x=-32",
+    "x=-16"
+   ],
+   "pred_line": 2,
+   "pred_flagged": true,
+   "mode": "cv-segmented",
+   "relations": [
+    "start",
+    "equivalent",
+    "not_equivalent",
+    "equivalent"
+   ],
+   "texts": [
+    "2(x-8)=-16",
+    "2x-16=-16",
+    "2x=-32",
+    "x=-16"
+   ],
+   "baseline": 3,
+   "reads_exact": [
+    true,
+    true,
+    true,
+    true
+   ],
+   "hard": true,
+   "rechecked": true,
+   "uncertain": []
+  },
+  {
+   "i": 45,
+   "template": "distribute",
+   "kind": null,
+   "gt": null,
+   "lines": [
+    "-3(x+3)=3",
+    "-3x-9=3",
+    "-3x=12",
+    "x=-4"
+   ],
+   "pred_line": null,
+   "pred_flagged": false,
+   "mode": "cv-segmented",
+   "relations": [
+    "start",
+    "equivalent",
+    "equivalent",
+    "equivalent"
+   ],
+   "texts": [
+    "-3(x+3)=3",
+    "-3x-9=3",
+    "-3x=12",
+    "x=-4"
+   ],
+   "baseline": 3,
+   "reads_exact": [
+    true,
+    true,
+    true,
+    true
+   ],
+   "hard": false,
+   "rechecked": false,
+   "uncertain": []
+  },
+  {
+   "i": 46,
+   "template": "distribute",
+   "kind": "distribution",
+   "gt": 1,
+   "lines": [
+    "2(x+2)=18",
+    "2x+2=18",
+    "2x=16",
+    "x=8"
+   ],
+   "pred_line": 1,
+   "pred_flagged": true,
+   "mode": "cv-segmented",
+   "relations": [
+    "start",
+    "not_equivalent",
+    "not_equivalent",
+    "equivalent"
+   ],
+   "texts": [
+    "2(x+2)=16",
+    "2x+2=16",
+    "2x=16",
+    "x=8"
+   ],
+   "baseline": 2,
+   "reads_exact": [
+    false,
+    false,
+    true,
+    true
+   ],
+   "hard": false,
+   "rechecked": true,
+   "uncertain": []
+  },
+  {
+   "i": 47,
+   "template": "distribute",
+   "kind": "sign",
+   "gt": 1,
+   "lines": [
+    "-3(x-5)=18",
+    "-3x-15=18",
+    "-3x=33",
+    "x=-11"
+   ],
+   "pred_line": 1,
+   "pred_flagged": true,
+   "mode": "cv-segmented",
+   "relations": [
+    "start",
+    "not_equivalent",
+    "equivalent",
+    "equivalent"
+   ],
+   "texts": [
+    "-3(x-5)=18",
+    "-3x-15=18",
+    "-3x=33",
+    "x=-11"
+   ],
+   "baseline": 2,
+   "reads_exact": [
+    true,
+    true,
+    true,
+    true
+   ],
+   "hard": false,
+   "rechecked": true,
+   "uncertain": []
+  },
+  {
+   "i": 48,
+   "template": "distribute",
+   "kind": null,
+   "gt": null,
+   "lines": [
+    "5(x-5)=15",
+    "5x-25=15",
+    "5x=40",
+    "x=8"
+   ],
+   "pred_line": null,
+   "pred_flagged": false,
+   "mode": "cv-segmented",
+   "relations": [
+    "start",
+    "equivalent",
+    "equivalent",
+    "equivalent"
+   ],
+   "texts": [
+    "5(x-5)=15",
+    "5x-25=15",
+    "5x=40",
+    "x=8"
+   ],
+   "baseline": 0,
+   "reads_exact": [
+    true,
+    true,
+    true,
+    true
+   ],
+   "hard": true,
+   "rechecked": false,
+   "uncertain": []
+  },
+  {
+   "i": 49,
+   "template": "distribute",
+   "kind": "distribution",
+   "gt": 1,
+   "lines": [
+    "4(x-7)=-8",
+    "4x-7=-8",
+    "4x=-1",
+    "x=-1/4"
+   ],
+   "pred_line": 1,
+   "pred_flagged": true,
+   "mode": "cv-segmented",
+   "relations": [
+    "start",
+    "not_equivalent",
+    "equivalent",
+    "equivalent"
+   ],
+   "texts": [
+    "4/(x-7)=-8",
+    "4x-7=-8",
+    "4x=-1",
+    "x=-1/4"
+   ],
+   "baseline": 0,
+   "reads_exact": [
+    false,
+    true,
+    true,
+    true
+   ],
+   "hard": false,
+   "rechecked": true,
+   "uncertain": []
+  },
+  {
+   "i": 50,
+   "template": "distribute",
+   "kind": "sign",
+   "gt": 1,
+   "lines": [
+    "-3(x-4)=24",
+    "-3x-12=24",
+    "-3x=36",
+    "x=-12"
+   ],
+   "pred_line": 1,
+   "pred_flagged": true,
+   "mode": "cv-segmented",
+   "relations": [
+    "start",
+    "not_equivalent",
+    "equivalent",
+    "equivalent"
+   ],
+   "texts": [
+    "-3(x-4)=24",
+    "-3x-12=24",
+    "-3x=36",
+    "x=-12"
+   ],
+   "baseline": 2,
+   "reads_exact": [
+    true,
+    true,
+    true,
+    true
+   ],
+   "hard": false,
+   "rechecked": true,
+   "uncertain": []
+  },
+  {
+   "i": 51,
+   "template": "distribute",
+   "kind": null,
+   "gt": null,
+   "lines": [
+    "-2(x+1)=-18",
+    "-2x-2=-18",
+    "-2x=-16",
+    "x=8"
+   ],
+   "pred_line": null,
+   "pred_flagged": false,
+   "mode": "cv-segmented",
+   "relations": [
+    "start",
+    "equivalent",
+    "equivalent",
+    "equivalent"
+   ],
+   "texts": [
+    "-2(x+1)=-18",
+    "-2x-2=-18",
+    "-2x=-16",
+    "x=8"
+   ],
+   "baseline": 3,
+   "reads_exact": [
+    true,
+    true,
+    true,
+    true
+   ],
+   "hard": false,
+   "rechecked": false,
+   "uncertain": []
+  },
+  {
+   "i": 52,
+   "template": "distribute",
+   "kind": "distribution",
+   "gt": 1,
+   "lines": [
+    "5(x+4)=0",
+    "5x+4=0",
+    "5x=-4",
+    "x=-4/5"
+   ],
+   "pred_line": 1,
+   "pred_flagged": true,
+   "mode": "cv-segmented",
+   "relations": [
+    "start",
+    "not_equivalent",
+    "equivalent",
+    "equivalent"
+   ],
+   "texts": [
+    "5(x+4)=0",
+    "5x+4=0",
+    "5x=-4",
+    "x=-4/5"
+   ],
+   "baseline": 2,
+   "reads_exact": [
+    true,
+    true,
+    true,
+    true
+   ],
+   "hard": true,
+   "rechecked": true,
+   "uncertain": []
+  },
+  {
+   "i": 53,
+   "template": "distribute",
+   "kind": "sign",
+   "gt": 1,
+   "lines": [
+    "-2(x-3)=-2",
+    "-2x-6=-2",
+    "-2x=4",
+    "x=-2"
+   ],
+   "pred_line": 1,
+   "pred_flagged": true,
+   "mode": "cv-segmented",
+   "relations": [
+    "start",
+    "not_equivalent",
+    "equivalent",
+    "equivalent"
+   ],
+   "texts": [
+    "-2(x-3)=-2",
+    "-2x-6=-2",
+    "-2x=4",
+    "x=-2"
+   ],
+   "baseline": 2,
+   "reads_exact": [
+    true,
+    true,
+    true,
+    true
+   ],
+   "hard": false,
+   "rechecked": true,
+   "uncertain": []
+  },
+  {
+   "i": 54,
+   "template": "distribute",
+   "kind": null,
+   "gt": null,
+   "lines": [
+    "2(x-6)=-4",
+    "2x-12=-4",
+    "2x=8",
+    "x=4"
+   ],
+   "pred_line": null,
+   "pred_flagged": false,
+   "mode": "cv-segmented",
+   "relations": [
+    "start",
+    "equivalent",
+    "equivalent",
+    "equivalent"
+   ],
+   "texts": [
+    "2(x-6)=-4",
+    "2x-12=-4",
+    "2x=8",
+    "x=4"
+   ],
+   "baseline": 3,
+   "reads_exact": [
+    true,
+    true,
+    true,
+    true
+   ],
+   "hard": false,
+   "rechecked": false,
+   "uncertain": []
+  },
+  {
+   "i": 55,
+   "template": "distribute",
+   "kind": "distribution",
+   "gt": 1,
+   "lines": [
+    "2(x-8)=-10",
+    "2x-8=-10",
+    "2x=-2",
+    "x=-1"
+   ],
+   "pred_line": 1,
+   "pred_flagged": true,
+   "mode": "cv-segmented",
+   "relations": [
+    "start",
+    "not_equivalent",
+    "equivalent",
+    "equivalent"
+   ],
+   "texts": [
+    "2(x-8)=-10",
+    "2x-8=-10",
+    "2x=-2",
+    "x=-1"
+   ],
+   "baseline": 2,
+   "reads_exact": [
+    true,
+    true,
+    true,
+    true
+   ],
+   "hard": false,
+   "rechecked": true,
+   "uncertain": []
+  },
+  {
+   "i": 56,
+   "template": "distribute",
+   "kind": "sign",
+   "gt": 1,
+   "lines": [
+    "-3(x+3)=15",
+    "-3x+9=15",
+    "-3x=6",
+    "x=-2"
+   ],
+   "pred_line": 1,
+   "pred_flagged": true,
+   "mode": "cv-segmented",
+   "relations": [
+    "start",
+    "not_equivalent",
+    "not_equivalent",
+    "equivalent"
+   ],
+   "texts": [
+    "-3(x+3)=15",
+    "-3x+1=15",
+    "-3x=6",
+    "x=-2"
+   ],
+   "baseline": 2,
+   "reads_exact": [
+    true,
+    false,
+    true,
+    true
+   ],
+   "hard": true,
+   "rechecked": true,
+   "uncertain": []
+  },
+  {
+   "i": 57,
+   "template": "distribute",
+   "kind": null,
+   "gt": null,
+   "lines": [
+    "2(x+8)=30",
+    "2x+16=30",
+    "2x=14",
+    "x=7"
+   ],
+   "pred_line": null,
+   "pred_flagged": false,
+   "mode": "cv-segmented",
+   "relations": [
+    "start",
+    "equivalent",
+    "equivalent",
+    "equivalent"
+   ],
+   "texts": [
+    "2(x+8)=30",
+    "2x+16=30",
+    "2x=14",
+    "x=7"
+   ],
+   "baseline": 0,
+   "reads_exact": [
+    true,
+    true,
+    true,
+    true
+   ],
+   "hard": false,
+   "rechecked": false,
+   "uncertain": []
+  },
+  {
+   "i": 58,
+   "template": "distribute",
+   "kind": "distribution",
+   "gt": 1,
+   "lines": [
+    "4(x+1)=28",
+    "4x+1=28",
+    "4x=27",
+    "x=27/4"
+   ],
+   "pred_line": 1,
+   "pred_flagged": true,
+   "mode": "cv-segmented",
+   "relations": [
+    "start",
+    "not_equivalent",
+    "equivalent",
+    "equivalent"
+   ],
+   "texts": [
+    "4(x+1)=28",
+    "4x+1=28",
+    "4x=27",
+    "x=27/4"
+   ],
+   "baseline": 2,
+   "reads_exact": [
+    true,
+    true,
+    true,
+    true
+   ],
+   "hard": false,
+   "rechecked": true,
+   "uncertain": []
+  },
+  {
+   "i": 59,
+   "template": "distribute",
+   "kind": "sign",
+   "gt": 2,
+   "lines": [
+    "4(x-6)=4",
+    "4x-24=4",
+    "4x=-20",
+    "x=-5"
+   ],
+   "pred_line": 2,
+   "pred_flagged": true,
+   "mode": "cv-segmented",
+   "relations": [
+    "start",
+    "equivalent",
+    "not_equivalent",
+    "equivalent"
+   ],
+   "texts": [
+    "4(x-6)=4",
+    "4x-24=4",
+    "4x=-20",
+    "x=-5"
+   ],
+   "baseline": 3,
+   "reads_exact": [
+    true,
+    true,
+    true,
+    true
+   ],
+   "hard": false,
+   "rechecked": true,
+   "uncertain": []
+  },
+  {
+   "i": 60,
+   "template": "both_sides",
+   "kind": null,
+   "gt": null,
+   "lines": [
+    "9x-5=6x+7",
+    "3x=12",
+    "x=4"
+   ],
+   "pred_line": null,
+   "pred_flagged": false,
+   "mode": "cv-segmented",
+   "relations": [
+    "start",
+    "equivalent",
+    "equivalent"
+   ],
+   "texts": [
+    "9x-5=6x+7",
+    "3x=12",
+    "x=4"
+   ],
+   "baseline": 0,
+   "reads_exact": [
+    true,
+    true,
+    true
+   ],
+   "hard": true,
+   "rechecked": false,
+   "uncertain": []
+  },
+  {
+   "i": 61,
+   "template": "both_sides",
+   "kind": "sign",
+   "gt": 1,
+   "lines": [
+    "4x-4=6x-10",
+    "10x=-6",
+    "x=-3/5"
+   ],
+   "pred_line": 1,
+   "pred_flagged": true,
+   "mode": "cv-segmented",
+   "relations": [
+    "start",
+    "not_equivalent",
+    "equivalent"
+   ],
+   "texts": [
+    "4x-4=6x-10",
+    "10x=-6",
+    "x=-3/5"
+   ],
+   "baseline": 2,
+   "reads_exact": [
+    true,
+    true,
+    true
+   ],
+   "hard": false,
+   "rechecked": true,
+   "uncertain": []
+  },
+  {
+   "i": 62,
+   "template": "both_sides",
+   "kind": "dropped_term",
+   "gt": 1,
+   "lines": [
+    "8x+5=6x+3",
+    "2x=3",
+    "x=3/2"
+   ],
+   "pred_line": 1,
+   "pred_flagged": true,
+   "mode": "cv-segmented",
+   "relations": [
+    "start",
+    "not_equivalent",
+    "equivalent"
+   ],
+   "texts": [
+    "8x+5=6x+3",
+    "2x=3",
+    "x=3/2"
+   ],
+   "baseline": 2,
+   "reads_exact": [
+    true,
+    true,
+    true
+   ],
+   "hard": false,
+   "rechecked": true,
+   "uncertain": []
+  },
+  {
+   "i": 63,
+   "template": "both_sides",
+   "kind": "arithmetic",
+   "gt": 1,
+   "lines": [
+    "5x-8=7x-20",
+    "-2x=-9",
+    "x=9/2"
+   ],
+   "pred_line": 1,
+   "pred_flagged": true,
+   "mode": "cv-segmented",
+   "relations": [
+    "start",
+    "not_equivalent",
+    "equivalent"
+   ],
+   "texts": [
+    "5x-8=7x-20",
+    "-2x=-9",
+    "x=9/2"
+   ],
+   "baseline": 0,
+   "reads_exact": [
+    true,
+    true,
+    true
+   ],
+   "hard": false,
+   "rechecked": true,
+   "uncertain": []
+  },
+  {
+   "i": 64,
+   "template": "both_sides",
+   "kind": null,
+   "gt": null,
+   "lines": [
+    "2x-5=3x-10",
+    "-x=-5",
+    "x=5"
+   ],
+   "pred_line": null,
+   "pred_flagged": false,
+   "mode": "cv-segmented",
+   "relations": [
+    "start",
+    "equivalent",
+    "equivalent"
+   ],
+   "texts": [
+    "2x-5=3x-10",
+    "-x=-5",
+    "x=5"
+   ],
+   "baseline": 2,
+   "reads_exact": [
+    true,
+    true,
+    true
+   ],
+   "hard": true,
+   "rechecked": false,
+   "uncertain": []
+  },
+  {
+   "i": 65,
+   "template": "both_sides",
+   "kind": "sign",
+   "gt": 1,
+   "lines": [
+    "2x-9=7x-24",
+    "9x=-15",
+    "x=-5/3"
+   ],
+   "pred_line": 1,
+   "pred_flagged": true,
+   "mode": "cv-segmented",
+   "relations": [
+    "start",
+    "not_equivalent",
+    "equivalent"
+   ],
+   "texts": [
+    "2x-9=7x-24",
+    "9x=-15",
+    "x=-5/3"
+   ],
+   "baseline": 2,
+   "reads_exact": [
+    true,
+    true,
+    true
+   ],
+   "hard": false,
+   "rechecked": true,
+   "uncertain": []
+  },
+  {
+   "i": 66,
+   "template": "both_sides",
+   "kind": "dropped_term",
+   "gt": 1,
+   "lines": [
+    "9x-4=8x+1",
+    "x=1",
+    "x=1"
+   ],
+   "pred_line": 1,
+   "pred_flagged": true,
+   "mode": "cv-segmented",
+   "relations": [
+    "start",
+    "not_equivalent",
+    "equivalent"
+   ],
+   "texts": [
+    "9x-4=8x+1",
+    "x=1",
+    "x=1"
+   ],
+   "baseline": 2,
+   "reads_exact": [
+    true,
+    true,
+    true
+   ],
+   "hard": false,
+   "rechecked": true,
+   "uncertain": []
+  },
+  {
+   "i": 67,
+   "template": "both_sides",
+   "kind": "arithmetic",
+   "gt": 1,
+   "lines": [
+    "9x-10=7x",
+    "2x=9",
+    "x=9/2"
+   ],
+   "pred_line": 1,
+   "pred_flagged": true,
+   "mode": "cv-segmented",
+   "relations": [
+    "start",
+    "not_equivalent",
+    "equivalent"
+   ],
+   "texts": [
+    "9x-10=7x",
+    "2x=9",
+    "x=9/2"
+   ],
+   "baseline": 0,
+   "reads_exact": [
+    true,
+    true,
+    true
+   ],
+   "hard": false,
+   "rechecked": true,
+   "uncertain": []
+  },
+  {
+   "i": 68,
+   "template": "both_sides",
+   "kind": null,
+   "gt": null,
+   "lines": [
+    "5x-6=8x-15",
+    "-3x=-9",
+    "x=3"
+   ],
+   "pred_line": null,
+   "pred_flagged": false,
+   "mode": "cv-segmented",
+   "relations": [
+    "start",
+    "equivalent",
+    "equivalent"
+   ],
+   "texts": [
+    "5x-6=8x-15",
+    "-3x=-9",
+    "x=3"
+   ],
+   "baseline": 2,
+   "reads_exact": [
+    true,
+    true,
+    true
+   ],
+   "hard": true,
+   "rechecked": false,
+   "uncertain": []
+  },
+  {
+   "i": 69,
+   "template": "both_sides",
+   "kind": "sign",
+   "gt": 1,
+   "lines": [
+    "4x+3=7x+15",
+    "11x=12",
+    "x=12/11"
+   ],
+   "pred_line": 1,
+   "pred_flagged": true,
+   "mode": "cv-segmented",
+   "relations": [
+    "start",
+    "not_equivalent",
+    "equivalent"
+   ],
+   "texts": [
+    "4x+3=7x+15",
+    "11x=12",
+    "x=12/11"
+   ],
+   "baseline": 2,
+   "reads_exact": [
+    true,
+    true,
+    true
+   ],
+   "hard": false,
+   "rechecked": true,
+   "uncertain": []
+  },
+  {
+   "i": 70,
+   "template": "both_sides",
+   "kind": "dropped_term",
+   "gt": 1,
+   "lines": [
+    "6x+4=5x+7",
+    "x=7",
+    "x=7"
+   ],
+   "pred_line": 1,
+   "pred_flagged": true,
+   "mode": "cv-segmented",
+   "relations": [
+    "start",
+    "not_equivalent",
+    "equivalent"
+   ],
+   "texts": [
+    "6x+7=5x+7",
+    "x=7",
+    "x=7"
+   ],
+   "baseline": 2,
+   "reads_exact": [
+    false,
+    true,
+    true
+   ],
+   "hard": false,
+   "rechecked": true,
+   "uncertain": []
+  },
+  {
+   "i": 71,
+   "template": "both_sides",
+   "kind": "arithmetic",
+   "gt": 1,
+   "lines": [
+    "3x-5=5x-1",
+    "-2x=5",
+    "x=-5/2"
+   ],
+   "pred_line": 1,
+   "pred_flagged": true,
+   "mode": "cv-segmented",
+   "relations": [
+    "start",
+    "not_equivalent",
+    "equivalent"
+   ],
+   "texts": [
+    "3x-5=5x-1",
+    "-2x=5",
+    "x=-5/2"
+   ],
+   "baseline": 2,
+   "reads_exact": [
+    true,
+    true,
+    true
+   ],
+   "hard": false,
+   "rechecked": true,
+   "uncertain": []
+  },
+  {
+   "i": 72,
+   "template": "both_sides",
+   "kind": null,
+   "gt": null,
+   "lines": [
+    "4x+6=9x-4",
+    "-5x=-10",
+    "x=2"
+   ],
+   "pred_line": null,
+   "pred_flagged": false,
+   "mode": "cv-segmented",
+   "relations": [
+    "start",
+    "equivalent",
+    "equivalent"
+   ],
+   "texts": [
+    "4x+6=9x-4",
+    "-5x=-10",
+    "x=2"
+   ],
+   "baseline": 0,
+   "reads_exact": [
+    true,
+    true,
+    true
+   ],
+   "hard": true,
+   "rechecked": false,
+   "uncertain": []
+  },
+  {
+   "i": 73,
+   "template": "both_sides",
+   "kind": "sign",
+   "gt": 1,
+   "lines": [
+    "8x-5=4x+3",
+    "12x=8",
+    "x=2/3"
+   ],
+   "pred_line": 1,
+   "pred_flagged": true,
+   "mode": "cv-segmented",
+   "relations": [
+    "start",
+    "not_equivalent",
+    "equivalent"
+   ],
+   "texts": [
+    "8x-5=4x+3",
+    "12x=8",
+    "x=2/3"
+   ],
+   "baseline": 2,
+   "reads_exact": [
+    true,
+    true,
+    true
+   ],
+   "hard": false,
+   "rechecked": true,
+   "uncertain": []
+  },
+  {
+   "i": 74,
+   "template": "both_sides",
+   "kind": "dropped_term",
+   "gt": 1,
+   "lines": [
+    "7x+5=6x+7",
+    "x=7",
+    "x=7"
+   ],
+   "pred_line": 1,
+   "pred_flagged": true,
+   "mode": "cv-segmented",
+   "relations": [
+    "start",
+    "not_equivalent",
+    "equivalent"
+   ],
+   "texts": [
+    "7x+5=6x+7",
+    "x=7",
+    "x=7"
+   ],
+   "baseline": 2,
+   "reads_exact": [
+    true,
+    true,
+    true
+   ],
+   "hard": false,
+   "rechecked": true,
+   "uncertain": []
+  },
+  {
+   "i": 75,
+   "template": "both_sides",
+   "kind": "arithmetic",
+   "gt": 1,
+   "lines": [
+    "3x-2=6x-11",
+    "-3x=-12",
+    "x=4"
+   ],
+   "pred_line": 1,
+   "pred_flagged": true,
+   "mode": "cv-segmented",
+   "relations": [
+    "start",
+    "not_equivalent",
+    "equivalent"
+   ],
+   "texts": [
+    "3x-2=6x-11",
+    "-3x=-12",
+    "x=4"
+   ],
+   "baseline": 2,
+   "reads_exact": [
+    true,
+    true,
+    true
+   ],
+   "hard": false,
+   "rechecked": true,
+   "uncertain": []
+  },
+  {
+   "i": 76,
+   "template": "both_sides",
+   "kind": null,
+   "gt": null,
+   "lines": [
+    "5x-8=3x-20",
+    "2x=-12",
+    "x=-6"
+   ],
+   "pred_line": null,
+   "pred_flagged": false,
+   "mode": "cv-segmented",
+   "relations": [
+    "start",
+    "equivalent",
+    "equivalent"
+   ],
+   "texts": [
+    "5x-8=3x-20",
+    "2x=-12",
+    "x=-6"
+   ],
+   "baseline": 0,
+   "reads_exact": [
+    true,
+    true,
+    true
+   ],
+   "hard": true,
+   "rechecked": false,
+   "uncertain": []
+  },
+  {
+   "i": 77,
+   "template": "both_sides",
+   "kind": "sign",
+   "gt": 1,
+   "lines": [
+    "9x+4=7x+2",
+    "16x=-2",
+    "x=-1/8"
+   ],
+   "pred_line": 1,
+   "pred_flagged": true,
+   "mode": "cv-segmented",
+   "relations": [
+    "start",
+    "not_equivalent",
+    "equivalent"
+   ],
+   "texts": [
+    "9x+4=7x+2",
+    "16x=-2",
+    "x=-1/8"
+   ],
+   "baseline": 2,
+   "reads_exact": [
+    true,
+    true,
+    true
+   ],
+   "hard": false,
+   "rechecked": true,
+   "uncertain": []
+  },
+  {
+   "i": 78,
+   "template": "both_sides",
+   "kind": "dropped_term",
+   "gt": 1,
+   "lines": [
+    "4x-5=2x-7",
+    "2x=-7",
+    "x=-7/2"
+   ],
+   "pred_line": 1,
+   "pred_flagged": true,
+   "mode": "cv-segmented",
+   "relations": [
+    "start",
+    "not_equivalent",
+    "equivalent"
+   ],
+   "texts": [
+    "4x-5=2x-7",
+    "2x=-7",
+    "x=-7/2"
+   ],
+   "baseline": 2,
+   "reads_exact": [
+    true,
+    true,
+    true
+   ],
+   "hard": false,
+   "rechecked": true,
+   "uncertain": []
+  },
+  {
+   "i": 79,
+   "template": "both_sides",
+   "kind": "arithmetic",
+   "gt": 1,
+   "lines": [
+    "7x+9=6x+14",
+    "x=4",
+    "x=4"
+   ],
+   "pred_line": 1,
+   "pred_flagged": true,
+   "mode": "cv-segmented",
+   "relations": [
+    "start",
+    "not_equivalent",
+    "equivalent"
+   ],
+   "texts": [
+    "7x+9=6x+14",
+    "x=4",
+    "x=4"
+   ],
+   "baseline": 0,
+   "reads_exact": [
+    true,
+    true,
+    true
+   ],
+   "hard": false,
+   "rechecked": true,
+   "uncertain": []
+  },
+  {
+   "i": 80,
+   "template": "both_sides",
+   "kind": null,
+   "gt": null,
+   "lines": [
+    "3x-2=6x-20",
+    "-3x=-18",
+    "x=6"
+   ],
+   "pred_line": null,
+   "pred_flagged": false,
+   "mode": "cv-segmented",
+   "relations": [
+    "start",
+    "equivalent",
+    "equivalent"
+   ],
+   "texts": [
+    "3x-2=6x-20",
+    "-3x=-18",
+    "x=6"
+   ],
+   "baseline": 2,
+   "reads_exact": [
+    true,
+    true,
+    true
+   ],
+   "hard": true,
+   "rechecked": false,
+   "uncertain": []
+  },
+  {
+   "i": 81,
+   "template": "both_sides",
+   "kind": "sign",
+   "gt": 1,
+   "lines": [
+    "5x+9=6x+11",
+    "11x=2",
+    "x=2/11"
+   ],
+   "pred_line": 1,
+   "pred_flagged": true,
+   "mode": "cv-segmented",
+   "relations": [
+    "start",
+    "not_equivalent",
+    "equivalent"
+   ],
+   "texts": [
+    "5x+9=6x+11",
+    "11x=2",
+    "x=2/11"
+   ],
+   "baseline": 2,
+   "reads_exact": [
+    true,
+    true,
+    true
+   ],
+   "hard": false,
+   "rechecked": true,
+   "uncertain": []
+  },
+  {
+   "i": 82,
+   "template": "both_sides",
+   "kind": "dropped_term",
+   "gt": 1,
+   "lines": [
+    "6x-6=7x-9",
+    "-x=-9",
+    "x=9"
+   ],
+   "pred_line": 1,
+   "pred_flagged": true,
+   "mode": "cv-segmented",
+   "relations": [
+    "start",
+    "not_equivalent",
+    "equivalent"
+   ],
+   "texts": [
+    "6x-6=7x-9",
+    "-2x=-9",
+    "2x=9"
+   ],
+   "baseline": 2,
+   "reads_exact": [
+    true,
+    false,
+    false
+   ],
+   "hard": false,
+   "rechecked": true,
+   "uncertain": []
+  },
+  {
+   "i": 83,
+   "template": "both_sides",
+   "kind": "arithmetic",
+   "gt": 1,
+   "lines": [
+    "3x-7=8x+3",
+    "-5x=13",
+    "x=-13/5"
+   ],
+   "pred_line": 1,
+   "pred_flagged": true,
+   "mode": "cv-segmented",
+   "relations": [
+    "start",
+    "not_equivalent",
+    "equivalent"
+   ],
+   "texts": [
+    "3x-7=8x+3",
+    "-5x=13",
+    "x=-13/5"
+   ],
+   "baseline": 2,
+   "reads_exact": [
+    true,
+    true,
+    true
+   ],
+   "hard": false,
+   "rechecked": true,
+   "uncertain": []
+  },
+  {
+   "i": 84,
+   "template": "both_sides",
+   "kind": null,
+   "gt": null,
+   "lines": [
+    "4x-9=2x+1",
+    "2x=10",
+    "x=5"
+   ],
+   "pred_line": null,
+   "pred_flagged": false,
+   "mode": "cv-segmented",
+   "relations": [
+    "start",
+    "equivalent",
+    "equivalent"
+   ],
+   "texts": [
+    "4x-9=2x+1",
+    "2x=10",
+    "x=5"
+   ],
+   "baseline": 2,
+   "reads_exact": [
+    true,
+    true,
+    true
+   ],
+   "hard": true,
+   "rechecked": false,
+   "uncertain": []
+  },
+  {
+   "i": 85,
+   "template": "both_sides",
+   "kind": "sign",
+   "gt": 1,
+   "lines": [
+    "7x-7=9x+1",
+    "16x=8",
+    "x=1/2"
+   ],
+   "pred_line": null,
+   "pred_flagged": false,
+   "mode": "cv-segmented",
+   "relations": [
+    "unreadable",
+    "unreadable",
+    "start"
+   ],
+   "texts": [
+    "7x-7=9x+1",
+    "6x=8",
+    "x=1/2"
+   ],
+   "baseline": 2,
+   "reads_exact": [
+    true,
+    false,
+    true
+   ],
+   "hard": false,
+   "rechecked": true,
+   "uncertain": [
+    0,
+    1
+   ]
+  },
+  {
+   "i": 86,
+   "template": "both_sides",
+   "kind": "dropped_term",
+   "gt": 1,
+   "lines": [
+    "7x-8=4x+4",
+    "3x=4",
+    "x=4/3"
+   ],
+   "pred_line": null,
+   "pred_flagged": false,
+   "mode": "cv-segmented",
+   "relations": [
+    "unreadable",
+    "start",
+    "equivalent"
+   ],
+   "texts": [
+    "7x-8=4x+4",
+    "3x=4",
+    "x=4/3"
+   ],
+   "baseline": 2,
+   "reads_exact": [
+    true,
+    true,
+    true
+   ],
+   "hard": false,
+   "rechecked": true,
+   "uncertain": [
+    0
+   ]
+  },
+  {
+   "i": 87,
+   "template": "both_sides",
+   "kind": "arithmetic",
+   "gt": 1,
+   "lines": [
+    "6x-2=4x-10",
+    "2x=-7",
+    "x=-7/2"
+   ],
+   "pred_line": 1,
+   "pred_flagged": true,
+   "mode": "cv-segmented",
+   "relations": [
+    "start",
+    "not_equivalent",
+    "equivalent"
+   ],
+   "texts": [
+    "6x-2=4x-10",
+    "2x=-7",
+    "x=-7/2"
+   ],
+   "baseline": 2,
+   "reads_exact": [
+    true,
+    true,
+    true
+   ],
+   "hard": false,
+   "rechecked": true,
+   "uncertain": []
+  },
+  {
+   "i": 88,
+   "template": "both_sides",
+   "kind": null,
+   "gt": null,
+   "lines": [
+    "3x-2=2x-1",
+    "x=1",
+    "x=1"
+   ],
+   "pred_line": null,
+   "pred_flagged": false,
+   "mode": "cv-segmented",
+   "relations": [
+    "start",
+    "equivalent",
+    "equivalent"
+   ],
+   "texts": [
+    "3x-2=2x-1",
+    "x=1",
+    "x=1"
+   ],
+   "baseline": 2,
+   "reads_exact": [
+    true,
+    true,
+    true
+   ],
+   "hard": true,
+   "rechecked": false,
+   "uncertain": []
+  },
+  {
+   "i": 89,
+   "template": "both_sides",
+   "kind": "sign",
+   "gt": 1,
+   "lines": [
+    "8x-7=2x-43",
+    "10x=-36",
+    "x=-18/5"
+   ],
+   "pred_line": 1,
+   "pred_flagged": true,
+   "mode": "cv-segmented",
+   "relations": [
+    "start",
+    "not_equivalent",
+    "equivalent"
+   ],
+   "texts": [
+    "8x-7=2x-43",
+    "10x=-36",
+    "x=-18/5"
+   ],
+   "baseline": 2,
+   "reads_exact": [
+    true,
+    true,
+    true
+   ],
+   "hard": false,
+   "rechecked": true,
+   "uncertain": []
+  },
+  {
+   "i": 90,
+   "template": "quadratic",
+   "kind": null,
+   "gt": null,
+   "lines": [
+    "x^2+11x+28=0",
+    "(x+4)(x+7)=0",
+    "x=-4 or x=-7"
+   ],
+   "pred_line": null,
+   "pred_flagged": false,
+   "mode": "cv-segmented",
+   "relations": [
+    "start",
+    "equivalent",
+    "equivalent"
+   ],
+   "texts": [
+    "x^2+11x+28=0",
+    "(x+4)(x+7)=0",
+    "x=-4 or x=-7"
+   ],
+   "baseline": 2,
+   "reads_exact": [
+    true,
+    true,
+    true
+   ],
+   "hard": false,
+   "rechecked": false,
+   "uncertain": []
+  },
+  {
+   "i": 91,
+   "template": "quadratic",
+   "kind": "sign",
+   "gt": 1,
+   "lines": [
+    "x^2+9x+18=0",
+    "(x-3)(x-6)=0",
+    "x=3 or x=6"
+   ],
+   "pred_line": 1,
+   "pred_flagged": true,
+   "mode": "cv-segmented",
+   "relations": [
+    "start",
+    "not_equivalent",
+    "prose"
+   ],
+   "texts": [
+    "x^2+9x+10=0",
+    "(x-3)(x-6)=0",
+    "x=3 or x=6"
+   ],
+   "baseline": 2,
+   "reads_exact": [
+    false,
+    true,
+    true
+   ],
+   "hard": false,
+   "rechecked": true,
+   "uncertain": []
+  },
+  {
+   "i": 92,
+   "template": "quadratic",
+   "kind": "lost_solution",
+   "gt": 2,
+   "lines": [
+    "x^2+2x-24=0",
+    "(x+6)(x-4)=0",
+    "x=-6"
+   ],
+   "pred_line": 2,
+   "pred_flagged": true,
+   "mode": "cv-segmented",
+   "relations": [
+    "start",
+    "equivalent",
+    "not_equivalent"
+   ],
+   "texts": [
+    "x^2+2x-24=0",
+    "(x+6)(x-4)=0",
+    "x=-6"
+   ],
+   "baseline": 3,
+   "reads_exact": [
+    true,
+    true,
+    true
+   ],
+   "hard": true,
+   "rechecked": true,
+   "uncertain": []
+  },
+  {
+   "i": 93,
+   "template": "quadratic",
+   "kind": "sign",
+   "gt": 2,
+   "lines": [
+    "x^2-5x+6=0",
+    "(x-2)(x-3)=0",
+    "x=-2 or x=-3"
+   ],
+   "pred_line": 2,
+   "pred_flagged": true,
+   "mode": "cv-segmented",
+   "relations": [
+    "start",
+    "equivalent",
+    "not_equivalent"
+   ],
+   "texts": [
+    "x^2-5x+6=0",
+    "(x-2)(x-3)=0",
+    "x=-2 or x=-3"
+   ],
+   "baseline": 0,
+   "reads_exact": [
+    true,
+    true,
+    true
+   ],
+   "hard": false,
+   "rechecked": true,
+   "uncertain": []
+  },
+  {
+   "i": 94,
+   "template": "quadratic",
+   "kind": null,
+   "gt": null,
+   "lines": [
+    "x^2-5x-14=0",
+    "(x-7)(x+2)=0",
+    "x=7 or x=-2"
+   ],
+   "pred_line": null,
+   "pred_flagged": false,
+   "mode": "cv-segmented",
+   "relations": [
+    "start",
+    "equivalent",
+    "equivalent"
+   ],
+   "texts": [
+    "x^2-5x-14=0",
+    "(x-7)(x+2)=0",
+    "x=7 or x=-2"
+   ],
+   "baseline": 0,
+   "reads_exact": [
+    true,
+    true,
+    true
+   ],
+   "hard": false,
+   "rechecked": false,
+   "uncertain": []
+  },
+  {
+   "i": 95,
+   "template": "quadratic",
+   "kind": "sign",
+   "gt": 1,
+   "lines": [
+    "x^2-4x-12=0",
+    "(x-2)(x+6)=0",
+    "x=2 or x=-6"
+   ],
+   "pred_line": 1,
+   "pred_flagged": true,
+   "mode": "cv-segmented",
+   "relations": [
+    "start",
+    "not_equivalent",
+    "equivalent"
+   ],
+   "texts": [
+    "x^2-4x-12=0",
+    "(x-2)(x+6)=0",
+    "x=2 or x=-6"
+   ],
+   "baseline": 2,
+   "reads_exact": [
+    true,
+    true,
+    true
+   ],
+   "hard": false,
+   "rechecked": true,
+   "uncertain": []
+  },
+  {
+   "i": 96,
+   "template": "quadratic",
+   "kind": "lost_solution",
+   "gt": 2,
+   "lines": [
+    "x^2-4x+3=0",
+    "(x-1)(x-3)=0",
+    "x=1"
+   ],
+   "pred_line": 2,
+   "pred_flagged": true,
+   "mode": "cv-segmented",
+   "relations": [
+    "start",
+    "equivalent",
+    "not_equivalent"
+   ],
+   "texts": [
+    "x^2-4x+3=0",
+    "(x-1)(x-3)=0",
+    "x=1"
+   ],
+   "baseline": 3,
+   "reads_exact": [
+    true,
+    true,
+    true
+   ],
+   "hard": true,
+   "rechecked": true,
+   "uncertain": []
+  },
+  {
+   "i": 97,
+   "template": "quadratic",
+   "kind": "sign",
+   "gt": 2,
+   "lines": [
+    "x^2-11x+28=0",
+    "(x-4)(x-7)=0",
+    "x=-4 or x=-7"
+   ],
+   "pred_line": 2,
+   "pred_flagged": true,
+   "mode": "cv-segmented",
+   "relations": [
+    "start",
+    "equivalent",
+    "not_equivalent"
+   ],
+   "texts": [
+    "x^2-11x+28=0",
+    "(x-4)(x-7)=0",
+    "x=-4 or x=-7"
+   ],
+   "baseline": 3,
+   "reads_exact": [
+    true,
+    true,
+    true
+   ],
+   "hard": false,
+   "rechecked": true,
+   "uncertain": []
+  },
+  {
+   "i": 98,
+   "template": "quadratic",
+   "kind": null,
+   "gt": null,
+   "lines": [
+    "x^2-8x+15=0",
+    "(x-5)(x-3)=0",
+    "x=5 or x=3"
+   ],
+   "pred_line": null,
+   "pred_flagged": false,
+   "mode": "cv-segmented",
+   "relations": [
+    "start",
+    "equivalent",
+    "equivalent"
+   ],
+   "texts": [
+    "x^2-8x+15=0",
+    "(x-5)(x-3)=0",
+    "x=5 or x=3"
+   ],
+   "baseline": 0,
+   "reads_exact": [
+    true,
+    true,
+    true
+   ],
+   "hard": false,
+   "rechecked": false,
+   "uncertain": []
+  },
+  {
+   "i": 99,
+   "template": "quadratic",
+   "kind": "sign",
+   "gt": 1,
+   "lines": [
+    "x^2+8x+7=0",
+    "(x-7)(x-1)=0",
+    "x=7 or x=1"
+   ],
+   "pred_line": 1,
+   "pred_flagged": true,
+   "mode": "cv-segmented",
+   "relations": [
+    "start",
+    "not_equivalent",
+    "equivalent"
+   ],
+   "texts": [
+    "x^2+8x+7=0",
+    "(x-7)(x-1)=0",
+    "x=7 or x=1"
+   ],
+   "baseline": 2,
+   "reads_exact": [
+    true,
+    true,
+    true
+   ],
+   "hard": false,
+   "rechecked": true,
+   "uncertain": []
+  },
+  {
+   "i": 100,
+   "template": "quadratic",
+   "kind": "lost_solution",
+   "gt": 2,
+   "lines": [
+    "x^2-x-6=0",
+    "(x+2)(x-3)=0",
+    "x=-2"
+   ],
+   "pred_line": 2,
+   "pred_flagged": true,
+   "mode": "cv-segmented",
+   "relations": [
+    "start",
+    "equivalent",
+    "not_equivalent"
+   ],
+   "texts": [
+    "x^2-x-6=0",
+    "(x+2)(x-3)=0",
+    "x=-2"
+   ],
+   "baseline": 3,
+   "reads_exact": [
+    true,
+    true,
+    true
+   ],
+   "hard": true,
+   "rechecked": true,
+   "uncertain": []
+  },
+  {
+   "i": 101,
+   "template": "quadratic",
+   "kind": "sign",
+   "gt": 2,
+   "lines": [
+    "x^2+x-12=0",
+    "(x+4)(x-3)=0",
+    "x=4 or x=-3"
+   ],
+   "pred_line": 2,
+   "pred_flagged": true,
+   "mode": "cv-segmented",
+   "relations": [
+    "start",
+    "equivalent",
+    "not_equivalent"
+   ],
+   "texts": [
+    "x^2+x-12=0",
+    "(x+4)(x-3)=0",
+    "x=4 or x=-3"
+   ],
+   "baseline": 2,
+   "reads_exact": [
+    true,
+    true,
+    true
+   ],
+   "hard": false,
+   "rechecked": true,
+   "uncertain": []
+  },
+  {
+   "i": 102,
+   "template": "quadratic",
+   "kind": null,
+   "gt": null,
+   "lines": [
+    "x^2+2x-24=0",
+    "(x-4)(x+6)=0",
+    "x=4 or x=-6"
+   ],
+   "pred_line": null,
+   "pred_flagged": false,
+   "mode": "cv-segmented",
+   "relations": [
+    "start",
+    "equivalent",
+    "equivalent"
+   ],
+   "texts": [
+    "x^2+2x-24=0",
+    "(x-4)(x+6)=0",
+    "x=4 or x=-6"
+   ],
+   "baseline": 0,
+   "reads_exact": [
+    true,
+    true,
+    true
+   ],
+   "hard": false,
+   "rechecked": false,
+   "uncertain": []
+  },
+  {
+   "i": 103,
+   "template": "quadratic",
+   "kind": "sign",
+   "gt": 1,
+   "lines": [
+    "x^2-2x-8=0",
+    "(x+4)(x-2)=0",
+    "x=-4 or x=2"
+   ],
+   "pred_line": 1,
+   "pred_flagged": true,
+   "mode": "cv-segmented",
+   "relations": [
+    "start",
+    "not_equivalent",
+    "prose"
+   ],
+   "texts": [
+    "x^2-2x-8=0",
+    "(x+4)(x-2)=0",
+    "x=-4 or x=2"
+   ],
+   "baseline": 2,
+   "reads_exact": [
+    true,
+    true,
+    true
+   ],
+   "hard": false,
+   "rechecked": true,
+   "uncertain": []
+  },
+  {
+   "i": 104,
+   "template": "quadratic",
+   "kind": "lost_solution",
+   "gt": 2,
+   "lines": [
+    "x^2-9x+14=0",
+    "(x-7)(x-2)=0",
+    "x=7"
+   ],
+   "pred_line": 2,
+   "pred_flagged": true,
+   "mode": "cv-segmented",
+   "relations": [
+    "start",
+    "equivalent",
+    "not_equivalent"
+   ],
+   "texts": [
+    "x^2-9x+14=0",
+    "(x-7)(x-2)=0",
+    "x=7"
+   ],
+   "baseline": 3,
+   "reads_exact": [
+    true,
+    true,
+    true
+   ],
+   "hard": true,
+   "rechecked": true,
+   "uncertain": []
+  },
+  {
+   "i": 105,
+   "template": "quadratic",
+   "kind": "sign",
+   "gt": 2,
+   "lines": [
+    "x^2-x-12=0",
+    "(x-4)(x+3)=0",
+    "x=-4 or x=3"
+   ],
+   "pred_line": 2,
+   "pred_flagged": true,
+   "mode": "cv-segmented",
+   "relations": [
+    "start",
+    "equivalent",
+    "not_equivalent"
+   ],
+   "texts": [
+    "x^2-x-12=0",
+    "(x-4)(x+3)=0",
+    "x=-4 or x=3"
+   ],
+   "baseline": 2,
+   "reads_exact": [
+    true,
+    true,
+    true
+   ],
+   "hard": false,
+   "rechecked": true,
+   "uncertain": []
+  },
+  {
+   "i": 106,
+   "template": "quadratic",
+   "kind": null,
+   "gt": null,
+   "lines": [
+    "x^2+4x+3=0",
+    "(x+1)(x+3)=0",
+    "x=-1 or x=-3"
+   ],
+   "pred_line": 2,
+   "pred_flagged": true,
+   "mode": "cv-segmented",
+   "relations": [
+    "start",
+    "equivalent",
+    "not_equivalent"
+   ],
+   "texts": [
+    "x^2+4x+3=0",
+    "(x+1)(x+3)=0",
+    "x=-1 v x=-3"
+   ],
+   "baseline": 0,
+   "reads_exact": [
+    true,
+    true,
+    false
+   ],
+   "hard": false,
+   "rechecked": true,
+   "uncertain": []
+  },
+  {
+   "i": 107,
+   "template": "quadratic",
+   "kind": "sign",
+   "gt": 1,
+   "lines": [
+    "x^2-5x-14=0",
+    "(x+7)(x-2)=0",
+    "x=-7 or x=2"
+   ],
+   "pred_line": null,
+   "pred_flagged": false,
+   "mode": "cv-segmented",
+   "relations": [
+    "unreadable",
+    "start",
+    "equivalent"
+   ],
+   "texts": [
+    "x^2-5x-14=0",
+    "(x+7)(x-2)=0",
+    "x=-7 or x=2"
+   ],
+   "baseline": 2,
+   "reads_exact": [
+    true,
+    true,
+    true
+   ],
+   "hard": false,
+   "rechecked": true,
+   "uncertain": [
+    0
+   ]
+  },
+  {
+   "i": 108,
+   "template": "quadratic",
+   "kind": "lost_solution",
+   "gt": 2,
+   "lines": [
+    "x^2+2x-35=0",
+    "(x+7)(x-5)=0",
+    "x=-7"
+   ],
+   "pred_line": 2,
+   "pred_flagged": true,
+   "mode": "cv-segmented",
+   "relations": [
+    "start",
+    "equivalent",
+    "not_equivalent"
+   ],
+   "texts": [
+    "x^2+2x-35=0",
+    "(x+7)(x-5)=0",
+    "x=-7"
+   ],
+   "baseline": 3,
+   "reads_exact": [
+    true,
+    true,
+    true
+   ],
+   "hard": true,
+   "rechecked": true,
+   "uncertain": []
+  },
+  {
+   "i": 109,
+   "template": "quadratic",
+   "kind": "sign",
+   "gt": 2,
+   "lines": [
+    "x^2-4x-5=0",
+    "(x-5)(x+1)=0",
+    "x=-5 or x=1"
+   ],
+   "pred_line": 2,
+   "pred_flagged": true,
+   "mode": "cv-segmented",
+   "relations": [
+    "start",
+    "equivalent",
+    "not_equivalent"
+   ],
+   "texts": [
+    "x^2-4x-5=0",
+    "(x-5)(x+1)=0",
+    "x=-5 or x=1"
+   ],
+   "baseline": 3,
+   "reads_exact": [
+    true,
+    true,
+    true
+   ],
+   "hard": false,
+   "rechecked": true,
+   "uncertain": []
+  },
+  {
+   "i": 110,
+   "template": "quadratic",
+   "kind": null,
+   "gt": null,
+   "lines": [
+    "x^2+10x+21=0",
+    "(x+7)(x+3)=0",
+    "x=-7 or x=-3"
+   ],
+   "pred_line": null,
+   "pred_flagged": false,
+   "mode": "cv-segmented",
+   "relations": [
+    "unreadable",
+    "start",
+    "equivalent"
+   ],
+   "texts": [
+    "x^2+10x+2=0",
+    "(x+7)(x+3)=0",
+    "x=-7 or x=-3"
+   ],
+   "baseline": 2,
+   "reads_exact": [
+    false,
+    true,
+    true
+   ],
+   "hard": false,
+   "rechecked": true,
+   "uncertain": [
+    0
+   ]
+  },
+  {
+   "i": 111,
+   "template": "quadratic",
+   "kind": "sign",
+   "gt": 1,
+   "lines": [
+    "x^2-3x-10=0",
+    "(x+5)(x-2)=0",
+    "x=-5 or x=2"
+   ],
+   "pred_line": 1,
+   "pred_flagged": true,
+   "mode": "cv-segmented",
+   "relations": [
+    "start",
+    "not_equivalent",
+    "equivalent"
+   ],
+   "texts": [
+    "x^2-3x-10=0",
+    "(x+5)(x-2)=0",
+    "x=-5 or x=2"
+   ],
+   "baseline": 2,
+   "reads_exact": [
+    true,
+    true,
+    true
+   ],
+   "hard": false,
+   "rechecked": true,
+   "uncertain": []
+  },
+  {
+   "i": 112,
+   "template": "quadratic",
+   "kind": "lost_solution",
+   "gt": 2,
+   "lines": [
+    "x^2-2x-15=0",
+    "(x+3)(x-5)=0",
+    "x=-3"
+   ],
+   "pred_line": 2,
+   "pred_flagged": true,
+   "mode": "cv-segmented",
+   "relations": [
+    "unreadable",
+    "start",
+    "not_equivalent"
+   ],
+   "texts": [
+    "x2-2x-15=0",
+    "(x+3)(x-5)=0",
+    "x=-3"
+   ],
+   "baseline": 3,
+   "reads_exact": [
+    false,
+    true,
+    true
+   ],
+   "hard": true,
+   "rechecked": true,
+   "uncertain": [
+    0
+   ]
+  },
+  {
+   "i": 113,
+   "template": "quadratic",
+   "kind": "sign",
+   "gt": 2,
+   "lines": [
+    "x^2-13x+42=0",
+    "(x-6)(x-7)=0",
+    "x=-6 or x=-7"
+   ],
+   "pred_line": 2,
+   "pred_flagged": true,
+   "mode": "cv-segmented",
+   "relations": [
+    "start",
+    "equivalent",
+    "not_equivalent"
+   ],
+   "texts": [
+    "x^2-13x+42=0",
+    "(x-6)(x-7)=0",
+    "x=-6 or x=-7"
+   ],
+   "baseline": 3,
+   "reads_exact": [
+    true,
+    true,
+    true
+   ],
+   "hard": false,
+   "rechecked": true,
+   "uncertain": []
+  },
+  {
+   "i": 114,
+   "template": "quadratic",
+   "kind": null,
+   "gt": null,
+   "lines": [
+    "x^2+9x+18=0",
+    "(x+6)(x+3)=0",
+    "x=-6 or x=-3"
+   ],
+   "pred_line": 1,
+   "pred_flagged": true,
+   "mode": "cv-segmented",
+   "relations": [
+    "start",
+    "not_equivalent",
+    "equivalent"
+   ],
+   "texts": [
+    "xe^2+9x+18=0",
+    "(x+6)(x+3)=0",
+    "x=-6 or x=-3"
+   ],
+   "baseline": 3,
+   "reads_exact": [
+    false,
+    true,
+    true
+   ],
+   "hard": false,
+   "rechecked": true,
+   "uncertain": []
+  },
+  {
+   "i": 115,
+   "template": "quadratic",
+   "kind": "sign",
+   "gt": 1,
+   "lines": [
+    "x^2-5x-6=0",
+    "(x+6)(x-1)=0",
+    "x=-6 or x=1"
+   ],
+   "pred_line": 1,
+   "pred_flagged": true,
+   "mode": "cv-segmented",
+   "relations": [
+    "start",
+    "not_equivalent",
+    "equivalent"
+   ],
+   "texts": [
+    "x^2-5x-6=0",
+    "(x+6)(x-1)=0",
+    "x=-6 or x=1"
+   ],
+   "baseline": 2,
+   "reads_exact": [
+    true,
+    true,
+    true
+   ],
+   "hard": false,
+   "rechecked": true,
+   "uncertain": []
+  },
+  {
+   "i": 116,
+   "template": "quadratic",
+   "kind": "lost_solution",
+   "gt": 2,
+   "lines": [
+    "x^2-x-6=0",
+    "(x+2)(x-3)=0",
+    "x=-2"
+   ],
+   "pred_line": 2,
+   "pred_flagged": true,
+   "mode": "cv-segmented",
+   "relations": [
+    "start",
+    "equivalent",
+    "not_equivalent"
+   ],
+   "texts": [
+    "x^2-x-6=0",
+    "(x+2)(x-3)=0",
+    "x=-2"
+   ],
+   "baseline": 3,
+   "reads_exact": [
+    true,
+    true,
+    true
+   ],
+   "hard": true,
+   "rechecked": true,
+   "uncertain": []
+  },
+  {
+   "i": 117,
+   "template": "quadratic",
+   "kind": "sign",
+   "gt": 2,
+   "lines": [
+    "x^2+5x-14=0",
+    "(x+7)(x-2)=0",
+    "x=7 or x=-2"
+   ],
+   "pred_line": 2,
+   "pred_flagged": true,
+   "mode": "cv-segmented",
+   "relations": [
+    "start",
+    "equivalent",
+    "not_equivalent"
+   ],
+   "texts": [
+    "x^2+5x-14=0",
+    "(x+7)(x-2)=0",
+    "x=7 or x=-2"
+   ],
+   "baseline": 2,
+   "reads_exact": [
+    true,
+    true,
+    true
+   ],
+   "hard": false,
+   "rechecked": true,
+   "uncertain": []
+  },
+  {
+   "i": 118,
+   "template": "quadratic",
+   "kind": null,
+   "gt": null,
+   "lines": [
+    "x^2+6x+8=0",
+    "(x+2)(x+4)=0",
+    "x=-2 or x=-4"
+   ],
+   "pred_line": 1,
+   "pred_flagged": true,
+   "mode": "cv-segmented",
+   "relations": [
+    "start",
+    "not_equivalent",
+    "equivalent"
+   ],
+   "texts": [
+    "x^2+6x+8=0",
+    "(x+2)(x+7)=0",
+    "x=-2 or x=-7"
+   ],
+   "baseline": 2,
+   "reads_exact": [
+    true,
+    false,
+    false
+   ],
+   "hard": false,
+   "rechecked": true,
+   "uncertain": []
+  },
+  {
+   "i": 119,
+   "template": "quadratic",
+   "kind": "sign",
+   "gt": 1,
+   "lines": [
+    "x^2+5x-14=0",
+    "(x+2)(x-7)=0",
+    "x=-2 or x=7"
+   ],
+   "pred_line": 1,
+   "pred_flagged": true,
+   "mode": "cv-segmented",
+   "relations": [
+    "start",
+    "not_equivalent",
+    "equivalent"
+   ],
+   "texts": [
+    "x^2+5x-14=0",
+    "(x+2)(x-7)=0",
+    "x=-2 or x=7"
+   ],
+   "baseline": 2,
+   "reads_exact": [
+    true,
+    true,
+    true
+   ],
+   "hard": false,
+   "rechecked": true,
+   "uncertain": []
+  },
+  {
+   "i": 120,
+   "template": "simplify",
+   "kind": null,
+   "gt": null,
+   "lines": [
+    "2(x+2)+3(x+1)",
+    "2x+4+3x+3",
+    "5x+7"
+   ],
+   "pred_line": null,
+   "pred_flagged": false,
+   "mode": "cv-segmented",
+   "relations": [
+    "start",
+    "equivalent",
+    "equivalent"
+   ],
+   "texts": [
+    "2(x+2)+3(x+1)",
+    "2x+4+3x+3",
+    "5x+7"
+   ],
+   "baseline": 0,
+   "reads_exact": [
+    true,
+    true,
+    true
+   ],
+   "hard": true,
+   "rechecked": false,
+   "uncertain": []
+  },
+  {
+   "i": 121,
+   "template": "simplify",
+   "kind": "distribution",
+   "gt": 1,
+   "lines": [
+    "2(x-1)+3(x-4)",
+    "2x-1+3x-12",
+    "5x-13"
+   ],
+   "pred_line": 1,
+   "pred_flagged": true,
+   "mode": "cv-segmented",
+   "relations": [
+    "start",
+    "not_equivalent",
+    "equivalent"
+   ],
+   "texts": [
+    "2(x-1)+3(x-4)",
+    "2x-1+3x-12",
+    "5x-13"
+   ],
+   "baseline": 2,
+   "reads_exact": [
+    true,
+    true,
+    true
+   ],
+   "hard": false,
+   "rechecked": true,
+   "uncertain": []
+  },
+  {
+   "i": 122,
+   "template": "simplify",
+   "kind": "arithmetic",
+   "gt": 2,
+   "lines": [
+    "4(x-2)+2(x-4)",
+    "4x-8+2x-8",
+    "6x-17"
+   ],
+   "pred_line": 2,
+   "pred_flagged": true,
+   "mode": "cv-segmented",
+   "relations": [
+    "start",
+    "equivalent",
+    "not_equivalent"
+   ],
+   "texts": [
+    "4(x-2)+2(x-4)",
+    "4x-8+2x-8",
+    "6x-17"
+   ],
+   "baseline": 2,
+   "reads_exact": [
+    true,
+    true,
+    true
+   ],
+   "hard": false,
+   "rechecked": true,
+   "uncertain": []
+  },
+  {
+   "i": 123,
+   "template": "simplify",
+   "kind": "sign",
+   "gt": 2,
+   "lines": [
+    "4(x-2)+5(x+4)",
+    "4x-8+5x+20",
+    "9x-28"
+   ],
+   "pred_line": 2,
+   "pred_flagged": true,
+   "mode": "cv-segmented",
+   "relations": [
+    "start",
+    "equivalent",
+    "not_equivalent"
+   ],
+   "texts": [
+    "4(x-2)+5(x+4)",
+    "4x-8+5x+20",
+    "9x-28"
+   ],
+   "baseline": 3,
+   "reads_exact": [
+    true,
+    true,
+    true
+   ],
+   "hard": false,
+   "rechecked": true,
+   "uncertain": []
+  },
+  {
+   "i": 124,
+   "template": "simplify",
+   "kind": null,
+   "gt": null,
+   "lines": [
+    "3(x+4)+5(x-2)",
+    "3x+12+5x-10",
+    "8x+2"
+   ],
+   "pred_line": null,
+   "pred_flagged": false,
+   "mode": "cv-segmented",
+   "relations": [
+    "start",
+    "equivalent",
+    "equivalent"
+   ],
+   "texts": [
+    "3(x+4)+5(x-2)",
+    "3x+12+5x-10",
+    "8x+2"
+   ],
+   "baseline": 3,
+   "reads_exact": [
+    true,
+    true,
+    true
+   ],
+   "hard": true,
+   "rechecked": false,
+   "uncertain": []
+  },
+  {
+   "i": 125,
+   "template": "simplify",
+   "kind": "distribution",
+   "gt": 1,
+   "lines": [
+    "3(x+1)+6(x-5)",
+    "3x+1+6x-30",
+    "9x-29"
+   ],
+   "pred_line": 1,
+   "pred_flagged": true,
+   "mode": "cv-segmented",
+   "relations": [
+    "start",
+    "not_equivalent",
+    "equivalent"
+   ],
+   "texts": [
+    "3(x+1)+6(x-5)",
+    "3x+1+6x-30",
+    "9x-29"
+   ],
+   "baseline": 2,
+   "reads_exact": [
+    true,
+    true,
+    true
+   ],
+   "hard": false,
+   "rechecked": true,
+   "uncertain": []
+  },
+  {
+   "i": 126,
+   "template": "simplify",
+   "kind": "arithmetic",
+   "gt": 2,
+   "lines": [
+    "6(x+5)+5(x-2)",
+    "6x+30+5x-10",
+    "11x+19"
+   ],
+   "pred_line": null,
+   "pred_flagged": false,
+   "mode": "cv-segmented",
+   "relations": [
+    "start",
+    "equivalent",
+    "unreadable"
+   ],
+   "texts": [
+    "6(x+5)+5(x-2)",
+    "6x+30+5x-10",
+    "//x+19"
+   ],
+   "baseline": 3,
+   "reads_exact": [
+    true,
+    true,
+    false
+   ],
+   "hard": false,
+   "rechecked": false,
+   "uncertain": []
+  },
+  {
+   "i": 127,
+   "template": "simplify",
+   "kind": "sign",
+   "gt": 2,
+   "lines": [
+    "3(x+1)+2(x+3)",
+    "3x+3+2x+6",
+    "5x-3"
+   ],
+   "pred_line": 2,
+   "pred_flagged": true,
+   "mode": "cv-segmented",
+   "relations": [
+    "start",
+    "equivalent",
+    "not_equivalent"
+   ],
+   "texts": [
+    "3(x+1)+2(x+3)",
+    "3x+3+2x+6",
+    "5x-3"
+   ],
+   "baseline": 2,
+   "reads_exact": [
+    true,
+    true,
+    true
+   ],
+   "hard": false,
+   "rechecked": true,
+   "uncertain": []
+  },
+  {
+   "i": 128,
+   "template": "simplify",
+   "kind": null,
+   "gt": null,
+   "lines": [
+    "6(x-2)+5(x+3)",
+    "6x-12+5x+15",
+    "11x+3"
+   ],
+   "pred_line": null,
+   "pred_flagged": false,
+   "mode": "cv-segmented",
+   "relations": [
+    "start",
+    "equivalent",
+    "equivalent"
+   ],
+   "texts": [
+    "6(x-2)+5(x+3)",
+    "6x-12+5x+15",
+    "11x+3"
+   ],
+   "baseline": 3,
+   "reads_exact": [
+    true,
+    true,
+    true
+   ],
+   "hard": true,
+   "rechecked": false,
+   "uncertain": []
+  },
+  {
+   "i": 129,
+   "template": "simplify",
+   "kind": "distribution",
+   "gt": 1,
+   "lines": [
+    "4(x+2)+3(x-2)",
+    "4x+2+3x-6",
+    "7x-4"
+   ],
+   "pred_line": 1,
+   "pred_flagged": true,
+   "mode": "cv-segmented",
+   "relations": [
+    "start",
+    "not_equivalent",
+    "equivalent"
+   ],
+   "texts": [
+    "4(x+2)+3(x-2)",
+    "4x+2+3x-6",
+    "7x-4"
+   ],
+   "baseline": 2,
+   "reads_exact": [
+    true,
+    true,
+    true
+   ],
+   "hard": false,
+   "rechecked": true,
+   "uncertain": []
+  },
+  {
+   "i": 130,
+   "template": "simplify",
+   "kind": "arithmetic",
+   "gt": 2,
+   "lines": [
+    "3(x+5)+2(x+3)",
+    "3x+15+2x+6",
+    "5x+22"
+   ],
+   "pred_line": 2,
+   "pred_flagged": true,
+   "mode": "cv-segmented",
+   "relations": [
+    "start",
+    "equivalent",
+    "not_equivalent"
+   ],
+   "texts": [
+    "3(x+5)+2(x+3)",
+    "3x+15+2x+6",
+    "5x+22"
+   ],
+   "baseline": 0,
+   "reads_exact": [
+    true,
+    true,
+    true
+   ],
+   "hard": false,
+   "rechecked": true,
+   "uncertain": []
+  },
+  {
+   "i": 131,
+   "template": "simplify",
+   "kind": "sign",
+   "gt": 2,
+   "lines": [
+    "2(x+4)+6(x+4)",
+    "2x+8+6x+24",
+    "8x-16"
+   ],
+   "pred_line": 2,
+   "pred_flagged": true,
+   "mode": "cv-segmented",
+   "relations": [
+    "start",
+    "equivalent",
+    "not_equivalent"
+   ],
+   "texts": [
+    "2(x+4)+6(x+4)",
+    "2x+8+6x+24",
+    "8x-16"
+   ],
+   "baseline": 3,
+   "reads_exact": [
+    true,
+    true,
+    true
+   ],
+   "hard": false,
+   "rechecked": true,
+   "uncertain": []
+  },
+  {
+   "i": 132,
+   "template": "simplify",
+   "kind": null,
+   "gt": null,
+   "lines": [
+    "2(x+3)+3(x-5)",
+    "2x+6+3x-15",
+    "5x-9"
+   ],
+   "pred_line": null,
+   "pred_flagged": false,
+   "mode": "cv-segmented",
+   "relations": [
+    "start",
+    "equivalent",
+    "equivalent"
+   ],
+   "texts": [
+    "2(x+3)+3(x-5)",
+    "2x+6+3x-15",
+    "5x-9"
+   ],
+   "baseline": 2,
+   "reads_exact": [
+    true,
+    true,
+    true
+   ],
+   "hard": true,
+   "rechecked": false,
+   "uncertain": []
+  },
+  {
+   "i": 133,
+   "template": "simplify",
+   "kind": "distribution",
+   "gt": 1,
+   "lines": [
+    "5(x+4)+4(x-4)",
+    "5x+4+4x-16",
+    "9x-12"
+   ],
+   "pred_line": 1,
+   "pred_flagged": true,
+   "mode": "cv-segmented",
+   "relations": [
+    "start",
+    "not_equivalent",
+    "equivalent"
+   ],
+   "texts": [
+    "5(x+4)+4(x-4)",
+    "5x+4+4x-16",
+    "9x-12"
+   ],
+   "baseline": 2,
+   "reads_exact": [
+    true,
+    true,
+    true
+   ],
+   "hard": false,
+   "rechecked": true,
+   "uncertain": []
+  },
+  {
+   "i": 134,
+   "template": "simplify",
+   "kind": "arithmetic",
+   "gt": 2,
+   "lines": [
+    "4(x+4)+6(x+3)",
+    "4x+16+6x+18",
+    "10x+35"
+   ],
+   "pred_line": 2,
+   "pred_flagged": true,
+   "mode": "cv-segmented",
+   "relations": [
+    "start",
+    "equivalent",
+    "not_equivalent"
+   ],
+   "texts": [
+    "4(x+4)+6(x+3)",
+    "4x+16+6x+18",
+    "10x+35"
+   ],
+   "baseline": 3,
+   "reads_exact": [
+    true,
+    true,
+    true
+   ],
+   "hard": false,
+   "rechecked": true,
+   "uncertain": []
+  },
+  {
+   "i": 135,
+   "template": "simplify",
+   "kind": "sign",
+   "gt": 2,
+   "lines": [
+    "5(x-3)+6(x-2)",
+    "5x-15+6x-12",
+    "11x-3"
+   ],
+   "pred_line": null,
+   "pred_flagged": false,
+   "mode": "cv-segmented",
+   "relations": [
+    "start",
+    "equivalent",
+    "unreadable"
+   ],
+   "texts": [
+    "5(x-3)+6(x-2)",
+    "5x-15+6x-12",
+    "//x-3"
+   ],
+   "baseline": 3,
+   "reads_exact": [
+    true,
+    true,
+    false
+   ],
+   "hard": false,
+   "rechecked": false,
+   "uncertain": []
+  },
+  {
+   "i": 136,
+   "template": "simplify",
+   "kind": null,
+   "gt": null,
+   "lines": [
+    "6(x+4)+4(x+2)",
+    "6x+24+4x+8",
+    "10x+32"
+   ],
+   "pred_line": null,
+   "pred_flagged": false,
+   "mode": "cv-segmented",
+   "relations": [
+    "start",
+    "equivalent",
+    "equivalent"
+   ],
+   "texts": [
+    "6(x+4)+4(x+2)",
+    "6x+24+4x+8",
+    "10x+32"
+   ],
+   "baseline": 2,
+   "reads_exact": [
+    true,
+    true,
+    true
+   ],
+   "hard": true,
+   "rechecked": false,
+   "uncertain": []
+  },
+  {
+   "i": 137,
+   "template": "simplify",
+   "kind": "distribution",
+   "gt": 1,
+   "lines": [
+    "5(x-3)+3(x+1)",
+    "5x-3+3x+3",
+    "8x"
+   ],
+   "pred_line": 1,
+   "pred_flagged": true,
+   "mode": "cv-segmented",
+   "relations": [
+    "start",
+    "not_equivalent",
+    "equivalent"
+   ],
+   "texts": [
+    "5(x-3)+3(x+1)",
+    "5x-3+3x+3",
+    "8x"
+   ],
+   "baseline": 2,
+   "reads_exact": [
+    true,
+    true,
+    true
+   ],
+   "hard": false,
+   "rechecked": true,
+   "uncertain": []
+  },
+  {
+   "i": 138,
+   "template": "simplify",
+   "kind": "arithmetic",
+   "gt": 2,
+   "lines": [
+    "4(x+1)+5(x-5)",
+    "4x+4+5x-25",
+    "9x-22"
+   ],
+   "pred_line": 2,
+   "pred_flagged": true,
+   "mode": "cv-segmented",
+   "relations": [
+    "start",
+    "equivalent",
+    "not_equivalent"
+   ],
+   "texts": [
+    "4(x+1)+5(x-5)",
+    "4x+4+5x-25",
+    "9x-22"
+   ],
+   "baseline": 3,
+   "reads_exact": [
+    true,
+    true,
+    true
+   ],
+   "hard": false,
+   "rechecked": true,
+   "uncertain": []
+  },
+  {
+   "i": 139,
+   "template": "simplify",
+   "kind": "sign",
+   "gt": 2,
+   "lines": [
+    "2(x-1)+4(x-4)",
+    "2x-2+4x-16",
+    "6x+14"
+   ],
+   "pred_line": 2,
+   "pred_flagged": true,
+   "mode": "cv-segmented",
+   "relations": [
+    "start",
+    "equivalent",
+    "not_equivalent"
+   ],
+   "texts": [
+    "2(x-1)+4(x-4)",
+    "2x-2+4x-16",
+    "6x+14"
+   ],
+   "baseline": 2,
+   "reads_exact": [
+    true,
+    true,
+    true
+   ],
+   "hard": false,
+   "rechecked": true,
+   "uncertain": []
+  },
+  {
+   "i": 140,
+   "template": "simplify",
+   "kind": null,
+   "gt": null,
+   "lines": [
+    "4(x+2)+3(x+1)",
+    "4x+8+3x+3",
+    "7x+11"
+   ],
+   "pred_line": null,
+   "pred_flagged": false,
+   "mode": "cv-segmented",
+   "relations": [
+    "start",
+    "equivalent",
+    "equivalent"
+   ],
+   "texts": [
+    "4(x+2)+3(x+1)",
+    "4x+8+3x+3",
+    "7x+11"
+   ],
+   "baseline": 0,
+   "reads_exact": [
+    true,
+    true,
+    true
+   ],
+   "hard": true,
+   "rechecked": false,
+   "uncertain": []
+  },
+  {
+   "i": 141,
+   "template": "simplify",
+   "kind": "distribution",
+   "gt": 1,
+   "lines": [
+    "6(x+5)+3(x-4)",
+    "6x+5+3x-12",
+    "9x-7"
+   ],
+   "pred_line": 1,
+   "pred_flagged": true,
+   "mode": "cv-segmented",
+   "relations": [
+    "start",
+    "not_equivalent",
+    "equivalent"
+   ],
+   "texts": [
+    "6(x+5)+3(x-7)",
+    "6x+5+3x-12",
+    "9x-7"
+   ],
+   "baseline": 2,
+   "reads_exact": [
+    false,
+    true,
+    true
+   ],
+   "hard": false,
+   "rechecked": true,
+   "uncertain": []
+  },
+  {
+   "i": 142,
+   "template": "simplify",
+   "kind": "arithmetic",
+   "gt": 2,
+   "lines": [
+    "2(x-2)+5(x-4)",
+    "2x-4+5x-20",
+    "7x-25"
+   ],
+   "pred_line": 2,
+   "pred_flagged": true,
+   "mode": "cv-segmented",
+   "relations": [
+    "start",
+    "equivalent",
+    "not_equivalent"
+   ],
+   "texts": [
+    "2(x-2)+5(x-4)",
+    "2x-4+5x-20",
+    "7x-25"
+   ],
+   "baseline": 0,
+   "reads_exact": [
+    true,
+    true,
+    true
+   ],
+   "hard": false,
+   "rechecked": true,
+   "uncertain": []
+  },
+  {
+   "i": 143,
+   "template": "simplify",
+   "kind": "sign",
+   "gt": 2,
+   "lines": [
+    "6(x+2)+2(x+2)",
+    "6x+12+2x+4",
+    "8x+8"
+   ],
+   "pred_line": 2,
+   "pred_flagged": true,
+   "mode": "cv-segmented",
+   "relations": [
+    "start",
+    "equivalent",
+    "not_equivalent"
+   ],
+   "texts": [
+    "6(x+2)+2(x+2)",
+    "6x+12+2x+4",
+    "8x+8"
+   ],
+   "baseline": 3,
+   "reads_exact": [
+    true,
+    true,
+    true
+   ],
+   "hard": false,
+   "rechecked": true,
+   "uncertain": []
+  },
+  {
+   "i": 144,
+   "template": "simplify",
+   "kind": null,
+   "gt": null,
+   "lines": [
+    "5(x+5)+4(x+3)",
+    "5x+25+4x+12",
+    "9x+37"
+   ],
+   "pred_line": null,
+   "pred_flagged": false,
+   "mode": "cv-segmented",
+   "relations": [
+    "start",
+    "equivalent",
+    "equivalent"
+   ],
+   "texts": [
+    "5(x+5)+4(x+3)",
+    "5x+25+4x+12",
+    "9x+37"
+   ],
+   "baseline": 0,
+   "reads_exact": [
+    true,
+    true,
+    true
+   ],
+   "hard": true,
+   "rechecked": false,
+   "uncertain": []
+  },
+  {
+   "i": 145,
+   "template": "simplify",
+   "kind": "distribution",
+   "gt": 1,
+   "lines": [
+    "2(x+3)+3(x+3)",
+    "2x+3+3x+9",
+    "5x+12"
+   ],
+   "pred_line": 1,
+   "pred_flagged": true,
+   "mode": "cv-segmented",
+   "relations": [
+    "start",
+    "not_equivalent",
+    "equivalent"
+   ],
+   "texts": [
+    "2(x+3)+3(x+3)",
+    "2x+3+3x+9",
+    "5x+12"
+   ],
+   "baseline": 2,
+   "reads_exact": [
+    true,
+    true,
+    true
+   ],
+   "hard": false,
+   "rechecked": true,
+   "uncertain": []
+  },
+  {
+   "i": 146,
+   "template": "simplify",
+   "kind": "arithmetic",
+   "gt": 2,
+   "lines": [
+    "4(x-1)+6(x+2)",
+    "4x-4+6x+12",
+    "10x+10"
+   ],
+   "pred_line": 2,
+   "pred_flagged": true,
+   "mode": "cv-segmented",
+   "relations": [
+    "start",
+    "equivalent",
+    "not_equivalent"
+   ],
+   "texts": [
+    "4(x-1)+6(x+2)",
+    "4x-4+6x+12",
+    "10x+10"
+   ],
+   "baseline": 3,
+   "reads_exact": [
+    true,
+    true,
+    true
+   ],
+   "hard": false,
+   "rechecked": true,
+   "uncertain": []
+  },
+  {
+   "i": 147,
+   "template": "simplify",
+   "kind": "sign",
+   "gt": 2,
+   "lines": [
+    "3(x-3)+2(x+4)",
+    "3x-9+2x+8",
+    "5x-17"
+   ],
+   "pred_line": 2,
+   "pred_flagged": true,
+   "mode": "cv-segmented",
+   "relations": [
+    "start",
+    "equivalent",
+    "not_equivalent"
+   ],
+   "texts": [
+    "3(x-3)+2(x+4)",
+    "3x-9+2x+8",
+    "5x-17"
+   ],
+   "baseline": 3,
+   "reads_exact": [
+    true,
+    true,
+    true
+   ],
+   "hard": false,
+   "rechecked": true,
+   "uncertain": []
+  },
+  {
+   "i": 148,
+   "template": "simplify",
+   "kind": null,
+   "gt": null,
+   "lines": [
+    "4(x+1)+3(x+2)",
+    "4x+4+3x+6",
+    "7x+10"
+   ],
+   "pred_line": null,
+   "pred_flagged": false,
+   "mode": "cv-segmented",
+   "relations": [
+    "start",
+    "equivalent",
+    "equivalent"
+   ],
+   "texts": [
+    "4(x+1)+3(x+2)",
+    "4x+4+3x+6",
+    "7x+10"
+   ],
+   "baseline": 0,
+   "reads_exact": [
+    true,
+    true,
+    true
+   ],
+   "hard": true,
+   "rechecked": false,
+   "uncertain": []
+  },
+  {
+   "i": 149,
+   "template": "simplify",
+   "kind": "distribution",
+   "gt": 1,
+   "lines": [
+    "4(x+3)+3(x+1)",
+    "4x+3+3x+3",
+    "7x+6"
+   ],
+   "pred_line": 1,
+   "pred_flagged": true,
+   "mode": "cv-segmented",
+   "relations": [
+    "start",
+    "not_equivalent",
+    "not_equivalent"
+   ],
+   "texts": [
+    "4(2e+3)+3(2e+1)",
+    "42e+3+32e+3",
+    "72e+6"
+   ],
+   "baseline": 2,
+   "reads_exact": [
+    false,
+    false,
+    false
+   ],
+   "hard": false,
+   "rechecked": true,
+   "uncertain": []
+  }
+ ]
+}

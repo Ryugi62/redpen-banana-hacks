@@ -36,17 +36,17 @@ given the same photo, asked for the number of the first wrong line (`eval/run.py
 Reader for both: `gemma-4-26b-a4b-it`, the first model the live site uses.
 
 <!-- results:start -->
-| | synthetic pages (n=60: 44 with a slip, 16 correct) | real pages (n=7: 3 with a slip, 4 correct) |
+| | synthetic pages (n=150: 108 with a slip, 42 correct) | real pages (n=7: 3 with a slip, 4 correct) |
 |---|---|---|
-| **Right answer about the page**, RedPen | 51/60 = 85 % (74–92) | 7/7 = 100 % (65–100) |
-| Right answer about the page, same model asked directly | 42/60 = 70 % (57–80) | 7/7 = 100 % (65–100) |
-| First slip found on the right line, RedPen | 36/44 = 82 % (68–90) | 3/3 = 100 % (44–100) |
-| First slip found on the right line, same model asked directly | 33/44 = 75 % (61–85) | 3/3 = 100 % (44–100) |
-| **Correct pages wrongly accused**, RedPen | 1/16 = 6 % (1–28) | 0/4 = 0 % (0–49) |
-| Correct pages wrongly accused, same model asked directly | 7/16 = 44 % (23–67) | 0/4 = 0 % (0–49) |
-| Pages where RedPen pointed at a wrong line / same model asked directly | 4 / 12 | 0 / 0 |
-| Pages where RedPen asked "?" instead of accusing | 5 | 0 |
-| Paired comparison (pages only RedPen got right / only the direct model got right, exact McNemar p) | 16 / 7, p = 0.093 | 0 / 0, p = 1.000 |
+| **Right answer about the page**, RedPen | 138/150 = 92 % (87–95) | 7/7 = 100 % (65–100) |
+| Right answer about the page, same model asked directly | 114/150 = 76 % (69–82) | 7/7 = 100 % (65–100) |
+| First slip found on the right line, RedPen | 100/108 = 93 % (86–96) | 3/3 = 100 % (44–100) |
+| First slip found on the right line, same model asked directly | 91/108 = 84 % (76–90) | 3/3 = 100 % (44–100) |
+| **Correct pages wrongly accused**, RedPen | 4/42 = 10 % (4–22) | 0/4 = 0 % (0–49) |
+| Correct pages wrongly accused, same model asked directly | 19/42 = 45 % (31–60) | 0/4 = 0 % (0–49) |
+| Pages where RedPen pointed at a wrong line / same model asked directly | 4 / 27 | 0 / 0 |
+| Pages where RedPen asked "?" instead of accusing | 6 | 0 |
+| Paired comparison (pages only RedPen got right / only the direct model got right, exact McNemar p) | 32 / 8, p < 0.001 | 0 / 0, p = 1.000 |
 
 Percentages with 95 % Wilson intervals in brackets.
 <!-- results:end -->

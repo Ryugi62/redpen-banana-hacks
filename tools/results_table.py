@@ -81,7 +81,7 @@ def table(names):
         out.append(f"| {label} | " + " | ".join(str(s[k]) for s in ss) + " |")
     out.append("| Pages where RedPen pointed at a wrong line / same model asked directly | " + " | ".join(f"{s['pipe_wrong']} / {s['base_wrong']}" for s in ss) + " |")
     out.append("| Pages where RedPen asked \"?\" instead of accusing | " + " | ".join(str(s["asked"]) for s in ss) + " |")
-    out.append("| Paired comparison (pages only RedPen got right / only the direct model got right, exact McNemar p) | " + " | ".join(f"{s['b']} / {s['c']}, p = {s['p']:.3f}" for s in ss) + " |")
+    out.append("| Paired comparison (pages only RedPen got right / only the direct model got right, exact McNemar p) | " + " | ".join(f"{s['b']} / {s['c']}, " + (f"p = {s['p']:.3f}" if s['p'] >= 0.001 else "p < 0.001") for s in ss) + " |")
     out.append("")
     out.append("Percentages with 95 % Wilson intervals in brackets.")
     return "\n".join(out)
