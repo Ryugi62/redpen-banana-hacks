@@ -40,3 +40,11 @@ def test_rate_limit():
         assert service.allow("t1", now=1000.0)
     assert not service.allow("t1", now=1001.0)
     assert service.allow("t1", now=1000.0 + 3601)
+
+
+def test_transcriber_is_hedged_and_fast_model_first(monkeypatch):
+    monkeypatch.delenv("REDPEN_MODELS", raising=False)
+    monkeypatch.delenv("REDPEN_HEDGE_S", raising=False)
+    tr = service.build_transcriber()
+    assert tr.hedge_after == service.HEDGE_AFTER_S
+    assert tr.transcribers[0].model == "gemini-3.5-flash-lite"

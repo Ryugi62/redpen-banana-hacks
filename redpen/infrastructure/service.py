@@ -17,7 +17,8 @@ from redpen.adapters.segmenter import ProjectionSegmenter
 from redpen.application.grade import GradePage, GradeResult, Regrade, StepEdit
 from redpen.domain.model import HINT_EXPLANATIONS, LineBox
 
-DEFAULT_MODELS = "gemini-3.1-flash-lite,gemini-3.5-flash-lite,gemini-2.5-flash,gemini-3.6-flash,gemini-3.7-flash,gemma-4-31b-it"
+DEFAULT_MODELS = "gemini-3.5-flash-lite,gemini-3.1-flash-lite,gemini-2.5-flash-lite,gemini-2.5-flash,gemini-3.6-flash,gemma-4-26b-a4b-it,gemma-4-31b-it"
+HEDGE_AFTER_S = 7.0  # a model silent this long gets a parallel backup on the next model
 MAX_IMAGE_BYTES = 4_000_000
 RATE_PER_HOUR = 12
 
@@ -47,7 +48,8 @@ def allow(client: str, now: float | None = None) -> bool:
 
 def build_transcriber():
     models = [m.strip() for m in os.environ.get("REDPEN_MODELS", DEFAULT_MODELS).split(",") if m.strip()]
-    return FallbackTranscriber([GeminiTranscriber(model=m, timeout=40 if "gemma" in m else 25) for m in models])
+    hedge = float(os.environ.get("REDPEN_HEDGE_S", HEDGE_AFTER_S))
+    return FallbackTranscriber([GeminiTranscriber(model=m, timeout=40 if "gemma" in m else 25) for m in models], hedge_after=hedge)
 
 
 def _decode_image(payload: Dict[str, Any]) -> bytes:
