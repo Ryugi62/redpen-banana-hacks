@@ -2,7 +2,7 @@
 from __future__ import annotations
 
 import time
-from dataclasses import dataclass, field
+from dataclasses import dataclass, field, replace
 from typing import Dict, List, Optional
 
 from redpen.domain.markup import plan_markup
@@ -28,6 +28,7 @@ class GradeResult:
     image_png: bytes
     timings_ms: Dict[str, int] = field(default_factory=dict)
     mode: str = "cv-segmented"
+    rechecked: bool = False
 
 
 def plausible_lines(boxes: List[LineBox], page: Optional[tuple]) -> bool:
@@ -52,6 +53,33 @@ def _finish(image: bytes, steps: List[Step], renderer: MarkupRenderer, timings: 
     return GradeResult(steps, verdict, plan, png, timings, mode)
 
 
+def confirm_slip(image: bytes, steps: List[Step], reader) -> tuple:
+    """Before accusing a line, re-read it and the line it is compared with at higher zoom.
+
+    Returns (steps, rechecked). Misreads that created a fake slip are corrected here.
+    """
+    reread = getattr(reader, "reread", None)
+    if reread is None:
+        return steps, False
+    v = judge(steps)
+    if v.first_slip is None:
+        return steps, False
+    slip = v.first_slip
+    prev = next((i for i in range(slip - 1, -1, -1) if steps[i].kind != "prose" and steps[i].readable), None)
+    idx = [i for i in (prev, slip) if i is not None and steps[i].box is not None]
+    if not idx:
+        return steps, False
+    try:
+        again = reread(image, [steps[i].box for i in idx])
+    except Exception:
+        return steps, False
+    fixed = list(steps)
+    for i, r in zip(idx, again):
+        if r.text.strip():
+            fixed[i] = replace(steps[i], text=r.text, confidence=max(r.confidence, 0.0) if r.confidence else steps[i].confidence)
+    return fixed, True
+
+
 class GradePage:
     def __init__(self, segmenter: LineSegmenter, transcriber: Transcriber, renderer: MarkupRenderer, locator: Optional[LineLocator] = None):
         self.segmenter, self.transcriber, self.renderer, self.locator = segmenter, transcriber, renderer, locator
@@ -67,7 +95,12 @@ class GradePage:
             located = self.locator.locate_and_transcribe(image)
             timings["read"] = int((time.perf_counter() - t) * 1000)
             steps = [Step(index=i, text=r.text, confidence=r.confidence, box=b, kind=r.kind) for i, (b, r) in enumerate(located)]
-            return _finish(image, steps, self.renderer, timings, mode="model-located")
+            t = time.perf_counter()
+            steps, rechecked = confirm_slip(image, steps, self.locator)
+            timings["confirm"] = int((time.perf_counter() - t) * 1000)
+            res = _finish(image, steps, self.renderer, timings, mode="model-located")
+            res.rechecked = rechecked
+            return res
         t = time.perf_counter()
         readings = self.transcriber.transcribe(image, boxes) if boxes else []
         timings["read"] = int((time.perf_counter() - t) * 1000)
@@ -75,7 +108,12 @@ class GradePage:
         for i, box in enumerate(boxes):
             r = readings[i] if i < len(readings) else Reading("", 0.0)
             steps.append(Step(index=i, text=r.text, confidence=r.confidence, box=box, kind=r.kind))
-        return _finish(image, steps, self.renderer, timings)
+        t = time.perf_counter()
+        steps, rechecked = confirm_slip(image, steps, self.transcriber)
+        timings["confirm"] = int((time.perf_counter() - t) * 1000)
+        res = _finish(image, steps, self.renderer, timings)
+        res.rechecked = rechecked
+        return res
 
 
 class Regrade:

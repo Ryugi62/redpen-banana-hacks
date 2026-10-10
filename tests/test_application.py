@@ -73,3 +73,38 @@ def test_implausible_segmentation_falls_back_to_model_located_lines():
     assert [s.text for s in res.steps] == ["2x=4", "x=2"]
     assert res.verdict.first_slip is None
     assert res.mode == "model-located"
+
+
+class MisreadThenZoom(FakeTranscriber):
+    """First pass misreads line 1 (80 -> 40); the zoomed re-read gets it right."""
+
+    def __init__(self):
+        super().__init__(["5(x+9)=40", "5x+45=80", "5x=35", "x=7"])
+        self.rereads = 0
+
+    def reread(self, image, boxes):
+        self.rereads += 1
+        return [Reading("5(x+9)=80", 0.95), Reading("5x+45=80", 0.95)]
+
+
+class FourLines:
+    def segment(self, image):
+        return [LineBox(0, 50 * i, 100, 50 * i + 40) for i in range(4)]
+
+
+def test_slip_is_confirmed_by_zoomed_reread_before_accusing():
+    tr = MisreadThenZoom()
+    res = GradePage(FourLines(), tr, FakeRenderer()).execute(b"img")
+    assert tr.rereads == 1
+    assert res.verdict.first_slip is None
+    assert res.steps[0].text == "5(x+9)=80"
+    assert res.rechecked is True
+
+
+def test_genuine_slip_survives_reread():
+    class Genuine(FakeTranscriber):
+        def reread(self, image, boxes):
+            return [Reading("2x+3=7", 0.95), Reading("2x=10", 0.95)]
+    tr = Genuine(["2x+3=7", "2x=10", "x=5"])
+    res = GradePage(FakeSegmenter(), tr, FakeRenderer()).execute(b"img")
+    assert res.verdict.first_slip == 1

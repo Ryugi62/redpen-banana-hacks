@@ -192,6 +192,24 @@ class GeminiTranscriber:
         payload = self._call(PROMPT_MARKED, mark_boxes(img, boxes), SCHEMA_MARKED)
         return parse_marked(payload, len(boxes))
 
+    def reread(self, image: bytes, boxes: List[LineBox]) -> List[Reading]:
+        """Zoomed second look at a few lines (used before accusing a line of being wrong)."""
+        img = load_rgb(image, max_side=4000)
+        pad = 12
+        crops = [img.crop((max(0, b.x0 - pad), max(0, b.y0 - pad), min(img.width, b.x1 + pad), min(img.height, b.y1 + pad))) for b in boxes]
+        target_h = 110
+        scaled = [c.resize((max(1, int(c.width * target_h / max(1, c.height))), target_h), Image.LANCZOS) for c in crops]
+        W = max(c.width for c in scaled) + 120
+        H = sum(c.height + 40 for c in scaled) + 40
+        sheet = Image.new("RGB", (W, H), (255, 255, 255))
+        new_boxes, y = [], 30
+        for c in scaled:
+            sheet.paste(c, (100, y))
+            new_boxes.append(LineBox(100, y, 100 + c.width, y + c.height))
+            y += c.height + 40
+        payload = self._call(PROMPT_MARKED, mark_boxes(sheet, new_boxes), SCHEMA_MARKED)
+        return parse_marked(payload, len(boxes))
+
     def locate_and_transcribe(self, image: bytes) -> List[Tuple[LineBox, Reading]]:
         img = load_rgb(image)
         return parse_free(self._call(PROMPT_FREE, img, SCHEMA_FREE), img.size)

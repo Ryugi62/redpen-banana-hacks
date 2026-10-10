@@ -89,6 +89,7 @@ def to_json(res: GradeResult, model: str = "") -> Dict[str, Any]:
         },
         "image": "data:image/png;base64," + base64.b64encode(res.image_png).decode(),
         "mode": res.mode,
+        "rechecked": res.rechecked,
         "model": model,
         "timings_ms": res.timings_ms,
     }

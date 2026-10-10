@@ -27,5 +27,8 @@ class FallbackTranscriber:
     def transcribe(self, image: bytes, boxes: List[LineBox]) -> List[Reading]:
         return self._try("transcribe", image, boxes)
 
+    def reread(self, image: bytes, boxes: List[LineBox]) -> List[Reading]:
+        return self._try("reread", image, boxes)
+
     def locate_and_transcribe(self, image: bytes):
         return self._try("locate_and_transcribe", image)
