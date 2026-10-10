@@ -50,3 +50,26 @@ def test_fewer_readings_than_boxes_marks_missing_lines_unreadable():
     res = GradePage(FakeSegmenter(), tr, FakeRenderer()).execute(b"img")
     assert len(res.steps) == 3
     assert [s.readable for s in res.steps] == [True, False, False]
+
+
+class FakeLocator(FakeTranscriber):
+    def locate_and_transcribe(self, image):
+        self.calls += 1
+        return [(LineBox(0, 0, 100, 40), Reading("2x=4", 0.9)), (LineBox(0, 50, 100, 90), Reading("x=2", 0.9))]
+
+
+class OneGiantBox:
+    def segment(self, image):
+        return [LineBox(0, 0, 1000, 900)]
+
+    def page_size(self, image):
+        return (1000, 1000)
+
+
+def test_implausible_segmentation_falls_back_to_model_located_lines():
+    loc = FakeLocator([])
+    res = GradePage(OneGiantBox(), loc, FakeRenderer(), locator=loc).execute(b"img")
+    assert loc.calls == 1
+    assert [s.text for s in res.steps] == ["2x=4", "x=2"]
+    assert res.verdict.first_slip is None
+    assert res.mode == "model-located"

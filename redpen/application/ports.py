@@ -1,7 +1,7 @@
 """Ports the application needs from the outside world."""
 from __future__ import annotations
 
-from typing import List, Protocol
+from typing import List, Protocol, Tuple
 
 from redpen.domain.model import LineBox, MarkupPlan, Reading, Step
 
@@ -16,3 +16,9 @@ class Transcriber(Protocol):
 
 class MarkupRenderer(Protocol):
     def render(self, image: bytes, steps: List[Step], plan: MarkupPlan) -> bytes: ...
+
+
+class LineLocator(Protocol):
+    """Fallback when classical segmentation is implausible: the model finds and reads lines."""
+
+    def locate_and_transcribe(self, image: bytes) -> List[Tuple[LineBox, Reading]]: ...

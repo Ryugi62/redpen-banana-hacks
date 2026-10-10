@@ -9,7 +9,7 @@ from redpen.domain.markup import plan_markup
 from redpen.domain.model import LineBox, MarkupPlan, Reading, Step, Verdict
 from redpen.domain.verdict import judge
 
-from .ports import LineSegmenter, MarkupRenderer, Transcriber
+from .ports import LineLocator, LineSegmenter, MarkupRenderer, Transcriber
 
 
 @dataclass(frozen=True)
@@ -27,9 +27,21 @@ class GradeResult:
     plan: MarkupPlan
     image_png: bytes
     timings_ms: Dict[str, int] = field(default_factory=dict)
+    mode: str = "cv-segmented"
 
 
-def _finish(image: bytes, steps: List[Step], renderer: MarkupRenderer, timings: Dict[str, int]) -> GradeResult:
+def plausible_lines(boxes: List[LineBox], page: Optional[tuple]) -> bool:
+    """Classical segmentation is trusted only if it looks like lines of handwriting."""
+    if not boxes or len(boxes) > 30:
+        return False
+    if page:
+        _, h = page
+        if any(b.height > 0.28 * h for b in boxes):
+            return False
+    return True
+
+
+def _finish(image: bytes, steps: List[Step], renderer: MarkupRenderer, timings: Dict[str, int], mode: str = "cv-segmented") -> GradeResult:
     t = time.perf_counter()
     verdict = judge(steps)
     plan = plan_markup(steps, verdict)
@@ -37,18 +49,25 @@ def _finish(image: bytes, steps: List[Step], renderer: MarkupRenderer, timings: 
     t = time.perf_counter()
     png = renderer.render(image, steps, plan)
     timings["render"] = int((time.perf_counter() - t) * 1000)
-    return GradeResult(steps, verdict, plan, png, timings)
+    return GradeResult(steps, verdict, plan, png, timings, mode)
 
 
 class GradePage:
-    def __init__(self, segmenter: LineSegmenter, transcriber: Transcriber, renderer: MarkupRenderer):
-        self.segmenter, self.transcriber, self.renderer = segmenter, transcriber, renderer
+    def __init__(self, segmenter: LineSegmenter, transcriber: Transcriber, renderer: MarkupRenderer, locator: Optional[LineLocator] = None):
+        self.segmenter, self.transcriber, self.renderer, self.locator = segmenter, transcriber, renderer, locator
 
     def execute(self, image: bytes) -> GradeResult:
         timings: Dict[str, int] = {}
         t = time.perf_counter()
         boxes = self.segmenter.segment(image)
+        page = self.segmenter.page_size(image) if hasattr(self.segmenter, "page_size") else None
         timings["segment"] = int((time.perf_counter() - t) * 1000)
+        if self.locator is not None and not plausible_lines(boxes, page):
+            t = time.perf_counter()
+            located = self.locator.locate_and_transcribe(image)
+            timings["read"] = int((time.perf_counter() - t) * 1000)
+            steps = [Step(index=i, text=r.text, confidence=r.confidence, box=b, kind=r.kind) for i, (b, r) in enumerate(located)]
+            return _finish(image, steps, self.renderer, timings, mode="model-located")
         t = time.perf_counter()
         readings = self.transcriber.transcribe(image, boxes) if boxes else []
         timings["read"] = int((time.perf_counter() - t) * 1000)
