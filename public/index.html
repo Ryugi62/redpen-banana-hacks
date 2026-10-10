@@ -18,10 +18,11 @@
   <section id="home" class="screen">
     <h1>Snap your algebra.<br>Get it back marked.</h1>
     <p class="lead">RedPen finds the <b>first line where your work breaks</b> and circles it on <b>your own page</b>, like a teacher's red pen. It never writes the answer.</p>
+    <figure class="hero"><img src="hero.jpg" alt="A handwritten solution, and the same page returned with a tick, a red circle on line 2 and the note 'distribute to every term'" width="900" height="279"><figcaption class="caption">Left: the photo. Right: what comes back.</figcaption></figure>
 
     <h2 class="sec">Try a sample</h2>
     <div class="samples" id="samples"></div>
-    <p class="caption">Samples are handwriting built from real human pen strokes (Google MathWriting). Your own photo works too.</p>
+    <p class="caption">Sample pages are written with real human pen strokes (Google MathWriting). Their results are replays of a real model run, so they open instantly. Your own photo runs live.</p>
 
     <h2 class="sec">How it decides</h2>
     <ol class="how">
@@ -36,7 +37,7 @@
     <div class="skel big"></div>
     <div class="skel line"></div>
     <div class="skel img"></div>
-    <p class="caption center">Finding lines, reading, verifying…</p>
+    <p class="caption center" id="stage" aria-live="polite">Finding your lines…</p>
   </section>
 
   <section id="result" class="screen" hidden>
@@ -55,7 +56,7 @@
     <details class="card" id="readDetails">
       <summary>What RedPen read <span class="muted">(fix a misread line, then re-check)</span></summary>
       <ol id="lines" class="lines"></ol>
-      <button class="secondary" id="recheck" type="button">Re-check — no AI call</button>
+      <button class="secondary" id="recheck" type="button">Re-check my fix</button>
     </details>
 
     <details class="card">

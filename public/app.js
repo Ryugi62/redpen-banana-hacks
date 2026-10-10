@@ -7,9 +7,26 @@
     { id: "s1", label: "Sign slip" },
     { id: "s2", label: "Lost a solution" },
     { id: "s3", label: "All correct" },
+    { id: "s4", label: "Notebook page" },
   ];
+  const STAGES = [
+    [0, "Finding your lines…"], [2, "Reading each line (vision model)…"], [7, "Checking every step with SymPy…"],
+    [10, "Reading the suspect line again, zoomed in, before circling it…"], [20, "Still working — free models can be slow…"],
+  ];
+  let stageTimer = null;
+  function startStages() {
+    const t0 = Date.now();
+    const tick = () => {
+      const s = (Date.now() - t0) / 1000;
+      const label = STAGES.filter(([at]) => s >= at).pop()[1];
+      $("stage").textContent = `${label} ${Math.floor(s)} s`;
+    };
+    tick(); stageTimer = setInterval(tick, 500);
+  }
+  function stopStages() { clearInterval(stageTimer); stageTimer = null; }
 
   function show(name) {
+    if (name !== "loading") stopStages();
     screens.forEach((s) => ($(s).hidden = s !== name));
     $("error").hidden = true;
     $("ctaText").textContent = name === "result" ? "Check another photo" : "Check my work — take a photo";
@@ -26,14 +43,23 @@
     sign: "Sign", arithmetic: "Arithmetic", distribution: "Distribution", dropped_term: "Missing term",
     lost_solution: "Lost a solution", extra_solution: "Extra solution", check_step: "Check this step",
   };
-  const REL_LABEL = { start: "start", equivalent: "holds", not_equivalent: "breaks", unreadable: "can't read", unsupported: "not checked", prose: "words" };
+  const REL_LABEL = { start: "start", equivalent: "holds", not_equivalent: "breaks", unreadable: "can't read", unsupported: "not checked", prose: "words", doubtful: "read 2 ways" };
 
   function render(out, image) {
     current = { image, steps: out.steps };
     const v = out.verdict;
     const card = $("verdictCard");
-    card.classList.remove("slip", "ok");
-    if (v.first_slip_line) {
+    card.classList.remove("slip", "ok", "unsure");
+    $("readDetails").open = false;
+    const unsure = v.uncertain_lines || [];
+    if (!v.first_slip_line && unsure.length) {
+      card.classList.add("unsure");
+      $("bigNum").textContent = `Line ${unsure[0]}?`;
+      $("bigSub").textContent = "I read this line two different ways";
+      $("hintChip").hidden = true;
+      $("explain").textContent = "RedPen only circles a line when two readings agree. Check that line below, fix it if I misread it, and re-check.";
+      $("readDetails").open = true;
+    } else if (v.first_slip_line) {
       card.classList.add("slip");
       $("bigNum").textContent = `Line ${v.first_slip_line}`;
       $("bigSub").textContent = "is where your work first breaks";
@@ -56,20 +82,29 @@
       const n = document.createElement("span"); n.className = "n"; n.textContent = i + 1;
       const inp = document.createElement("input"); inp.value = s.text; inp.dataset.i = i; inp.setAttribute("aria-label", `Line ${i + 1}`);
       inp.autocapitalize = "off"; inp.spellcheck = false;
-      const tag = document.createElement("span"); tag.className = `tag ${s.relation}`; tag.textContent = REL_LABEL[s.relation] || s.relation;
+      const rel = s.doubtful ? "doubtful" : s.relation;
+      const tag = document.createElement("span"); tag.className = `tag ${rel}`; tag.textContent = REL_LABEL[rel] || rel;
       li.append(n, inp, tag); ol.append(li);
     });
     const t = out.timings_ms || {};
     $("howDecided").innerHTML = `
       <p><b>Line finding:</b> ${out.mode === "model-located" ? "the photo didn't look like neat lines, so the vision model located them" : "classical computer vision (projection profile + deskew)"}.</p>
       <p><b>Reading:</b> ${out.model || "—"}. The model only copies what is written; it is told never to fix mistakes.</p>
+      <p><b>Before circling:</b> ${out.rechecked ? "the suspect line and the one before it were read a second time, zoomed in. " + (unsure.length ? "The readings disagreed, so RedPen asks instead of accusing." : "The readings agreed.") : "nothing to circle, no second reading needed."}</p>
       <p><b>Verifying:</b> SymPy compares each line with the previous readable one — solution sets for equations, symbolic + numeric identity for expressions. Lines it can't read are skipped, never called wrong.</p>
       <p><b>Time:</b> ${Object.entries(t).map(([k, ms]) => `${k} ${ms} ms`).join(" · ") || "—"}</p>`;
     show("result");
   }
 
   async function post(path, body) {
-    const r = await fetch(path, { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify(body) });
+    const ctl = new AbortController();
+    const timer = setTimeout(() => ctl.abort(), 59000);
+    let r;
+    try {
+      r = await fetch(path, { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify(body), signal: ctl.signal });
+    } catch (e) {
+      throw new Error(e.name === "AbortError" ? "That took too long. Try again, or open a sample." : "Network problem. Try again.");
+    } finally { clearTimeout(timer); }
     let data = {};
     try { data = await r.json(); } catch (_) { /* ignore */ }
     if (!r.ok) throw new Error(data.error || `Request failed (${r.status})`);
@@ -90,7 +125,7 @@
     const f = e.target.files && e.target.files[0];
     e.target.value = "";
     if (!f) return;
-    show("loading");
+    show("loading"); startStages();
     try {
       const image = await normalise(f);
       const out = await post("/api/grade", { image });

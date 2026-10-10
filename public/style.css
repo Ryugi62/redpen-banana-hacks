@@ -36,6 +36,10 @@ h1 { font-size: 30px; line-height: 1.25; margin: 12px 0 12px; letter-spacing: -0
 .verdict .num { font-size: 40px; font-weight: 800; line-height: 1.1; letter-spacing: -1px; }
 .verdict.slip .num { color: var(--ink); }
 .verdict.ok .num { color: var(--ok); }
+.verdict.unsure .num { color: var(--warn); }
+.tag.doubtful { color: var(--warn); background: color-mix(in srgb, var(--warn) 14%, transparent); }
+.hero { margin: 0 0 28px; }
+.hero img { width: 100%; height: auto; border-radius: var(--radius); border: 1px solid var(--line); display: block; }
 .verdict .sub { font-size: 16px; color: var(--muted); margin-top: 4px; }
 .chip { display: inline-block; margin-top: 14px; padding: 4px 12px; border-radius: 999px; background: color-mix(in srgb, var(--ink) 12%, transparent); color: var(--ink); font-weight: 700; font-size: 13px; }
 .explain { margin: 10px 0 0; font-size: 15px; }
