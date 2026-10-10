@@ -20,5 +20,5 @@ LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 
-Exception: data/glyphs.json is derived from the Google MathWriting dataset and is
-licensed CC BY-NC-SA 4.0, not MIT. See data/README.md.
+Exception: data/glyphs.json, public/samples/* and public/hero.jpg are derived from the
+Google MathWriting dataset and are licensed CC BY-NC-SA 4.0, not MIT. See data/README.md.
