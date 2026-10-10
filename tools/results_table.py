@@ -87,6 +87,27 @@ def table(names, other="same model asked directly"):
     return "\n".join(out)
 
 
+def prompts_table(synth: str, real: str) -> str:
+    """One row per approach: the same model asked three ways, and RedPen."""
+    leak = json.load(open(os.path.join(ROOT, "eval", "results", f"{synth}-answer-leak.json")))
+    hand = json.load(open(os.path.join(ROOT, "eval", "results", f"{synth}-answer-leak-handcheck.json")))
+    leak_na = json.load(open(os.path.join(ROOT, "eval", "results", f"{synth}-answer-leak-noanswer.json")))
+    ss, sr = stats(synth), stats(real)
+    rs, rr = stats(f"{synth}-reasoned-baseline"), stats(f"{real}-reasoned-baseline")
+    ns, nr = stats(f"{synth}-noanswer-baseline"), stats(f"{real}-noanswer-baseline")
+    n = leak["pages"]
+    pv = lambda x: f"p = {x['p']:.3f}" if x["p"] >= 0.001 else "p < 0.001"
+    rows = [
+        "| Same vision model (gemma-4-26b), same image… | Right about the page: 150 synthetic | Right: 30 real | Correct pages wrongly accused: synthetic / real | States the correct answer (synthetic, wrong solutions) | RedPen better / worse on (paired, synthetic) |",
+        "|---|---|---|---|---|---|",
+        f"| asked for the first wrong line | {ss['base_overall']} | {sr['base_overall']} | {ss['base_fa'].split(' (')[0]} / {sr['base_fa'].split(' (')[0]} | — (gives only a number) | {ss['b']} / {ss['c']}, {pv(ss)} |",
+        f"| told to copy every line and reason step by step | {rs['base_overall']} | {rr['base_overall']} | {rs['base_fa'].split(' (')[0]} / {rr['base_fa'].split(' (')[0]} | {hand['hand_checked_leaks']} of {n} (hand-checked; {leak['reasoning_reveals_answer']} by the automatic check) | {rs['b']} / {rs['c']}, {pv(rs)} |",
+        f"| …and told **not** to reveal the answer | {ns['base_overall']} | {nr['base_overall']} | {ns['base_fa'].split(' (')[0]} / {nr['base_fa'].split(' (')[0]} | {leak_na['reasoning_reveals_answer']} of {leak_na['pages']} (automatic check) | {ns['b']} / {ns['c']}, {pv(ns)} |",
+        f"| **RedPen** | **{ss['pipe_overall']}** | **{sr['pipe_overall']}** | **{ss['pipe_fa'].split(' (')[0]} / {sr['pipe_fa'].split(' (')[0]}** | **0** (hints never contain a number — tested) | |",
+    ]
+    return "\n".join(rows)
+
+
 def put(s, tag, t):
     return re.sub(rf"(<!-- {tag}:start -->)(.*?)(<!-- {tag}:end -->)", lambda m: m.group(1) + "\n" + t + "\n" + m.group(3), s, flags=re.S)
 
@@ -101,7 +122,7 @@ if __name__ == "__main__":
     path = os.path.join(ROOT, "README.md")
     s = open(path, encoding="utf-8").read()
     if reasoned:
-        s = put(s, "reasoned", table(reasoned, "same model told to transcribe and reason step by step"))
+        s = put(s, "reasoned", prompts_table(args[0], args[1]))
     s = re.sub(r"(<!-- results:start -->)(.*?)(<!-- results:end -->)", lambda m: m.group(1) + "\n" + t + "\n" + m.group(3), s, flags=re.S)
     s = s.replace("RESULTS_TABLE", "<!-- results:start -->\n" + t + "\n<!-- results:end -->")
     open(path, "w", encoding="utf-8").write(s)

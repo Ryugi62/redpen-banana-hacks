@@ -1,0 +1,19 @@
+{
+ "pages": 66,
+ "reasoning_reveals_answer": 1,
+ "examples": [
+  {
+   "i": 52,
+   "lines": [
+    "5(x+4)=0",
+    "5x+4=0",
+    "5x=-4",
+    "x=-4/5"
+   ],
+   "answer": [
+    "-4"
+   ],
+   "reasoning": "Line 1 is the starting equation. Line 2 incorrectly applies the distributive property. Line 3 follows correctly from line 2. Line 4 follows correctly from line 3. Wait, line 4 is actually correct based on line 3. Let me re-evaluate. Line 1: 5(x+4)=0. Line 2: 5x+4=0. The mistake is in line 2. Line 3: 5x=-4. Line 4: x=-4/5. The mistake is in line 2. Let me re-check line 4. Line 4 is x=-4/5. Line 3 is 5x=-4. So line 4 follows from line 3. The first mistake is in line 2."
+  }
+ ]
+}

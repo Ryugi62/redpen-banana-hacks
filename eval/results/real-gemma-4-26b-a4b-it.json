@@ -5,9 +5,9 @@
   "pages": 30,
   "slipped": 12,
   "clean": 18,
-  "pipeline_first_slip_acc": 0.75,
+  "pipeline_first_slip_acc": 0.8333333333333334,
   "pipeline_false_alarm": 0.1111111111111111,
-  "pipeline_overall_acc": 0.8333333333333334,
+  "pipeline_overall_acc": 0.8666666666666667,
   "baseline_first_slip_acc": 0.6666666666666666,
   "baseline_false_alarm": 0.2777777777777778,
   "baseline_overall_acc": 0.7,
@@ -16,7 +16,7 @@
   "baseline_no_answer": 0,
   "pages_skipped_model_error": 0,
   "pipeline_asked_instead": 3,
-  "pipeline_wrong_accusations": 3,
+  "pipeline_wrong_accusations": 2,
   "baseline_wrong_accusations": 8,
   "pipeline_missed_slip_silently": 1,
   "baseline_missed_slip": 1
@@ -46,7 +46,9 @@
    "baseline": 2,
    "reads_exact": [],
    "rechecked": true,
-   "uncertain": []
+   "uncertain": [],
+   "culprit": "5(-4)",
+   "term_circled": true
   },
   {
    "file": "real02-005.jpg",
@@ -72,7 +74,9 @@
    "baseline": 2,
    "reads_exact": [],
    "rechecked": true,
-   "uncertain": []
+   "uncertain": [],
+   "culprit": "5(-4)",
+   "term_circled": true
   },
   {
    "file": "real03-021.jpg",
@@ -107,7 +111,9 @@
    "baseline": 4,
    "reads_exact": [],
    "rechecked": true,
-   "uncertain": []
+   "uncertain": [],
+   "culprit": null,
+   "term_circled": false
   },
   {
    "file": "real04-032.jpg",
@@ -133,7 +139,9 @@
    "baseline": 0,
    "reads_exact": [],
    "rechecked": false,
-   "uncertain": []
+   "uncertain": [],
+   "culprit": null,
+   "term_circled": false
   },
   {
    "file": "real05-029.jpg",
@@ -165,7 +173,9 @@
    "baseline": 0,
    "reads_exact": [],
    "rechecked": false,
-   "uncertain": []
+   "uncertain": [],
+   "culprit": null,
+   "term_circled": false
   },
   {
    "file": "real06-029.jpg",
@@ -191,7 +201,9 @@
    "baseline": 0,
    "reads_exact": [],
    "rechecked": false,
-   "uncertain": []
+   "uncertain": [],
+   "culprit": null,
+   "term_circled": false
   },
   {
    "file": "real07-015.jpg",
@@ -214,7 +226,9 @@
    "baseline": 0,
    "reads_exact": [],
    "rechecked": false,
-   "uncertain": []
+   "uncertain": [],
+   "culprit": null,
+   "term_circled": false
   },
   {
    "file": "held01-002.jpg",
@@ -224,11 +238,11 @@
     "18+c=42",
     "c=42-18=24"
    ],
-   "pred_line": 0,
+   "pred_line": 1,
    "pred_flagged": true,
    "mode": "model-located",
    "relations": [
-    "not_equivalent",
+    "start",
     "not_equivalent",
     "equivalent"
    ],
@@ -240,7 +254,9 @@
    "baseline": 2,
    "reads_exact": [],
    "rechecked": true,
-   "uncertain": []
+   "uncertain": [],
+   "culprit": "18",
+   "term_circled": true
   },
   {
    "file": "held02-002.jpg",
@@ -266,7 +282,9 @@
    "uncertain": [
     0,
     1
-   ]
+   ],
+   "culprit": null,
+   "term_circled": false
   },
   {
    "file": "held03-003.jpg",
@@ -295,7 +313,9 @@
    "baseline": 2,
    "reads_exact": [],
    "rechecked": false,
-   "uncertain": []
+   "uncertain": [],
+   "culprit": null,
+   "term_circled": false
   },
   {
    "file": "held04-007.jpg",
@@ -321,7 +341,9 @@
    "baseline": 2,
    "reads_exact": [],
    "rechecked": true,
-   "uncertain": []
+   "uncertain": [],
+   "culprit": "41",
+   "term_circled": true
   },
   {
    "file": "held05-007.jpg",
@@ -347,7 +369,9 @@
    "baseline": 3,
    "reads_exact": [],
    "rechecked": false,
-   "uncertain": []
+   "uncertain": [],
+   "culprit": null,
+   "term_circled": false
   },
   {
    "file": "held06-007.jpg",
@@ -378,7 +402,9 @@
    "rechecked": true,
    "uncertain": [
     3
-   ]
+   ],
+   "culprit": null,
+   "term_circled": false
   },
   {
    "file": "held07-009.jpg",
@@ -404,7 +430,9 @@
    "baseline": 2,
    "reads_exact": [],
    "rechecked": true,
-   "uncertain": []
+   "uncertain": [],
+   "culprit": null,
+   "term_circled": false
   },
   {
    "file": "held08-009.jpg",
@@ -427,7 +455,9 @@
    "baseline": 0,
    "reads_exact": [],
    "rechecked": true,
-   "uncertain": []
+   "uncertain": [],
+   "culprit": null,
+   "term_circled": false
   },
   {
    "file": "held09-010.jpg",
@@ -450,7 +480,9 @@
    "baseline": 0,
    "reads_exact": [],
    "rechecked": true,
-   "uncertain": []
+   "uncertain": [],
+   "culprit": null,
+   "term_circled": false
   },
   {
    "file": "held10-012.jpg",
@@ -478,7 +510,9 @@
    "rechecked": true,
    "uncertain": [
     2
-   ]
+   ],
+   "culprit": null,
+   "term_circled": false
   },
   {
    "file": "held11-012.jpg",
@@ -504,7 +538,9 @@
    "baseline": 0,
    "reads_exact": [],
    "rechecked": false,
-   "uncertain": []
+   "uncertain": [],
+   "culprit": null,
+   "term_circled": false
   },
   {
    "file": "held12-014.jpg",
@@ -530,7 +566,9 @@
    "baseline": 0,
    "reads_exact": [],
    "rechecked": false,
-   "uncertain": []
+   "uncertain": [],
+   "culprit": null,
+   "term_circled": false
   },
   {
    "file": "held13-014.jpg",
@@ -556,7 +594,9 @@
    "baseline": 2,
    "reads_exact": [],
    "rechecked": false,
-   "uncertain": []
+   "uncertain": [],
+   "culprit": null,
+   "term_circled": false
   },
   {
    "file": "held14-015.jpg",
@@ -579,7 +619,9 @@
    "baseline": 2,
    "reads_exact": [],
    "rechecked": false,
-   "uncertain": []
+   "uncertain": [],
+   "culprit": null,
+   "term_circled": false
   },
   {
    "file": "held15-018.jpg",
@@ -605,7 +647,9 @@
    "baseline": 0,
    "reads_exact": [],
    "rechecked": false,
-   "uncertain": []
+   "uncertain": [],
+   "culprit": null,
+   "term_circled": false
   },
   {
    "file": "held16-020.jpg",
@@ -634,7 +678,9 @@
    "baseline": 0,
    "reads_exact": [],
    "rechecked": false,
-   "uncertain": []
+   "uncertain": [],
+   "culprit": null,
+   "term_circled": false
   },
   {
    "file": "held17-023.jpg",
@@ -663,7 +709,9 @@
    "baseline": 0,
    "reads_exact": [],
    "rechecked": false,
-   "uncertain": []
+   "uncertain": [],
+   "culprit": null,
+   "term_circled": false
   },
   {
    "file": "held18-027.jpg",
@@ -692,7 +740,9 @@
    "baseline": 3,
    "reads_exact": [],
    "rechecked": false,
-   "uncertain": []
+   "uncertain": [],
+   "culprit": null,
+   "term_circled": false
   },
   {
    "file": "held19-031.jpg",
@@ -718,7 +768,9 @@
    "baseline": 0,
    "reads_exact": [],
    "rechecked": true,
-   "uncertain": []
+   "uncertain": [],
+   "culprit": null,
+   "term_circled": false
   },
   {
    "file": "held20-031.jpg",
@@ -742,7 +794,9 @@
    "baseline": 2,
    "reads_exact": [],
    "rechecked": true,
-   "uncertain": []
+   "uncertain": [],
+   "culprit": null,
+   "term_circled": false
   },
   {
    "file": "held21-034.jpg",
@@ -765,7 +819,9 @@
    "baseline": 0,
    "reads_exact": [],
    "rechecked": false,
-   "uncertain": []
+   "uncertain": [],
+   "culprit": null,
+   "term_circled": false
   },
   {
    "file": "held22-034.jpg",
@@ -794,7 +850,9 @@
    "baseline": 2,
    "reads_exact": [],
    "rechecked": true,
-   "uncertain": []
+   "uncertain": [],
+   "culprit": null,
+   "term_circled": false
   },
   {
    "file": "held23-021.jpg",
@@ -823,7 +881,9 @@
    "baseline": 2,
    "reads_exact": [],
    "rechecked": true,
-   "uncertain": []
+   "uncertain": [],
+   "culprit": null,
+   "term_circled": false
   }
  ]
 }

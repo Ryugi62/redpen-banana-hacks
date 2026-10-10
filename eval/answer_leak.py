@@ -17,7 +17,7 @@ import re
 
 import sympy as sp
 
-from eval.baseline_reasoned import PROMPT, SCHEMA
+from eval.baseline_reasoned import PROMPT, PROMPT_NO_ANSWER, SCHEMA
 from eval.run import HERE
 from eval.seeded import generate
 from eval.synth import render_page
@@ -43,7 +43,9 @@ def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("results")
     ap.add_argument("--per", type=int, default=30)
+    ap.add_argument("--no-answer", action="store_true", help="check the baseline that was told not to reveal the answer")
     a = ap.parse_args()
+    prompt = PROMPT_NO_ANSWER if a.no_answer else PROMPT
     d = json.load(open(os.path.join(HERE, "results", f"{a.results}.json")))
     model = d["summary"]["model"]
     items = generate(a.per)
@@ -65,7 +67,7 @@ def main():
         img, _ = render_page(it.lines, seed=5000 + r["i"], hard=(r["i"] % 4 == 0))
         buf = io.BytesIO()
         load_rgb(normalise_bytes(img)).save(buf, format="JPEG", quality=88)
-        key = hashlib.sha1((model + PROMPT + json.dumps(SCHEMA)).encode() + buf.getvalue()).hexdigest()
+        key = hashlib.sha1((model + prompt + json.dumps(SCHEMA)).encode() + buf.getvalue()).hexdigest()
         path = os.path.join(HERE, "cache", f"{key}.json")
         if not os.path.exists(path):
             continue
@@ -74,7 +76,7 @@ def main():
         if mentions(out.get("reasoning", ""), vals):
             leaks.append({"i": r["i"], "lines": it.lines, "answer": [str(v) for v in vals], "reasoning": out.get("reasoning", "")})
     res = {"pages": pages, "reasoning_reveals_answer": len(leaks), "examples": leaks}
-    json.dump(res, open(os.path.join(HERE, "results", f"{a.results}-answer-leak.json"), "w"), indent=1)
+    json.dump(res, open(os.path.join(HERE, "results", f"{a.results}-answer-leak{'-noanswer' if a.no_answer else ''}.json"), "w"), indent=1)
     print(json.dumps({k: res[k] for k in ("pages", "reasoning_reveals_answer")}))
 
 

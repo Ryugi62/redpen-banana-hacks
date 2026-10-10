@@ -53,7 +53,9 @@
    ],
    "hard": true,
    "rechecked": false,
-   "uncertain": []
+   "uncertain": [],
+   "culprit": null,
+   "term_circled": false
   },
   {
    "i": 1,
@@ -86,7 +88,9 @@
    ],
    "hard": false,
    "rechecked": false,
-   "uncertain": []
+   "uncertain": [],
+   "culprit": null,
+   "term_circled": false
   },
   {
    "i": 2,
@@ -119,7 +123,9 @@
    ],
    "hard": false,
    "rechecked": true,
-   "uncertain": []
+   "uncertain": [],
+   "culprit": "50",
+   "term_circled": true
   },
   {
    "i": 3,
@@ -152,7 +158,9 @@
    ],
    "hard": false,
    "rechecked": true,
-   "uncertain": []
+   "uncertain": [],
+   "culprit": "180",
+   "term_circled": true
   },
   {
    "i": 4,
@@ -185,7 +193,9 @@
    ],
    "hard": true,
    "rechecked": false,
-   "uncertain": []
+   "uncertain": [],
+   "culprit": null,
+   "term_circled": false
   },
   {
    "i": 5,
@@ -218,7 +228,9 @@
    ],
    "hard": false,
    "rechecked": true,
-   "uncertain": []
+   "uncertain": [],
+   "culprit": "-14",
+   "term_circled": true
   },
   {
    "i": 6,
@@ -251,7 +263,9 @@
    ],
    "hard": false,
    "rechecked": true,
-   "uncertain": []
+   "uncertain": [],
+   "culprit": "43",
+   "term_circled": true
   },
   {
    "i": 7,
@@ -284,7 +298,9 @@
    ],
    "hard": false,
    "rechecked": true,
-   "uncertain": []
+   "uncertain": [],
+   "culprit": "27",
+   "term_circled": true
   },
   {
    "i": 8,
@@ -317,7 +333,9 @@
    ],
    "hard": true,
    "rechecked": false,
-   "uncertain": []
+   "uncertain": [],
+   "culprit": null,
+   "term_circled": false
   },
   {
    "i": 9,
@@ -350,7 +368,9 @@
    ],
    "hard": false,
    "rechecked": true,
-   "uncertain": []
+   "uncertain": [],
+   "culprit": "-18",
+   "term_circled": true
   },
   {
    "i": 10,
@@ -383,7 +403,9 @@
    ],
    "hard": false,
    "rechecked": true,
-   "uncertain": []
+   "uncertain": [],
+   "culprit": "-27",
+   "term_circled": true
   },
   {
    "i": 11,
@@ -416,7 +438,9 @@
    ],
    "hard": false,
    "rechecked": true,
-   "uncertain": []
+   "uncertain": [],
+   "culprit": "16",
+   "term_circled": true
   },
   {
    "i": 12,
@@ -449,7 +473,9 @@
    ],
    "hard": true,
    "rechecked": true,
-   "uncertain": []
+   "uncertain": [],
+   "culprit": "1",
+   "term_circled": true
   },
   {
    "i": 13,
@@ -482,7 +508,9 @@
    ],
    "hard": false,
    "rechecked": true,
-   "uncertain": []
+   "uncertain": [],
+   "culprit": "2",
+   "term_circled": true
   },
   {
    "i": 14,
@@ -515,7 +543,9 @@
    ],
    "hard": false,
    "rechecked": true,
-   "uncertain": []
+   "uncertain": [],
+   "culprit": "22",
+   "term_circled": true
   },
   {
    "i": 15,
@@ -548,7 +578,9 @@
    ],
    "hard": false,
    "rechecked": true,
-   "uncertain": []
+   "uncertain": [],
+   "culprit": "42",
+   "term_circled": true
   },
   {
    "i": 16,
@@ -581,7 +613,9 @@
    ],
    "hard": true,
    "rechecked": false,
-   "uncertain": []
+   "uncertain": [],
+   "culprit": null,
+   "term_circled": false
   },
   {
    "i": 17,
@@ -614,7 +648,9 @@
    ],
    "hard": false,
    "rechecked": true,
-   "uncertain": []
+   "uncertain": [],
+   "culprit": "25",
+   "term_circled": true
   },
   {
    "i": 18,
@@ -649,7 +685,9 @@
    "rechecked": true,
    "uncertain": [
     1
-   ]
+   ],
+   "culprit": null,
+   "term_circled": false
   },
   {
    "i": 19,
@@ -682,7 +720,9 @@
    ],
    "hard": false,
    "rechecked": true,
-   "uncertain": []
+   "uncertain": [],
+   "culprit": "36",
+   "term_circled": true
   },
   {
    "i": 20,
@@ -715,7 +755,9 @@
    ],
    "hard": true,
    "rechecked": false,
-   "uncertain": []
+   "uncertain": [],
+   "culprit": null,
+   "term_circled": false
   },
   {
    "i": 21,
@@ -748,7 +790,9 @@
    ],
    "hard": false,
    "rechecked": true,
-   "uncertain": []
+   "uncertain": [],
+   "culprit": "-14",
+   "term_circled": true
   },
   {
    "i": 22,
@@ -781,7 +825,9 @@
    ],
    "hard": false,
    "rechecked": true,
-   "uncertain": []
+   "uncertain": [],
+   "culprit": "23",
+   "term_circled": true
   },
   {
    "i": 23,
@@ -814,7 +860,9 @@
    ],
    "hard": false,
    "rechecked": true,
-   "uncertain": []
+   "uncertain": [],
+   "culprit": "-15",
+   "term_circled": true
   },
   {
    "i": 24,
@@ -847,7 +895,9 @@
    ],
    "hard": true,
    "rechecked": false,
-   "uncertain": []
+   "uncertain": [],
+   "culprit": null,
+   "term_circled": false
   },
   {
    "i": 25,
@@ -880,7 +930,9 @@
    ],
    "hard": false,
    "rechecked": true,
-   "uncertain": []
+   "uncertain": [],
+   "culprit": "6",
+   "term_circled": true
   },
   {
    "i": 26,
@@ -913,7 +965,9 @@
    ],
    "hard": false,
    "rechecked": true,
-   "uncertain": []
+   "uncertain": [],
+   "culprit": "2",
+   "term_circled": true
   },
   {
    "i": 27,
@@ -946,7 +1000,9 @@
    ],
    "hard": false,
    "rechecked": true,
-   "uncertain": []
+   "uncertain": [],
+   "culprit": "100",
+   "term_circled": true
   },
   {
    "i": 28,
@@ -979,7 +1035,9 @@
    ],
    "hard": true,
    "rechecked": false,
-   "uncertain": []
+   "uncertain": [],
+   "culprit": null,
+   "term_circled": false
   },
   {
    "i": 29,
@@ -1010,7 +1068,9 @@
    ],
    "hard": false,
    "rechecked": true,
-   "uncertain": []
+   "uncertain": [],
+   "culprit": "25",
+   "term_circled": true
   },
   {
    "i": 30,
@@ -1047,7 +1107,9 @@
    ],
    "hard": false,
    "rechecked": false,
-   "uncertain": []
+   "uncertain": [],
+   "culprit": null,
+   "term_circled": false
   },
   {
    "i": 31,
@@ -1084,7 +1146,9 @@
    ],
    "hard": false,
    "rechecked": true,
-   "uncertain": []
+   "uncertain": [],
+   "culprit": "7",
+   "term_circled": true
   },
   {
    "i": 32,
@@ -1121,7 +1185,9 @@
    ],
    "hard": true,
    "rechecked": true,
-   "uncertain": []
+   "uncertain": [],
+   "culprit": "14",
+   "term_circled": true
   },
   {
    "i": 33,
@@ -1158,7 +1224,9 @@
    ],
    "hard": false,
    "rechecked": false,
-   "uncertain": []
+   "uncertain": [],
+   "culprit": null,
+   "term_circled": false
   },
   {
    "i": 34,
@@ -1195,7 +1263,9 @@
    ],
    "hard": false,
    "rechecked": true,
-   "uncertain": []
+   "uncertain": [],
+   "culprit": "6",
+   "term_circled": false
   },
   {
    "i": 35,
@@ -1230,7 +1300,9 @@
    ],
    "hard": false,
    "rechecked": true,
-   "uncertain": []
+   "uncertain": [],
+   "culprit": "-80",
+   "term_circled": false
   },
   {
    "i": 36,
@@ -1267,7 +1339,9 @@
    ],
    "hard": true,
    "rechecked": false,
-   "uncertain": []
+   "uncertain": [],
+   "culprit": null,
+   "term_circled": false
   },
   {
    "i": 37,
@@ -1304,7 +1378,9 @@
    ],
    "hard": false,
    "rechecked": true,
-   "uncertain": []
+   "uncertain": [],
+   "culprit": "7",
+   "term_circled": true
   },
   {
    "i": 38,
@@ -1341,7 +1417,9 @@
    ],
    "hard": false,
    "rechecked": true,
-   "uncertain": []
+   "uncertain": [],
+   "culprit": "-3",
+   "term_circled": true
   },
   {
    "i": 39,
@@ -1378,7 +1456,9 @@
    ],
    "hard": false,
    "rechecked": false,
-   "uncertain": []
+   "uncertain": [],
+   "culprit": null,
+   "term_circled": false
   },
   {
    "i": 40,
@@ -1415,7 +1495,9 @@
    ],
    "hard": true,
    "rechecked": true,
-   "uncertain": []
+   "uncertain": [],
+   "culprit": "5",
+   "term_circled": true
   },
   {
    "i": 41,
@@ -1454,7 +1536,9 @@
    "rechecked": true,
    "uncertain": [
     1
-   ]
+   ],
+   "culprit": null,
+   "term_circled": false
   },
   {
    "i": 42,
@@ -1491,7 +1575,9 @@
    ],
    "hard": false,
    "rechecked": false,
-   "uncertain": []
+   "uncertain": [],
+   "culprit": null,
+   "term_circled": false
   },
   {
    "i": 43,
@@ -1528,7 +1614,9 @@
    ],
    "hard": false,
    "rechecked": true,
-   "uncertain": []
+   "uncertain": [],
+   "culprit": "-3",
+   "term_circled": true
   },
   {
    "i": 44,
@@ -1565,7 +1653,9 @@
    ],
    "hard": true,
    "rechecked": true,
-   "uncertain": []
+   "uncertain": [],
+   "culprit": "-32",
+   "term_circled": true
   },
   {
    "i": 45,
@@ -1602,7 +1692,9 @@
    ],
    "hard": false,
    "rechecked": false,
-   "uncertain": []
+   "uncertain": [],
+   "culprit": null,
+   "term_circled": false
   },
   {
    "i": 46,
@@ -1639,7 +1731,9 @@
    ],
    "hard": false,
    "rechecked": true,
-   "uncertain": []
+   "uncertain": [],
+   "culprit": "2",
+   "term_circled": true
   },
   {
    "i": 47,
@@ -1676,7 +1770,9 @@
    ],
    "hard": false,
    "rechecked": true,
-   "uncertain": []
+   "uncertain": [],
+   "culprit": "-15",
+   "term_circled": true
   },
   {
    "i": 48,
@@ -1713,7 +1809,9 @@
    ],
    "hard": true,
    "rechecked": false,
-   "uncertain": []
+   "uncertain": [],
+   "culprit": null,
+   "term_circled": false
   },
   {
    "i": 49,
@@ -1750,7 +1848,9 @@
    ],
    "hard": false,
    "rechecked": true,
-   "uncertain": []
+   "uncertain": [],
+   "culprit": "-7",
+   "term_circled": true
   },
   {
    "i": 50,
@@ -1787,7 +1887,9 @@
    ],
    "hard": false,
    "rechecked": true,
-   "uncertain": []
+   "uncertain": [],
+   "culprit": "-12",
+   "term_circled": true
   },
   {
    "i": 51,
@@ -1824,7 +1926,9 @@
    ],
    "hard": false,
    "rechecked": false,
-   "uncertain": []
+   "uncertain": [],
+   "culprit": null,
+   "term_circled": false
   },
   {
    "i": 52,
@@ -1861,7 +1965,9 @@
    ],
    "hard": true,
    "rechecked": true,
-   "uncertain": []
+   "uncertain": [],
+   "culprit": "4",
+   "term_circled": true
   },
   {
    "i": 53,
@@ -1898,7 +2004,9 @@
    ],
    "hard": false,
    "rechecked": true,
-   "uncertain": []
+   "uncertain": [],
+   "culprit": "-6",
+   "term_circled": true
   },
   {
    "i": 54,
@@ -1935,7 +2043,9 @@
    ],
    "hard": false,
    "rechecked": false,
-   "uncertain": []
+   "uncertain": [],
+   "culprit": null,
+   "term_circled": false
   },
   {
    "i": 55,
@@ -1972,7 +2082,9 @@
    ],
    "hard": false,
    "rechecked": true,
-   "uncertain": []
+   "uncertain": [],
+   "culprit": "-8",
+   "term_circled": false
   },
   {
    "i": 56,
@@ -2009,7 +2121,9 @@
    ],
    "hard": true,
    "rechecked": true,
-   "uncertain": []
+   "uncertain": [],
+   "culprit": "1",
+   "term_circled": true
   },
   {
    "i": 57,
@@ -2046,7 +2160,9 @@
    ],
    "hard": false,
    "rechecked": false,
-   "uncertain": []
+   "uncertain": [],
+   "culprit": null,
+   "term_circled": false
   },
   {
    "i": 58,
@@ -2083,7 +2199,9 @@
    ],
    "hard": false,
    "rechecked": true,
-   "uncertain": []
+   "uncertain": [],
+   "culprit": "1",
+   "term_circled": true
   },
   {
    "i": 59,
@@ -2120,7 +2238,9 @@
    ],
    "hard": false,
    "rechecked": true,
-   "uncertain": []
+   "uncertain": [],
+   "culprit": "-20",
+   "term_circled": true
   },
   {
    "i": 60,
@@ -2153,7 +2273,9 @@
    ],
    "hard": true,
    "rechecked": false,
-   "uncertain": []
+   "uncertain": [],
+   "culprit": null,
+   "term_circled": false
   },
   {
    "i": 61,
@@ -2186,7 +2308,9 @@
    ],
    "hard": false,
    "rechecked": true,
-   "uncertain": []
+   "uncertain": [],
+   "culprit": "-6",
+   "term_circled": true
   },
   {
    "i": 62,
@@ -2219,7 +2343,9 @@
    ],
    "hard": false,
    "rechecked": true,
-   "uncertain": []
+   "uncertain": [],
+   "culprit": "3",
+   "term_circled": true
   },
   {
    "i": 63,
@@ -2252,7 +2378,9 @@
    ],
    "hard": false,
    "rechecked": true,
-   "uncertain": []
+   "uncertain": [],
+   "culprit": "-9",
+   "term_circled": true
   },
   {
    "i": 64,
@@ -2285,7 +2413,9 @@
    ],
    "hard": true,
    "rechecked": false,
-   "uncertain": []
+   "uncertain": [],
+   "culprit": null,
+   "term_circled": false
   },
   {
    "i": 65,
@@ -2318,7 +2448,9 @@
    ],
    "hard": false,
    "rechecked": true,
-   "uncertain": []
+   "uncertain": [],
+   "culprit": "-15",
+   "term_circled": true
   },
   {
    "i": 66,
@@ -2351,7 +2483,9 @@
    ],
    "hard": false,
    "rechecked": true,
-   "uncertain": []
+   "uncertain": [],
+   "culprit": "1",
+   "term_circled": true
   },
   {
    "i": 67,
@@ -2384,7 +2518,9 @@
    ],
    "hard": false,
    "rechecked": true,
-   "uncertain": []
+   "uncertain": [],
+   "culprit": "9",
+   "term_circled": true
   },
   {
    "i": 68,
@@ -2417,7 +2553,9 @@
    ],
    "hard": true,
    "rechecked": false,
-   "uncertain": []
+   "uncertain": [],
+   "culprit": null,
+   "term_circled": false
   },
   {
    "i": 69,
@@ -2450,7 +2588,9 @@
    ],
    "hard": false,
    "rechecked": true,
-   "uncertain": []
+   "uncertain": [],
+   "culprit": "12",
+   "term_circled": true
   },
   {
    "i": 70,
@@ -2483,7 +2623,9 @@
    ],
    "hard": false,
    "rechecked": true,
-   "uncertain": []
+   "uncertain": [],
+   "culprit": "7",
+   "term_circled": true
   },
   {
    "i": 71,
@@ -2516,7 +2658,9 @@
    ],
    "hard": false,
    "rechecked": true,
-   "uncertain": []
+   "uncertain": [],
+   "culprit": "5",
+   "term_circled": true
   },
   {
    "i": 72,
@@ -2549,7 +2693,9 @@
    ],
    "hard": true,
    "rechecked": false,
-   "uncertain": []
+   "uncertain": [],
+   "culprit": null,
+   "term_circled": false
   },
   {
    "i": 73,
@@ -2582,7 +2728,9 @@
    ],
    "hard": false,
    "rechecked": true,
-   "uncertain": []
+   "uncertain": [],
+   "culprit": "8",
+   "term_circled": true
   },
   {
    "i": 74,
@@ -2615,7 +2763,9 @@
    ],
    "hard": false,
    "rechecked": true,
-   "uncertain": []
+   "uncertain": [],
+   "culprit": "7",
+   "term_circled": true
   },
   {
    "i": 75,
@@ -2648,7 +2798,9 @@
    ],
    "hard": false,
    "rechecked": true,
-   "uncertain": []
+   "uncertain": [],
+   "culprit": "-12",
+   "term_circled": true
   },
   {
    "i": 76,
@@ -2681,7 +2833,9 @@
    ],
    "hard": true,
    "rechecked": false,
-   "uncertain": []
+   "uncertain": [],
+   "culprit": null,
+   "term_circled": false
   },
   {
    "i": 77,
@@ -2714,7 +2868,9 @@
    ],
    "hard": false,
    "rechecked": true,
-   "uncertain": []
+   "uncertain": [],
+   "culprit": "-2",
+   "term_circled": true
   },
   {
    "i": 78,
@@ -2747,7 +2903,9 @@
    ],
    "hard": false,
    "rechecked": true,
-   "uncertain": []
+   "uncertain": [],
+   "culprit": "-7",
+   "term_circled": true
   },
   {
    "i": 79,
@@ -2780,7 +2938,9 @@
    ],
    "hard": false,
    "rechecked": true,
-   "uncertain": []
+   "uncertain": [],
+   "culprit": "4",
+   "term_circled": true
   },
   {
    "i": 80,
@@ -2813,7 +2973,9 @@
    ],
    "hard": true,
    "rechecked": false,
-   "uncertain": []
+   "uncertain": [],
+   "culprit": null,
+   "term_circled": false
   },
   {
    "i": 81,
@@ -2846,7 +3008,9 @@
    ],
    "hard": false,
    "rechecked": true,
-   "uncertain": []
+   "uncertain": [],
+   "culprit": "2",
+   "term_circled": true
   },
   {
    "i": 82,
@@ -2879,7 +3043,9 @@
    ],
    "hard": false,
    "rechecked": true,
-   "uncertain": []
+   "uncertain": [],
+   "culprit": "-9",
+   "term_circled": true
   },
   {
    "i": 83,
@@ -2912,7 +3078,9 @@
    ],
    "hard": false,
    "rechecked": true,
-   "uncertain": []
+   "uncertain": [],
+   "culprit": "13",
+   "term_circled": true
   },
   {
    "i": 84,
@@ -2945,7 +3113,9 @@
    ],
    "hard": true,
    "rechecked": false,
-   "uncertain": []
+   "uncertain": [],
+   "culprit": null,
+   "term_circled": false
   },
   {
    "i": 85,
@@ -2981,7 +3151,9 @@
    "uncertain": [
     0,
     1
-   ]
+   ],
+   "culprit": null,
+   "term_circled": false
   },
   {
    "i": 86,
@@ -3016,7 +3188,9 @@
    "rechecked": true,
    "uncertain": [
     0
-   ]
+   ],
+   "culprit": null,
+   "term_circled": false
   },
   {
    "i": 87,
@@ -3049,7 +3223,9 @@
    ],
    "hard": false,
    "rechecked": true,
-   "uncertain": []
+   "uncertain": [],
+   "culprit": "-7",
+   "term_circled": true
   },
   {
    "i": 88,
@@ -3082,7 +3258,9 @@
    ],
    "hard": true,
    "rechecked": false,
-   "uncertain": []
+   "uncertain": [],
+   "culprit": null,
+   "term_circled": false
   },
   {
    "i": 89,
@@ -3115,7 +3293,9 @@
    ],
    "hard": false,
    "rechecked": true,
-   "uncertain": []
+   "uncertain": [],
+   "culprit": "-36",
+   "term_circled": true
   },
   {
    "i": 90,
@@ -3148,7 +3328,9 @@
    ],
    "hard": false,
    "rechecked": false,
-   "uncertain": []
+   "uncertain": [],
+   "culprit": null,
+   "term_circled": false
   },
   {
    "i": 91,
@@ -3181,7 +3363,9 @@
    ],
    "hard": false,
    "rechecked": true,
-   "uncertain": []
+   "uncertain": [],
+   "culprit": null,
+   "term_circled": false
   },
   {
    "i": 92,
@@ -3214,7 +3398,9 @@
    ],
    "hard": true,
    "rechecked": true,
-   "uncertain": []
+   "uncertain": [],
+   "culprit": null,
+   "term_circled": false
   },
   {
    "i": 93,
@@ -3247,7 +3433,9 @@
    ],
    "hard": false,
    "rechecked": true,
-   "uncertain": []
+   "uncertain": [],
+   "culprit": null,
+   "term_circled": false
   },
   {
    "i": 94,
@@ -3280,7 +3468,9 @@
    ],
    "hard": false,
    "rechecked": false,
-   "uncertain": []
+   "uncertain": [],
+   "culprit": null,
+   "term_circled": false
   },
   {
    "i": 95,
@@ -3313,7 +3503,9 @@
    ],
    "hard": false,
    "rechecked": true,
-   "uncertain": []
+   "uncertain": [],
+   "culprit": null,
+   "term_circled": false
   },
   {
    "i": 96,
@@ -3346,7 +3538,9 @@
    ],
    "hard": true,
    "rechecked": true,
-   "uncertain": []
+   "uncertain": [],
+   "culprit": null,
+   "term_circled": false
   },
   {
    "i": 97,
@@ -3379,7 +3573,9 @@
    ],
    "hard": false,
    "rechecked": true,
-   "uncertain": []
+   "uncertain": [],
+   "culprit": null,
+   "term_circled": false
   },
   {
    "i": 98,
@@ -3412,7 +3608,9 @@
    ],
    "hard": false,
    "rechecked": false,
-   "uncertain": []
+   "uncertain": [],
+   "culprit": null,
+   "term_circled": false
   },
   {
    "i": 99,
@@ -3445,7 +3643,9 @@
    ],
    "hard": false,
    "rechecked": true,
-   "uncertain": []
+   "uncertain": [],
+   "culprit": null,
+   "term_circled": false
   },
   {
    "i": 100,
@@ -3478,7 +3678,9 @@
    ],
    "hard": true,
    "rechecked": true,
-   "uncertain": []
+   "uncertain": [],
+   "culprit": null,
+   "term_circled": false
   },
   {
    "i": 101,
@@ -3511,7 +3713,9 @@
    ],
    "hard": false,
    "rechecked": true,
-   "uncertain": []
+   "uncertain": [],
+   "culprit": null,
+   "term_circled": false
   },
   {
    "i": 102,
@@ -3544,7 +3748,9 @@
    ],
    "hard": false,
    "rechecked": false,
-   "uncertain": []
+   "uncertain": [],
+   "culprit": null,
+   "term_circled": false
   },
   {
    "i": 103,
@@ -3577,7 +3783,9 @@
    ],
    "hard": false,
    "rechecked": true,
-   "uncertain": []
+   "uncertain": [],
+   "culprit": null,
+   "term_circled": false
   },
   {
    "i": 104,
@@ -3610,7 +3818,9 @@
    ],
    "hard": true,
    "rechecked": true,
-   "uncertain": []
+   "uncertain": [],
+   "culprit": null,
+   "term_circled": false
   },
   {
    "i": 105,
@@ -3643,7 +3853,9 @@
    ],
    "hard": false,
    "rechecked": true,
-   "uncertain": []
+   "uncertain": [],
+   "culprit": null,
+   "term_circled": false
   },
   {
    "i": 106,
@@ -3676,7 +3888,9 @@
    ],
    "hard": false,
    "rechecked": false,
-   "uncertain": []
+   "uncertain": [],
+   "culprit": null,
+   "term_circled": false
   },
   {
    "i": 107,
@@ -3711,7 +3925,9 @@
    "rechecked": true,
    "uncertain": [
     0
-   ]
+   ],
+   "culprit": null,
+   "term_circled": false
   },
   {
    "i": 108,
@@ -3744,7 +3960,9 @@
    ],
    "hard": true,
    "rechecked": true,
-   "uncertain": []
+   "uncertain": [],
+   "culprit": null,
+   "term_circled": false
   },
   {
    "i": 109,
@@ -3777,7 +3995,9 @@
    ],
    "hard": false,
    "rechecked": true,
-   "uncertain": []
+   "uncertain": [],
+   "culprit": null,
+   "term_circled": false
   },
   {
    "i": 110,
@@ -3812,7 +4032,9 @@
    "rechecked": true,
    "uncertain": [
     0
-   ]
+   ],
+   "culprit": null,
+   "term_circled": false
   },
   {
    "i": 111,
@@ -3845,7 +4067,9 @@
    ],
    "hard": false,
    "rechecked": true,
-   "uncertain": []
+   "uncertain": [],
+   "culprit": null,
+   "term_circled": false
   },
   {
    "i": 112,
@@ -3880,7 +4104,9 @@
    "rechecked": true,
    "uncertain": [
     0
-   ]
+   ],
+   "culprit": null,
+   "term_circled": false
   },
   {
    "i": 113,
@@ -3913,7 +4139,9 @@
    ],
    "hard": false,
    "rechecked": true,
-   "uncertain": []
+   "uncertain": [],
+   "culprit": null,
+   "term_circled": false
   },
   {
    "i": 114,
@@ -3946,7 +4174,9 @@
    ],
    "hard": false,
    "rechecked": true,
-   "uncertain": []
+   "uncertain": [],
+   "culprit": null,
+   "term_circled": false
   },
   {
    "i": 115,
@@ -3979,7 +4209,9 @@
    ],
    "hard": false,
    "rechecked": true,
-   "uncertain": []
+   "uncertain": [],
+   "culprit": null,
+   "term_circled": false
   },
   {
    "i": 116,
@@ -4012,7 +4244,9 @@
    ],
    "hard": true,
    "rechecked": true,
-   "uncertain": []
+   "uncertain": [],
+   "culprit": null,
+   "term_circled": false
   },
   {
    "i": 117,
@@ -4045,7 +4279,9 @@
    ],
    "hard": false,
    "rechecked": true,
-   "uncertain": []
+   "uncertain": [],
+   "culprit": null,
+   "term_circled": false
   },
   {
    "i": 118,
@@ -4078,7 +4314,9 @@
    ],
    "hard": false,
    "rechecked": true,
-   "uncertain": []
+   "uncertain": [],
+   "culprit": null,
+   "term_circled": false
   },
   {
    "i": 119,
@@ -4111,7 +4349,9 @@
    ],
    "hard": false,
    "rechecked": true,
-   "uncertain": []
+   "uncertain": [],
+   "culprit": null,
+   "term_circled": false
   },
   {
    "i": 120,
@@ -4144,7 +4384,9 @@
    ],
    "hard": true,
    "rechecked": false,
-   "uncertain": []
+   "uncertain": [],
+   "culprit": null,
+   "term_circled": false
   },
   {
    "i": 121,
@@ -4177,7 +4419,9 @@
    ],
    "hard": false,
    "rechecked": true,
-   "uncertain": []
+   "uncertain": [],
+   "culprit": "-1",
+   "term_circled": true
   },
   {
    "i": 122,
@@ -4210,7 +4454,9 @@
    ],
    "hard": false,
    "rechecked": true,
-   "uncertain": []
+   "uncertain": [],
+   "culprit": "-17",
+   "term_circled": true
   },
   {
    "i": 123,
@@ -4243,7 +4489,9 @@
    ],
    "hard": false,
    "rechecked": true,
-   "uncertain": []
+   "uncertain": [],
+   "culprit": "-28",
+   "term_circled": true
   },
   {
    "i": 124,
@@ -4276,7 +4524,9 @@
    ],
    "hard": true,
    "rechecked": false,
-   "uncertain": []
+   "uncertain": [],
+   "culprit": null,
+   "term_circled": false
   },
   {
    "i": 125,
@@ -4309,7 +4559,9 @@
    ],
    "hard": false,
    "rechecked": true,
-   "uncertain": []
+   "uncertain": [],
+   "culprit": "1",
+   "term_circled": true
   },
   {
    "i": 126,
@@ -4342,7 +4594,9 @@
    ],
    "hard": false,
    "rechecked": false,
-   "uncertain": []
+   "uncertain": [],
+   "culprit": null,
+   "term_circled": false
   },
   {
    "i": 127,
@@ -4375,7 +4629,9 @@
    ],
    "hard": false,
    "rechecked": true,
-   "uncertain": []
+   "uncertain": [],
+   "culprit": "-3",
+   "term_circled": true
   },
   {
    "i": 128,
@@ -4408,7 +4664,9 @@
    ],
    "hard": true,
    "rechecked": false,
-   "uncertain": []
+   "uncertain": [],
+   "culprit": null,
+   "term_circled": false
   },
   {
    "i": 129,
@@ -4441,7 +4699,9 @@
    ],
    "hard": false,
    "rechecked": true,
-   "uncertain": []
+   "uncertain": [],
+   "culprit": "2",
+   "term_circled": false
   },
   {
    "i": 130,
@@ -4474,7 +4734,9 @@
    ],
    "hard": false,
    "rechecked": true,
-   "uncertain": []
+   "uncertain": [],
+   "culprit": "22",
+   "term_circled": true
   },
   {
    "i": 131,
@@ -4507,7 +4769,9 @@
    ],
    "hard": false,
    "rechecked": true,
-   "uncertain": []
+   "uncertain": [],
+   "culprit": "-16",
+   "term_circled": true
   },
   {
    "i": 132,
@@ -4540,7 +4804,9 @@
    ],
    "hard": true,
    "rechecked": false,
-   "uncertain": []
+   "uncertain": [],
+   "culprit": null,
+   "term_circled": false
   },
   {
    "i": 133,
@@ -4573,7 +4839,9 @@
    ],
    "hard": false,
    "rechecked": true,
-   "uncertain": []
+   "uncertain": [],
+   "culprit": "4",
+   "term_circled": true
   },
   {
    "i": 134,
@@ -4606,7 +4874,9 @@
    ],
    "hard": false,
    "rechecked": true,
-   "uncertain": []
+   "uncertain": [],
+   "culprit": "35",
+   "term_circled": true
   },
   {
    "i": 135,
@@ -4639,7 +4909,9 @@
    ],
    "hard": false,
    "rechecked": false,
-   "uncertain": []
+   "uncertain": [],
+   "culprit": null,
+   "term_circled": false
   },
   {
    "i": 136,
@@ -4672,7 +4944,9 @@
    ],
    "hard": true,
    "rechecked": false,
-   "uncertain": []
+   "uncertain": [],
+   "culprit": null,
+   "term_circled": false
   },
   {
    "i": 137,
@@ -4705,7 +4979,9 @@
    ],
    "hard": false,
    "rechecked": true,
-   "uncertain": []
+   "uncertain": [],
+   "culprit": "-3",
+   "term_circled": true
   },
   {
    "i": 138,
@@ -4738,7 +5014,9 @@
    ],
    "hard": false,
    "rechecked": true,
-   "uncertain": []
+   "uncertain": [],
+   "culprit": "-22",
+   "term_circled": true
   },
   {
    "i": 139,
@@ -4771,7 +5049,9 @@
    ],
    "hard": false,
    "rechecked": true,
-   "uncertain": []
+   "uncertain": [],
+   "culprit": "14",
+   "term_circled": true
   },
   {
    "i": 140,
@@ -4804,7 +5084,9 @@
    ],
    "hard": true,
    "rechecked": false,
-   "uncertain": []
+   "uncertain": [],
+   "culprit": null,
+   "term_circled": false
   },
   {
    "i": 141,
@@ -4837,7 +5119,9 @@
    ],
    "hard": false,
    "rechecked": true,
-   "uncertain": []
+   "uncertain": [],
+   "culprit": "5",
+   "term_circled": true
   },
   {
    "i": 142,
@@ -4870,7 +5154,9 @@
    ],
    "hard": false,
    "rechecked": true,
-   "uncertain": []
+   "uncertain": [],
+   "culprit": "-25",
+   "term_circled": true
   },
   {
    "i": 143,
@@ -4903,7 +5189,9 @@
    ],
    "hard": false,
    "rechecked": true,
-   "uncertain": []
+   "uncertain": [],
+   "culprit": "8",
+   "term_circled": true
   },
   {
    "i": 144,
@@ -4936,7 +5224,9 @@
    ],
    "hard": true,
    "rechecked": false,
-   "uncertain": []
+   "uncertain": [],
+   "culprit": null,
+   "term_circled": false
   },
   {
    "i": 145,
@@ -4969,7 +5259,9 @@
    ],
    "hard": false,
    "rechecked": true,
-   "uncertain": []
+   "uncertain": [],
+   "culprit": "3",
+   "term_circled": true
   },
   {
    "i": 146,
@@ -5002,7 +5294,9 @@
    ],
    "hard": false,
    "rechecked": true,
-   "uncertain": []
+   "uncertain": [],
+   "culprit": "10",
+   "term_circled": true
   },
   {
    "i": 147,
@@ -5035,7 +5329,9 @@
    ],
    "hard": false,
    "rechecked": true,
-   "uncertain": []
+   "uncertain": [],
+   "culprit": "-17",
+   "term_circled": true
   },
   {
    "i": 148,
@@ -5068,7 +5364,9 @@
    ],
    "hard": true,
    "rechecked": false,
-   "uncertain": []
+   "uncertain": [],
+   "culprit": null,
+   "term_circled": false
   },
   {
    "i": 149,
@@ -5101,7 +5399,9 @@
    ],
    "hard": false,
    "rechecked": true,
-   "uncertain": []
+   "uncertain": [],
+   "culprit": "42e",
+   "term_circled": true
   }
  ]
 }

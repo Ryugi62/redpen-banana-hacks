@@ -26,7 +26,7 @@ is no product: you would have to retype every line yourself, and you would get a
 | 3. Verify | **SymPy** checks each line against the previous readable one: solution sets for equations (so `x²=3x → x=3` is a *lost solution*), symbolic + random-point identity for expressions, chains like `a = b = c` checked inside the line, answer checks like `3(5)-5=10` evaluated, rounded decimals accepted to the precision written. | Correctness is decided by a maths engine, the same way every time. |
 | 4. Read twice before accusing | Before circling a line, RedPen reads that line and the one before it **a second time, cropped and enlarged**. If both readings put the slip on the same line, it circles it. If the two readings disagree, it does **not** accuse: it marks the line with a "?" and asks the student to check it. | A misread must never look like a student mistake, and a "corrected" re-read must never erase a real one. |
 | 5. Classify | The hint names the kind of slip (sign, arithmetic, distribution, missing term, lost / extra solution) by testing which *single plausible mistake* applied to the previous line gives the student's line. | A hint, not the answer. |
-| 6. Point at the term | SymPy finds which single written term would have to be different for the step to hold (e.g. the `10` in `2x+3=7 → 2x=10`), and the vision model is asked where that term sits inside the line (box grounding on an enlarged crop). If it finds it, only that term is circled; otherwise the whole line is. | The circle lands where a teacher's would, without saying what the term should be. |
+| 6. Point at the term (vision grounding) | SymPy finds which single written term would have to be different for the step to hold (e.g. the `10` in `2x+3=7 → 2x=10`), and the vision model is asked where that term sits inside the line (box grounding on an enlarged crop). If it finds it, only that term is circled; otherwise the whole line is. On the 150 synthetic pages, 76 of the 103 accusations were narrowed to a term (where it lands was checked by eye on our demo pages only, not measured). | The circle lands where a teacher's would, without saying what the term should be. |
 | 7. Mark | The verdict is drawn on the student's photo in red ink. The margin note is **handwriting built from real human pen strokes** (Google MathWriting glyphs), not a font. | The output is your page, marked. |
 
 Edit any line RedPen misread, or fix your own work, and press **Re-check my fix**: it re-verifies and re-draws on your photo in about a second.
@@ -39,41 +39,35 @@ Reader for both: `gemma-4-26b-a4b-it`, the first model the live site uses. Synth
 <!-- results:start -->
 | | synthetic pages (n=150: 108 with a slip, 42 correct) | real pages (n=30: 12 with a slip, 18 correct) |
 |---|---|---|
-| **Right answer about the page**, RedPen | 139/150 = 93 % (87–96) | 25/30 = 83 % (66–93) |
+| **Right answer about the page**, RedPen | 139/150 = 93 % (87–96) | 26/30 = 87 % (70–95) |
 | Right answer about the page, same model asked directly | 114/150 = 76 % (69–82) | 21/30 = 70 % (52–83) |
-| First slip found on the right line, RedPen | 100/108 = 93 % (86–96) | 9/12 = 75 % (47–91) |
+| First slip found on the right line, RedPen | 100/108 = 93 % (86–96) | 10/12 = 83 % (55–95) |
 | First slip found on the right line, same model asked directly | 91/108 = 84 % (76–90) | 8/12 = 67 % (39–86) |
 | **Correct pages wrongly accused**, RedPen | 3/42 = 7 % (2–19) | 2/18 = 11 % (3–33) |
 | Correct pages wrongly accused, same model asked directly | 19/42 = 45 % (31–60) | 5/18 = 28 % (12–51) |
-| Pages where RedPen pointed at a wrong line / same model asked directly | 3 / 27 | 3 / 8 |
+| Pages where RedPen pointed at a wrong line / same model asked directly | 3 / 27 | 2 / 8 |
 | Pages where RedPen asked "?" instead of accusing | 6 | 3 |
-| Paired comparison (pages only RedPen got right / only same model asked directly got right, exact McNemar p) | 32 / 7, p < 0.001 | 8 / 4, p = 0.388 |
+| Paired comparison (pages only RedPen got right / only same model asked directly got right, exact McNemar p) | 32 / 7, p < 0.001 | 8 / 3, p = 0.227 |
 
 Percentages with 95 % Wilson intervals in brackets.
 <!-- results:end -->
 
-**Stronger baseline.** Judges asked whether a better prompt closes the gap. It does: when the same model is told to copy
-every line and reason step by step before answering (`eval/baseline_reasoned.py`), its accuracy is about the same as RedPen's.
+**Stronger baselines.** Judges asked whether a better prompt closes the gap. We tried two (`eval/baseline_reasoned.py`):
 
 <!-- reasoned:start -->
-| | synthetic pages (n=150: 108 with a slip, 42 correct) | real pages (n=30: 12 with a slip, 18 correct) |
-|---|---|---|
-| **Right answer about the page**, RedPen | 139/150 = 93 % (87–96) | 25/30 = 83 % (66–93) |
-| Right answer about the page, same model told to transcribe and reason step by step | 137/150 = 91 % (86–95) | 24/30 = 80 % (63–90) |
-| First slip found on the right line, RedPen | 100/108 = 93 % (86–96) | 9/12 = 75 % (47–91) |
-| First slip found on the right line, same model told to transcribe and reason step by step | 102/108 = 94 % (88–97) | 8/12 = 67 % (39–86) |
-| **Correct pages wrongly accused**, RedPen | 3/42 = 7 % (2–19) | 2/18 = 11 % (3–33) |
-| Correct pages wrongly accused, same model told to transcribe and reason step by step | 5/42 = 12 % (5–25) | 1/18 = 6 % (1–26) |
-| Pages where RedPen pointed at a wrong line / same model told to transcribe and reason step by step | 3 / 6 | 3 / 3 |
-| Pages where RedPen asked "?" instead of accusing | 6 | 3 |
-| Paired comparison (pages only RedPen got right / only same model told to transcribe and reason step by step got right, exact McNemar p) | 10 / 8, p = 0.815 | 3 / 2, p = 1.000 |
-
-Percentages with 95 % Wilson intervals in brackets.
+| Same vision model (gemma-4-26b), same image… | Right about the page: 150 synthetic | Right: 30 real | Correct pages wrongly accused: synthetic / real | States the correct answer (synthetic, wrong solutions) | RedPen better / worse on (paired, synthetic) |
+|---|---|---|---|---|---|
+| asked for the first wrong line | 114/150 = 76 % (69–82) | 21/30 = 70 % (52–83) | 19/42 = 45 % / 5/18 = 28 % | — (gives only a number) | 32 / 7, p < 0.001 |
+| told to copy every line and reason step by step | 137/150 = 91 % (86–95) | 24/30 = 80 % (63–90) | 5/42 = 12 % / 1/18 = 6 % | 13 of 66 (hand-checked; 20 by the automatic check) | 10 / 8, p = 0.815 |
+| …and told **not** to reveal the answer | 117/150 = 78 % (71–84) | 22/30 = 73 % (56–86) | 10/42 = 24 % / 3/18 = 17 % | 1 of 66 (automatic check) | 29 / 7, p < 0.001 |
+| **RedPen** | **139/150 = 93 % (87–96)** | **26/30 = 87 % (70–95)** | **3/42 = 7 % / 2/18 = 11 %** | **0** (hints never contain a number — tested) | |
 <!-- reasoned:end -->
 
-So the honest claim is not "more accurate than any prompt". It is: **as accurate as the best prompt we tried, without giving the answer away.**
-In <!-- leak:start -->23 of the 66 slipped synthetic pages whose final answer was wrong, that model's explanation stated the correct answer<!-- leak:end --> (`eval/answer_leak.py`). RedPen's hints never contain a number (tested), the decision is made by SymPy and is the same every
-time for the same reading, and the mark lands on the student's own photo instead of in a paragraph of text.
+A careful prompt matches RedPen's accuracy, but its explanation states the answer. Telling it not to reveal the answer
+fixes that and costs accuracy (significantly, on synthetic pages). **Only RedPen gets both:** the accuracy of the best prompt
+and no answer given away, because the decision is made by SymPy and the hints are fixed phrases. The answer-leak check is
+`eval/answer_leak.py` (a leak = the explanation states the correct final value; the hand-checked list is in
+`eval/results/…-answer-leak-handcheck.json`).
 
 * **Verifier alone** (`python -m eval.verifier_eval`): 400 generated solutions with one injected slip each (or none). First-slip accuracy 100 %, false alarms 0 %, hint accuracy 98.6 %. This only shows the verifier is correct on clean text. The generator and the verifier share no code, but they were written by the same team, so this is a unit test, not a real-world number.
 * **Line finding** (`tests/test_segmenter.py`): 97.7 % of ground-truth lines found with IoU ≥ 0.5 on 40 synthetic pages (98.7 % on the 24 pages the CI test uses).
@@ -108,7 +102,7 @@ Architecture (Clean Architecture, dependencies point inward):
 ## Limitations (honest)
 * Scope: single-variable linear and quadratic equations, expression simplification, arithmetic chains. Calculus, matrices, inequalities and geometry are reported as "not checked", never as wrong.
 * A misread that is the same in both readings (for example an 8 read as a 4 twice) can still produce a wrong circle. Every read line is shown and can be edited.
-* Real-photo evaluation is small: 30 crops from 20 phone photos of grade-9 answer sheets. 7 were used while building (orientation and verifier rules were tuned on them); the other 23 were labelled by a separate reader after those rules were frozen and are a held-out set. On real crops the paired difference is not statistically significant yet (8 vs 4 pages, p = 0.39). No licensed set of real student photos with error labels was available this weekend; FERMAT (CC BY 4.0) is behind a Hugging Face login that stopped at an hCaptcha. Most numbers above are on synthetic pages written with real human pen strokes.
+* Real-photo evaluation is small: 30 crops from 20 phone photos of grade-9 answer sheets. 7 were used while building (orientation and verifier rules were tuned on them). The other 23 were labelled by a separate Claude agent that only looked at the photos (it never saw RedPen's output), after those rules were frozen; one parsing change (the angle sign ∠) went in with that set, before it was evaluated. After seeing the held-out results we fixed one more rule (substitution chains like `a+b+c = 18+10+c = 42`), which changed one held-out page from wrong to right: frozen 18/23, now 19/23; both files are in `eval/results/` (`real-…-frozen.json`). A trivial "it's all correct" answer would get 14/23. On real crops the paired difference against the naive prompt is not significant yet (p ≈ 0.2–0.4).
 * The real answer-sheet crops come from a public Hugging Face dataset with no licence stated, so those images are **not** in this repo or the demo, only our labels and results.
 * Sideways photos without EXIF data are assumed to be rotated one way (true for the 4 real sheets we tested). Phone photos with EXIF data are oriented correctly.
 * The live site uses free vision-model quotas. If they run out, the samples and the edit-and-re-check flow keep working.
