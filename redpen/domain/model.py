@@ -35,10 +35,11 @@ class LineBox:
 
 @dataclass(frozen=True)
 class Reading:
-    """Transcription of one LineBox."""
+    """Transcription of one LineBox. kind = "math" or "prose" (words, labels, question text)."""
 
     text: str
     confidence: float
+    kind: str = "math"
 
 
 @dataclass(frozen=True)
@@ -49,6 +50,7 @@ class Step:
     text: str
     confidence: float = 1.0
     box: Optional[LineBox] = None
+    kind: str = "math"
 
     @property
     def readable(self) -> bool:
@@ -61,6 +63,7 @@ class Relation(str, Enum):
     NOT_EQUIVALENT = "not_equivalent"
     UNREADABLE = "unreadable"
     UNSUPPORTED = "unsupported"
+    PROSE = "prose"
 
 
 class Hint(str, Enum):

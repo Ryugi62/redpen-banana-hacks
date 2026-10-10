@@ -87,3 +87,26 @@ def test_ac6_hints(a, b, hint):
 def test_unicode_and_spacing_normalised():
     v = judge(steps("2·x − 4 = 6", "2x = 10", "x = 5"))
     assert v.first_slip is None
+
+
+def test_chained_equalities_are_checked_inside_the_line():
+    v = judge(steps("c = 42 - 18 = 24", "c = 24"))
+    assert v.first_slip is None
+    v = judge(steps("18 + c = 42", "c = 42 - 18 = 23"))
+    assert v.first_slip == 1
+
+
+def test_wrong_arithmetic_inside_one_line_is_a_slip():
+    v = judge(steps("P(1) = 2 + 5 - 5 - 2 = 1"))
+    assert v.first_slip == 0
+
+
+def test_prose_lines_are_ignored_and_keep_the_chain():
+    s = [Step(0, "2x+3=7", 0.99), Step(1, "subtract 3", 0.99, kind="prose"), Step(2, "2x=4", 0.99)]
+    v = judge(s)
+    assert v.relations[1] == Relation.PROSE
+    assert v.relations[2] == Relation.EQUIVALENT
+
+
+def test_units_are_ignored():
+    assert judge(steps("a + 10 = 28", "a = 18 cm")).first_slip is None

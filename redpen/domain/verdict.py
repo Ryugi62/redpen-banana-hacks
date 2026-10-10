@@ -8,6 +8,8 @@ from .model import Hint, Relation, Step, Verdict
 
 
 def _parse(step: Step):
+    if step.kind == "prose":
+        return Relation.PROSE, None
     if not step.readable:
         return Relation.UNREADABLE, None
     try:
@@ -28,8 +30,16 @@ def judge(steps: List[Step]) -> Verdict:
         failed, line = _parse(step)
         if failed is not None:
             relations.append(failed)
+            if failed == Relation.PROSE:
+                continue
             if failed == Relation.UNSUPPORTED:
                 anchor = None  # cannot reason across an unsupported line
+            continue
+        if line.internal_slip:
+            relations.append(Relation.NOT_EQUIVALENT)
+            if first_slip is None:
+                first_slip, hint = i, Hint.ARITHMETIC
+            anchor = line
             continue
         if anchor is None:
             relations.append(Relation.START)

@@ -37,6 +37,7 @@ _LETTERS = {c: sp.Symbol(c) for c in "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOP
 _LOCALS = dict(_LETTERS, sqrt=sp.sqrt, pi=sp.pi)
 _ALLOWED_WORDS = {"sqrt", "pi"}
 _UNSUPPORTED_MARKERS = ("∫", "integral", "int(", "lim", "sum", "matrix", "[", "]", "d/dx", "dy/dx", "<", ">", "≤", "≥", "≠", "!=")
+_UNITS = re.compile(r"(?<=[0-9)])\s*(?:sq\.?\s*)?(?:cm|mm|km|kg|m|g|s|units?|unit)(?:\^?[23])?\b")
 _SAFE_CHARS = re.compile(r"^[0-9A-Za-z+\-*/^().=, ]*$")
 
 _REPLACEMENTS = [
@@ -49,9 +50,11 @@ _REPLACEMENTS = [
 @dataclass(frozen=True)
 class Line:
     kind: str  # "expr" | "eq" | "sols"
-    exprs: Tuple[sp.Expr, ...]  # expr: (e,)  eq: (lhs - rhs,)  sols: (lhs_i - rhs_i, ...)
+    exprs: Tuple[sp.Expr, ...]  # expr: (last piece,)  eq: (lhs - rhs,)  sols: (lhs_i - rhs_i, ...)
     sides: Tuple[Tuple[sp.Expr, sp.Expr], ...] = ()  # unevaluated (lhs, rhs) per equation, for hints
     raw: Optional[sp.Expr] = None  # unevaluated expression, for hints
+    head: Optional[sp.Expr] = None  # expr chains: first piece (compared with the previous line)
+    internal_slip: bool = False  # a chain like "a = b = c" where b != c
 
 
 def normalise(text: str) -> str:
@@ -61,6 +64,7 @@ def normalise(text: str) -> str:
     t = re.sub(r"\\frac\(([^()]*)\)\(([^()]*)\)", r"((\1)/(\2))", t)
     t = re.sub(r"\\sqrt", "sqrt", t)
     t = re.sub(r"\s+", " ", t).strip().rstrip(".;")
+    t = _UNITS.sub("", t).replace("°", "").strip()
     return t
 
 
@@ -109,11 +113,31 @@ def _split_solutions(t: str) -> List[str]:
     return out
 
 
+def _chain_consistent(pieces: List[str]) -> bool:
+    exprs = [_parse(p) for p in pieces]
+    return all(expressions_equivalent(a, b) for a, b in zip(exprs, exprs[1:]))
+
+
 def parse_line(text: str) -> Line:
     t = normalise(text)
     _check_unsupported(t)
-    if t.startswith("="):
+    continuation = t.startswith("=")
+    if continuation:
         t = t[1:]
+    is_list = bool(re.search(r",|;|\bor\b|\band\b|±|\+-", t))
+    if "=" in t and not is_list and t.count("=") >= 2 or continuation and "=" in t:
+        pieces = [p for p in t.split("=")]
+        if any(not p.strip() for p in pieces):
+            raise Unreadable("empty chain piece")
+        if continuation or not (_parse(pieces[0]).free_symbols):
+            ok = _chain_consistent(pieces)
+            if continuation:
+                return Line("expr", (_parse(pieces[-1]),), raw=_parse(pieces[-1], evaluate=False), head=_parse(pieces[0]), internal_slip=not ok)
+        else:
+            ok = _chain_consistent(pieces[1:])
+        lhs_t, rhs_t = pieces[0], pieces[-1]
+        lhs, rhs = _parse(lhs_t), _parse(rhs_t)
+        return Line("eq", (sp.expand(lhs - rhs),), ((_parse(lhs_t, evaluate=False), _parse(rhs_t, evaluate=False)),), internal_slip=not ok)
     if "=" not in t:
         if "±" in t:
             raise Unsupported("±")
@@ -216,7 +240,8 @@ def equations_equivalent(prev: Line, cur: Line) -> Optional[bool]:
 
 def relate(prev: Line, cur: Line) -> Relation:
     if prev.kind == "expr" and cur.kind == "expr":
-        return Relation.EQUIVALENT if expressions_equivalent(prev.exprs[0], cur.exprs[0]) else Relation.NOT_EQUIVALENT
+        head = cur.head if cur.head is not None else cur.exprs[0]
+        return Relation.EQUIVALENT if expressions_equivalent(prev.exprs[0], head) else Relation.NOT_EQUIVALENT
     if prev.kind == "expr" or cur.kind == "expr":
         return Relation.UNSUPPORTED
     eq = equations_equivalent(prev, cur)
@@ -283,6 +308,54 @@ def _bad_distributions(e: sp.Expr) -> Iterable[sp.Expr]:
             args = list(e.args)
             args[idx] = sub
             yield e.func(*args, evaluate=False)
+
+
+def _sign_distributions(e: sp.Expr) -> Iterable[sp.Expr]:
+    """Yield copies of e where c*(a+b+...) was expanded with one product's sign flipped."""
+    if isinstance(e, sp.Mul):
+        factors = list(e.args)
+        for i, f in enumerate(factors):
+            if isinstance(f, sp.Add):
+                others = factors[:i] + factors[i + 1:]
+                c = sp.Mul(*others, evaluate=False) if len(others) > 1 else (others[0] if others else sp.Integer(1))
+                ts = list(f.args)
+                for j in range(len(ts)):
+                    new_terms = [sp.Mul(-1 if k == j else 1, c, t, evaluate=False) for k, t in enumerate(ts)]
+                    yield sp.Add(*new_terms, evaluate=False)
+    for idx, a in enumerate(e.args):
+        for sub in _sign_distributions(a):
+            args = list(e.args)
+            args[idx] = sub
+            yield e.func(*args, evaluate=False)
+
+
+def _variants_sign_distribution(prev: Line) -> Iterable[Line]:
+    if prev.kind == "eq":
+        lhs, rhs = prev.sides[0]
+        for v in _sign_distributions(lhs):
+            yield _as_eq_line(v, rhs)
+        for v in _sign_distributions(rhs):
+            yield _as_eq_line(lhs, v)
+    elif prev.kind == "expr" and prev.raw is not None:
+        for v in _sign_distributions(prev.raw):
+            yield _as_expr_line(v)
+
+
+def _negated_solutions(prev: Line, cur: Line) -> bool:
+    """Factored form solved with the roots' signs flipped, e.g. (x-7)(x-6)=0 -> x=-7 or x=-6."""
+    if cur.kind != "sols" and cur.kind != "eq":
+        return False
+    syms = _symbols(prev, cur)
+    if len(syms) != 1:
+        return False
+    x = syms[0]
+    s1, s2 = _solution_set(prev, x), _solution_set(cur, x)
+    if not isinstance(s1, sp.FiniteSet) or not isinstance(s2, sp.FiniteSet) or len(s2) == 0:
+        return False
+    v1 = {sp.nsimplify(v) for v in s1}
+    v2 = [sp.nsimplify(v) for v in s2]
+    flipped = sum(1 for v in v2 if -v in v1 and v not in v1)
+    return flipped >= 1 and all((v in v1) or (-v in v1) for v in v2)
 
 
 def _variants_distribution(prev: Line) -> Iterable[Line]:
@@ -383,9 +456,11 @@ def classify_hint(prev: Line, cur: Line) -> Hint:
                     return Hint.LOST_SOLUTION
                 if sp.Complement(s1, s2) == sp.EmptySet:
                     return Hint.EXTRA_SOLUTION
+    if _negated_solutions(prev, cur):
+        return Hint.SIGN
     if _matches_any(_variants_distribution(prev), cur):
         return Hint.DISTRIBUTION
-    if _matches_any(_variants_sign(prev), cur):
+    if _matches_any(_variants_sign(prev), cur) or _matches_any(_variants_sign_distribution(prev), cur):
         return Hint.SIGN
     if _matches_any(_variants_dropped(prev), cur):
         return Hint.DROPPED_TERM

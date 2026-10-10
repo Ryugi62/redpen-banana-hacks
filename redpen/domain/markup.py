@@ -20,8 +20,9 @@ def plan_markup(steps: List[Step], verdict: Verdict) -> MarkupPlan:
             marks.append(Mark(MarkKind.QUERY, i))
     if verdict.first_slip is None:
         checked = sum(1 for r in verdict.relations if r in (Relation.START, Relation.EQUIVALENT))
-        if checked == len(steps) and steps:
+        maths = sum(1 for r in verdict.relations if r != Relation.PROSE)
+        if checked == maths and maths:
             marks.append(Mark(MarkKind.SUMMARY, None, "all steps check out"))
         else:
-            marks.append(Mark(MarkKind.SUMMARY, None, f"{checked} of {len(steps)} checked"))
+            marks.append(Mark(MarkKind.SUMMARY, None, f"{checked} of {maths} checked"))
     return MarkupPlan(tuple(marks))
