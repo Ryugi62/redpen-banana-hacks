@@ -100,8 +100,8 @@ def norm(t: str) -> str:
     return t.replace(" ", "").replace("*", "").lower()
 
 
-def eval_synth(model: str, n: int, workers: int):
-    items = generate(12)
+def eval_synth(model: str, n: int, workers: int, per: int = 12):
+    items = generate(per)
     # balanced pick: every template, slipped and clean
     picked = []
     for i, it in enumerate(items):
@@ -178,7 +178,7 @@ def summarise(rows, model, name):
         "pipeline_missed_slip_silently": sum(1 for r in slipped if not r["pred_flagged"] and not r.get("uncertain")),
         "baseline_missed_slip": sum(1 for r in slipped if (r["baseline"] or 0) == 0),
     }
-    out = os.path.join(HERE, "results", f"{name}-{model}.json")
+    out = os.path.join(HERE, "results", f"{name}-{model}{os.environ.get('EVAL_TAG', '')}.json")
     os.makedirs(os.path.dirname(out), exist_ok=True)
     json.dump({"summary": summary, "rows": rows}, open(out, "w"), indent=1)
     print(json.dumps(summary, indent=1))
@@ -226,10 +226,12 @@ if __name__ == "__main__":
     ap.add_argument("--model", default="gemma-4-31b-it")
     ap.add_argument("--n", type=int, default=60)
     ap.add_argument("--workers", type=int, default=3)
+    ap.add_argument("--per", type=int, default=12, help="seeded solutions per template (5 templates)")
+    ap.add_argument("--tag", default="", help="suffix for the results file")
     a = ap.parse_args()
     if not os.environ.get("GEMINI_API_KEY"):
         sys.exit("set GEMINI_API_KEY")
     if a.set == "synth":
-        eval_synth(a.model, a.n, a.workers)
+        eval_synth(a.model, a.n, a.workers, a.per)
     else:
         eval_real(a.model, a.workers)
