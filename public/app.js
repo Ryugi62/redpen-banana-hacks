@@ -9,17 +9,14 @@
     { id: "s3", label: "All correct" },
     { id: "s4", label: "Notebook page" },
   ];
-  const STAGES = [
-    [0, "Finding your lines…"], [2, "Reading each line (vision model)…"], [7, "Checking every step with SymPy…"],
-    [10, "Reading the suspect line again, zoomed in, before circling it…"], [20, "Still working — free models can be slow…"],
-  ];
+  // honest progress: the server does not stream its stages, so show what happens, not which step is running
+  const WAIT_TEXT = "Finding lines → reading them (vision model) → checking each step (SymPy) → reading the suspect line again → marking. Usually 5–25 s";
   let stageTimer = null;
   function startStages() {
     const t0 = Date.now();
     const tick = () => {
       const s = (Date.now() - t0) / 1000;
-      const label = STAGES.filter(([at]) => s >= at).pop()[1];
-      $("stage").textContent = `${label} ${Math.floor(s)} s`;
+      $("stage").textContent = `${WAIT_TEXT} · ${Math.floor(s)} s`;
     };
     tick(); stageTimer = setInterval(tick, 500);
   }

@@ -30,3 +30,8 @@ def test_every_sample_is_a_recorded_model_run():
 def test_hidden_hint_chip_really_hides_and_edits_are_disclosed():
     assert ".chip[hidden]" in read("style.css")
     assert "checked as you typed" in read("app.js")
+
+
+def test_progress_text_does_not_pretend_to_know_the_server_stage():
+    js = read("app.js")
+    assert "STAGES" not in js and "WAIT_TEXT" in js
