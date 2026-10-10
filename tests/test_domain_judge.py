@@ -195,3 +195,9 @@ def test_trailing_end_marks_are_ignored(suffix):
 def test_true_numeric_line_counts_as_a_check_only_after_a_solved_line():
     v = judge(steps("2x=4", "0=0"))
     assert v.first_slip == 1  # 2x=4 does not turn into 0=0
+
+
+def test_angle_sign_is_part_of_the_name():
+    v = judge(steps("90+2∠B=180", "2∠B=90", "∠B=45"))
+    assert v.first_slip is None and v.relations[2] == Relation.EQUIVALENT
+    assert judge(steps("90+2∠B=180", "2∠B=90", "∠B=50")).first_slip == 2

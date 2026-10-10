@@ -21,7 +21,7 @@ is no product: you would have to retype every line yourself, and you would get a
 
 | Stage | What happens | Why |
 |---|---|---|
-| 1. Find lines | Classical computer vision (background division, ruled-line removal, deskew search, projection profile) boxes each written line. If those boxes do not look like lines of handwriting (6 of our 7 real answer-sheet crops), the vision model locates the lines instead. Sideways photos are turned upright. | Every line gets a stable box and number. |
+| 1. Find lines | Classical computer vision (background division, ruled-line removal, deskew search, projection profile) boxes each written line. If those boxes do not look like lines of handwriting (28 of our 30 real answer-sheet crops), the vision model locates the lines instead. Sideways photos are turned upright. | Every line gets a stable box and number. |
 | 2. Read | A vision model reads the page with numbered boxes drawn on it (set-of-mark prompting) and copies each line *exactly, mistakes included*. Word lines are labelled as prose. | The model transcribes. It never decides what is right. |
 | 3. Verify | **SymPy** checks each line against the previous readable one: solution sets for equations (so `x²=3x → x=3` is a *lost solution*), symbolic + random-point identity for expressions, chains like `a = b = c` checked inside the line, answer checks like `3(5)-5=10` evaluated, rounded decimals accepted to the precision written. | Correctness is decided by a maths engine, the same way every time. |
 | 4. Read twice before accusing | Before circling a line, RedPen reads that line and the one before it **a second time, cropped and enlarged**. If both readings put the slip on the same line, it circles it. If the two readings disagree, it does **not** accuse: it marks the line with a "?" and asks the student to check it. | A misread must never look like a student mistake, and a "corrected" re-read must never erase a real one. |
@@ -33,20 +33,20 @@ Edit any line RedPen misread, or fix your own work, and press **Re-check my fix*
 ## Results (measured, not claimed)
 Produced by `python -m eval.run …`. Raw rows are in `eval/results/`. "Same model asked directly" = the same vision model,
 given the same photo, asked for the number of the first wrong line (`eval/run.py`, `BASELINE_PROMPT`).
-Reader for both: `gemma-4-26b-a4b-it`, the first model the live site uses.
+Reader for both: `gemma-4-26b-a4b-it`, the first model the live site uses. Synthetic pages = generated solutions (5 templates, 3–5 lines) written with real human pen strokes, a quarter of them with paper texture, tilt and blur. Real pages = crops of phone photos of students' answer sheets (`eval/make_real_crops.py`, labels in `eval/real/labels.json`).
 
 <!-- results:start -->
-| | synthetic pages (n=150: 108 with a slip, 42 correct) | real pages (n=7: 3 with a slip, 4 correct) |
+| | synthetic pages (n=150: 108 with a slip, 42 correct) | real pages (n=30: 12 with a slip, 18 correct) |
 |---|---|---|
-| **Right answer about the page**, RedPen | 138/150 = 92 % (87–95) | 7/7 = 100 % (65–100) |
-| Right answer about the page, same model asked directly | 114/150 = 76 % (69–82) | 7/7 = 100 % (65–100) |
-| First slip found on the right line, RedPen | 100/108 = 93 % (86–96) | 3/3 = 100 % (44–100) |
-| First slip found on the right line, same model asked directly | 91/108 = 84 % (76–90) | 3/3 = 100 % (44–100) |
-| **Correct pages wrongly accused**, RedPen | 4/42 = 10 % (4–22) | 0/4 = 0 % (0–49) |
-| Correct pages wrongly accused, same model asked directly | 19/42 = 45 % (31–60) | 0/4 = 0 % (0–49) |
-| Pages where RedPen pointed at a wrong line / same model asked directly | 4 / 27 | 0 / 0 |
-| Pages where RedPen asked "?" instead of accusing | 6 | 0 |
-| Paired comparison (pages only RedPen got right / only the direct model got right, exact McNemar p) | 32 / 8, p < 0.001 | 0 / 0, p = 1.000 |
+| **Right answer about the page**, RedPen | 139/150 = 93 % (87–96) | 25/30 = 83 % (66–93) |
+| Right answer about the page, same model asked directly | 114/150 = 76 % (69–82) | 21/30 = 70 % (52–83) |
+| First slip found on the right line, RedPen | 100/108 = 93 % (86–96) | 9/12 = 75 % (47–91) |
+| First slip found on the right line, same model asked directly | 91/108 = 84 % (76–90) | 8/12 = 67 % (39–86) |
+| **Correct pages wrongly accused**, RedPen | 3/42 = 7 % (2–19) | 2/18 = 11 % (3–33) |
+| Correct pages wrongly accused, same model asked directly | 19/42 = 45 % (31–60) | 5/18 = 28 % (12–51) |
+| Pages where RedPen pointed at a wrong line / same model asked directly | 3 / 27 | 3 / 8 |
+| Pages where RedPen asked "?" instead of accusing | 6 | 3 |
+| Paired comparison (pages only RedPen got right / only the direct model got right, exact McNemar p) | 32 / 7, p < 0.001 | 8 / 4, p = 0.388 |
 
 Percentages with 95 % Wilson intervals in brackets.
 <!-- results:end -->
@@ -84,8 +84,8 @@ Architecture (Clean Architecture, dependencies point inward):
 ## Limitations (honest)
 * Scope: single-variable linear and quadratic equations, expression simplification, arithmetic chains. Calculus, matrices, inequalities and geometry are reported as "not checked", never as wrong.
 * A misread that is the same in both readings (for example an 8 read as a 4 twice) can still produce a wrong circle. Every read line is shown and can be edited.
-* Real-photo evaluation is small (7 crops, 5 distinct solutions). No licensed set of real student photos with error labels was available this weekend; FERMAT (CC BY 4.0) is behind a Hugging Face login that stopped at an hCaptcha. Most numbers above are on synthetic pages written with real human pen strokes.
-* The 7 real answer-sheet crops come from a public Hugging Face dataset with no licence stated, so those images are **not** in this repo or the demo, only our labels and results.
+* Real-photo evaluation is small: 30 crops from 20 phone photos of grade-9 answer sheets. 7 were used while building (orientation and verifier rules were tuned on them); the other 23 were labelled by a separate reader after those rules were frozen and are a held-out set. On real crops the paired difference is not statistically significant yet (8 vs 4 pages, p = 0.39). No licensed set of real student photos with error labels was available this weekend; FERMAT (CC BY 4.0) is behind a Hugging Face login that stopped at an hCaptcha. Most numbers above are on synthetic pages written with real human pen strokes.
+* The real answer-sheet crops come from a public Hugging Face dataset with no licence stated, so those images are **not** in this repo or the demo, only our labels and results.
 * Sideways photos without EXIF data are assumed to be rotated one way (true for the 4 real sheets we tested). Phone photos with EXIF data are oriented correctly.
 * The live site uses free vision-model quotas. If they run out, the samples and the edit-and-re-check flow keep working.
 * The demo samples are replays of a real model run (recorded once by `tools/record_samples.py`), so they open instantly. Uploading your own photo runs live.

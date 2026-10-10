@@ -6,8 +6,8 @@
   "slipped": 108,
   "clean": 42,
   "pipeline_first_slip_acc": 0.9259259259259259,
-  "pipeline_false_alarm": 0.09523809523809523,
-  "pipeline_overall_acc": 0.92,
+  "pipeline_false_alarm": 0.07142857142857142,
+  "pipeline_overall_acc": 0.9266666666666666,
   "baseline_first_slip_acc": 0.8425925925925926,
   "baseline_false_alarm": 0.4523809523809524,
   "baseline_overall_acc": 0.76,
@@ -16,7 +16,7 @@
   "baseline_no_answer": 0,
   "pages_skipped_model_error": 0,
   "pipeline_asked_instead": 6,
-  "pipeline_wrong_accusations": 4,
+  "pipeline_wrong_accusations": 3,
   "baseline_wrong_accusations": 27,
   "pipeline_missed_slip_silently": 3,
   "baseline_missed_slip": 9
@@ -3655,13 +3655,13 @@
     "(x+1)(x+3)=0",
     "x=-1 or x=-3"
    ],
-   "pred_line": 2,
-   "pred_flagged": true,
+   "pred_line": null,
+   "pred_flagged": false,
    "mode": "cv-segmented",
    "relations": [
     "start",
     "equivalent",
-    "not_equivalent"
+    "equivalent"
    ],
    "texts": [
     "x^2+4x+3=0",
@@ -3675,7 +3675,7 @@
     false
    ],
    "hard": false,
-   "rechecked": true,
+   "rechecked": false,
    "uncertain": []
   },
   {

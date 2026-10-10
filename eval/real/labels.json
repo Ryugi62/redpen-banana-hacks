@@ -79,5 +79,283 @@
   ],
   "first_slip": null,
   "note": "correct"
+ },
+ {
+  "file": "held01-002.jpg",
+  "sheet": "002",
+  "lines": [
+   "a+b+c=18+10+c=42",
+   "18+c=42",
+   "c=42-18=24"
+  ],
+  "first_slip": 1,
+  "note": "18+10+c=42 becomes 18+c=42 (the 10 is dropped; should be 28+c=42, c=14). Later lines follow from line 1.",
+  "heldout": true
+ },
+ {
+  "file": "held02-002.jpg",
+  "sheet": "002",
+  "lines": [
+   "sqrt(11(11-11)(11-6)(11-15))",
+   "sqrt(11*11*5*-4)"
+  ],
+  "first_slip": 1,
+  "note": "(11-11) evaluated as 11 instead of 0 (product should be 0; written product is -2420). Times signs written as x.",
+  "heldout": true
+ },
+ {
+  "file": "held03-003.jpg",
+  "sheet": "003",
+  "lines": [
+   "sqrt(21*(3)(11)(7))",
+   "sqrt(21*231)",
+   "sqrt(4851)",
+   "95"
+  ],
+  "first_slip": 3,
+  "note": "21*3*11*7=21*231=4851 correct; sqrt(4851)=69.65, not 95 (95^2=9025).",
+  "heldout": true
+ },
+ {
+  "file": "held04-007.jpg",
+  "sheet": "007",
+  "lines": [
+   "P(2)=4(2)^3+a(2)^2+6(2)-5",
+   "4(8)+4(a)+12-5",
+   "41+4a"
+  ],
+  "first_slip": 2,
+  "note": "4(8)+4a+12-5 = 39+4a, student wrote 41+4a.",
+  "heldout": true
+ },
+ {
+  "file": "held05-007.jpg",
+  "sheet": "007",
+  "lines": [
+   "Q(2)=(2)^3+(2)^2-2(2)+a",
+   "8+4-4+a",
+   "8+a"
+  ],
+  "first_slip": null,
+  "note": "Correct substitution and simplification.",
+  "heldout": true
+ },
+ {
+  "file": "held06-007.jpg",
+  "sheet": "007",
+  "lines": [
+   "41+4a=8+a",
+   "41-8=a-4a",
+   "33=-3a",
+   "a=-11"
+  ],
+  "first_slip": null,
+  "note": "Correct solving of the linear equation (starting value 41 is carried from an earlier slip, but each line follows). Line 0 is preceded on the sheet by 'P(x)=Q(x)=' which is outside the box.",
+  "heldout": true
+ },
+ {
+  "file": "held07-009.jpg",
+  "sheet": "009",
+  "lines": [
+   "4x^3+6x^2-5x-2",
+   "4(x-1)^3+6(x-1)^2-5(x-1)-2",
+   "(x-1)(4x^2+7x+2)"
+  ],
+  "first_slip": 1,
+  "note": "Replacing x by (x-1) does not give an equal expression; also (x-1)(4x^2+7x+2)=4x^3+3x^2-5x-2 differs from line 0 (f(1)=3, so x-1 is not a factor). Student's x looks like n.",
+  "heldout": true
+ },
+ {
+  "file": "held08-009.jpg",
+  "sheet": "009",
+  "lines": [
+   "4x^2+7x+2",
+   "(4x+1)(x+2)"
+  ],
+  "first_slip": 1,
+  "note": "(4x+1)(x+2)=4x^2+9x+2, not 4x^2+7x+2 (bad factorisation). Leading '=' signs omitted; the 4 in line 0 is heavily overwritten but legible.",
+  "heldout": true
+ },
+ {
+  "file": "held09-010.jpg",
+  "sheet": "010",
+  "lines": [
+   "f(1)=4(1)^3+6(1)^2-5(1)-2",
+   "4+6-5-2=3"
+  ],
+  "first_slip": null,
+  "note": "Correct evaluation (=3). The trailing '(is a root)' remark is outside the box.",
+  "heldout": true
+ },
+ {
+  "file": "held10-012.jpg",
+  "sheet": "012",
+  "lines": [
+   "180-(69+31)",
+   "180-100",
+   "80°"
+  ],
+  "first_slip": null,
+  "note": "Correct angle arithmetic; line 0's left side (angle BAC = ...) is excluded because a diagram overlaps it.",
+  "heldout": true
+ },
+ {
+  "file": "held11-012.jpg",
+  "sheet": "012",
+  "lines": [
+   "90+2∠B=180",
+   "2∠B=90",
+   "∠B=45=∠C"
+  ],
+  "first_slip": null,
+  "note": "Correct solving for angle B.",
+  "heldout": true
+ },
+ {
+  "file": "held12-014.jpg",
+  "sheet": "014",
+  "lines": [
+   "p(2)=2(2)^3+-3(2)^2+3(2)-5",
+   "16-12+6-5",
+   "5"
+  ],
+  "first_slip": null,
+  "note": "Correct (a=-3 substituted, written '+-3'). The 2 in p(2) is overwritten.",
+  "heldout": true
+ },
+ {
+  "file": "held13-014.jpg",
+  "sheet": "014",
+  "lines": [
+   "g(2)=(2)^3+(2)^2-2(2)+(-3)",
+   "8+4-4-3",
+   "5"
+  ],
+  "first_slip": null,
+  "note": "Correct. The two 4s in line 1 carry cancel strokes; the inner 2 of 2(2) is overwritten.",
+  "heldout": true
+ },
+ {
+  "file": "held14-015.jpg",
+  "sheet": "015",
+  "lines": [
+   "p(-1)=2(-1)^3+5(-1)^2-5(-1)-2",
+   "-2+5+5-2≠0"
+  ],
+  "first_slip": null,
+  "note": "Correct: the value is 6, so ≠0 holds.",
+  "heldout": true
+ },
+ {
+  "file": "held15-018.jpg",
+  "sheet": "018",
+  "lines": [
+   "∠BAC+69+31=180",
+   "∠BAC=180-100",
+   "∠BAC=80°"
+  ],
+  "first_slip": null,
+  "note": "Correct; line 1 is prefixed by a therefore sign.",
+  "heldout": true
+ },
+ {
+  "file": "held16-020.jpg",
+  "sheet": "020",
+  "lines": [
+   "69°+31°+∠BAC=180°",
+   "100°+∠BAC=180°",
+   "∠BAC=180°-100°",
+   "∠BAC=80°"
+  ],
+  "first_slip": null,
+  "note": "Correct angle-sum solving.",
+  "heldout": true
+ },
+ {
+  "file": "held17-023.jpg",
+  "sheet": "023",
+  "lines": [
+   "∠A+∠B+∠C=180",
+   "90+2∠B=180",
+   "2∠B=180-90=90",
+   "∠B=(90)/(2)=45°"
+  ],
+  "first_slip": null,
+  "note": "Correct (uses the given ∠A=90 and ∠B=∠C).",
+  "heldout": true
+ },
+ {
+  "file": "held18-027.jpg",
+  "sheet": "027",
+  "lines": [
+   "(2)^3+(2)^2-2(2)+a",
+   "8+4-4+a",
+   "8+a=0",
+   "a=-8"
+  ],
+  "first_slip": null,
+  "note": "Correct. Each line starts with '=>' on the sheet (omitted); '=0' comes from the remainder condition.",
+  "heldout": true
+ },
+ {
+  "file": "held19-031.jpg",
+  "sheet": "031",
+  "lines": [
+   "(5)^2=a^2+b^2+c^2+2(10)",
+   "25=a^2+b^2+c^2+20",
+   "25-20=5=a^2+b^2+c^2"
+  ],
+  "first_slip": null,
+  "note": "Correct.",
+  "heldout": true
+ },
+ {
+  "file": "held20-031.jpg",
+  "sheet": "031",
+  "lines": [
+   "a^3+b^3+c^3-3abc=(5)(5-(10))",
+   "(5)(-5)",
+   "a^3+b^3+c^3-3ab=-25"
+  ],
+  "first_slip": 2,
+  "note": "Arithmetic is right (=-25), but the final line copies the left side as -3ab instead of -3abc (copy slip: c dropped).",
+  "heldout": true
+ },
+ {
+  "file": "held21-034.jpg",
+  "sheet": "034",
+  "lines": [
+   "P(1)=2(1)^3+5(1)^2-5(1)-2",
+   "2+5-5-2=0"
+  ],
+  "first_slip": null,
+  "note": "Correct evaluation.",
+  "heldout": true
+ },
+ {
+  "file": "held22-034.jpg",
+  "sheet": "034",
+  "lines": [
+   "2x^2+3x-2",
+   "2x^2+4x-1-2",
+   "2x(x+2)-1(x+2)",
+   "(2x-1)(x+2)"
+  ],
+  "first_slip": 1,
+  "note": "Middle-term split written as +4x-1 (missing x): 2x^2+4x-3 ≠ 2x^2+3x-2. Lines 2-3 do equal line 0. (The quotient 2x^2+3x-2 itself comes from a wrong synthetic division; the correct quotient is 2x^2+7x+2. That error is outside this chain.)",
+  "heldout": true
+ },
+ {
+  "file": "held23-021.jpg",
+  "sheet": "021",
+  "lines": [
+   "a^3+b^3+c^3-3abc=-25",
+   "a^2+b^2+c^2+a+b+c-3abc=-25",
+   "(a+b+c)^2+5-3abc=-25",
+   "a^2+b^2+c^2+2ab+2bc+2ca-3abc=-25"
+  ],
+  "first_slip": 1,
+  "note": "Cubes rewritten as a^2+b^2+c^2+a+b+c (not an identity); line 3 also drops the +5. This is a different chain from the already-labelled (5)^2+2(10)-3abc chain directly below; lines are slanted, so the box bottom grazes the top of that next line.",
+  "heldout": true
  }
 ]
