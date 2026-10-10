@@ -17,8 +17,9 @@ from redpen.adapters.segmenter import ProjectionSegmenter
 from redpen.application.grade import GradePage, GradeResult, Regrade, StepEdit
 from redpen.domain.model import HINT_EXPLANATIONS, LineBox
 
-DEFAULT_MODELS = "gemini-3.5-flash-lite,gemini-3.1-flash-lite,gemini-2.5-flash-lite,gemini-2.5-flash,gemini-3.6-flash,gemma-4-26b-a4b-it,gemma-4-31b-it"
+DEFAULT_MODELS = "gemma-4-26b-a4b-it,gemini-3.5-flash-lite,gemini-3.1-flash-lite,gemini-2.5-flash-lite,gemma-4-31b-it,gemini-2.5-flash"  # same reader as the evaluation first; Gemma has the largest free daily quota
 HEDGE_AFTER_S = 7.0  # a model silent this long gets a parallel backup on the next model
+CALL_DEADLINE_S = 26.0  # read + confirm stay under the 60 s function limit
 MAX_IMAGE_BYTES = 4_000_000
 RATE_PER_HOUR = 12
 
@@ -49,7 +50,7 @@ def allow(client: str, now: float | None = None) -> bool:
 def build_transcriber():
     models = [m.strip() for m in os.environ.get("REDPEN_MODELS", DEFAULT_MODELS).split(",") if m.strip()]
     hedge = float(os.environ.get("REDPEN_HEDGE_S", HEDGE_AFTER_S))
-    return FallbackTranscriber([GeminiTranscriber(model=m, timeout=40 if "gemma" in m else 25) for m in models], hedge_after=hedge)
+    return FallbackTranscriber([GeminiTranscriber(model=m, timeout=40 if "gemma" in m else 25) for m in models], hedge_after=hedge, deadline_s=CALL_DEADLINE_S)
 
 
 def _decode_image(payload: Dict[str, Any]) -> bytes:
@@ -77,6 +78,7 @@ def to_json(res: GradeResult, model: str = "") -> Dict[str, Any]:
         steps.append({
             "index": s.index, "text": s.text, "confidence": round(s.confidence, 2), "kind": s.kind,
             "box": [s.box.x0, s.box.y0, s.box.x1, s.box.y1] if s.box else None, "relation": rel.value,
+            "doubtful": s.doubtful,
         })
     maths = [r for r in v.relations if r.value != "prose"]
     return {
@@ -89,6 +91,7 @@ def to_json(res: GradeResult, model: str = "") -> Dict[str, Any]:
             "held": v.held,
             "checked": sum(1 for r in maths if r.value in ("start", "equivalent")),
             "maths_lines": len(maths),
+            "uncertain_lines": [i + 1 for i in res.uncertain],
         },
         "image": "data:image/png;base64," + base64.b64encode(res.image_png).decode(),
         "mode": res.mode,

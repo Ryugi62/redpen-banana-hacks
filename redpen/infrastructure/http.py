@@ -34,7 +34,7 @@ def make_handler(route: str):
             except service.RateLimited as e:
                 self._send(429, {"error": str(e)})
             except service.VisionUnavailable:
-                self._send(503, {"error": "The reading model is busy right now. Try a sample, or type your lines and press Re-check."})
+                self._send(503, {"error": "The reading model is busy right now. Try again in a minute, or open a sample."})
             except json.JSONDecodeError:
                 self._send(400, {"error": "Body must be JSON."})
             except Exception:  # never leak internals

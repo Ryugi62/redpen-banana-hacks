@@ -29,6 +29,7 @@ class GradeResult:
     timings_ms: Dict[str, int] = field(default_factory=dict)
     mode: str = "cv-segmented"
     rechecked: bool = False
+    uncertain: List[int] = field(default_factory=list)
 
 
 def plausible_lines(boxes: List[LineBox], page: Optional[tuple]) -> bool:
@@ -53,31 +54,47 @@ def _finish(image: bytes, steps: List[Step], renderer: MarkupRenderer, timings: 
     return GradeResult(steps, verdict, plan, png, timings, mode)
 
 
-def confirm_slip(image: bytes, steps: List[Step], reader) -> tuple:
-    """Before accusing a line, re-read it and the line it is compared with at higher zoom.
+def _same_reading(a: str, b: str) -> bool:
+    norm = lambda t: t.replace(" ", "").replace("*", "").lower()
+    return norm(a) == norm(b)
 
-    Returns (steps, rechecked). Misreads that created a fake slip are corrected here.
+
+def confirm_slip(image: bytes, steps: List[Step], reader) -> tuple:
+    """Before accusing a line, read it and the line it is compared with a second time, zoomed in.
+
+    Two readings that agree (or that both break at the same line) -> the slip stands.
+    Readings that disagree about whether this line breaks -> the changed lines are marked doubtful:
+    RedPen asks the student to check them instead of accusing (a misread must never look like a mistake,
+    and a "corrected" re-read must never silently erase a real one).
+    Returns (steps, rechecked, uncertain_indices).
     """
     reread = getattr(reader, "reread", None)
     if reread is None:
-        return steps, False
-    v = judge(steps)
-    if v.first_slip is None:
-        return steps, False
-    slip = v.first_slip
+        return steps, False, []
+    v1 = judge(steps)
+    if v1.first_slip is None:
+        return steps, False, []
+    slip = v1.first_slip
     prev = next((i for i in range(slip - 1, -1, -1) if steps[i].kind != "prose" and steps[i].readable), None)
     idx = [i for i in (prev, slip) if i is not None and steps[i].box is not None]
     if not idx:
-        return steps, False
+        return steps, False, []
     try:
         again = reread(image, [steps[i].box for i in idx])
     except Exception:
-        return steps, False
-    fixed = list(steps)
+        return steps, False, []
+    second = list(steps)
+    changed = []
     for i, r in zip(idx, again):
-        if r.text.strip():
-            fixed[i] = replace(steps[i], text=r.text, confidence=max(r.confidence, 0.0) if r.confidence else steps[i].confidence)
-    return fixed, True
+        if r.text.strip() and not _same_reading(r.text, steps[i].text):
+            second[i] = replace(steps[i], text=r.text)
+            changed.append(i)
+    if not changed or judge(second).first_slip == slip:
+        return steps, True, []
+    marked = list(steps)
+    for i in changed:
+        marked[i] = replace(steps[i], doubtful=True)
+    return marked, True, changed
 
 
 class GradePage:
@@ -96,10 +113,10 @@ class GradePage:
             timings["read"] = int((time.perf_counter() - t) * 1000)
             steps = [Step(index=i, text=r.text, confidence=r.confidence, box=b, kind=r.kind) for i, (b, r) in enumerate(located)]
             t = time.perf_counter()
-            steps, rechecked = confirm_slip(image, steps, self.locator)
+            steps, rechecked, uncertain = confirm_slip(image, steps, self.locator)
             timings["confirm"] = int((time.perf_counter() - t) * 1000)
             res = _finish(image, steps, self.renderer, timings, mode="model-located")
-            res.rechecked = rechecked
+            res.rechecked, res.uncertain = rechecked, uncertain
             return res
         t = time.perf_counter()
         readings = self.transcriber.transcribe(image, boxes) if boxes else []
@@ -109,10 +126,10 @@ class GradePage:
             r = readings[i] if i < len(readings) else Reading("", 0.0)
             steps.append(Step(index=i, text=r.text, confidence=r.confidence, box=box, kind=r.kind))
         t = time.perf_counter()
-        steps, rechecked = confirm_slip(image, steps, self.transcriber)
+        steps, rechecked, uncertain = confirm_slip(image, steps, self.transcriber)
         timings["confirm"] = int((time.perf_counter() - t) * 1000)
         res = _finish(image, steps, self.renderer, timings)
-        res.rechecked = rechecked
+        res.rechecked, res.uncertain = rechecked, uncertain
         return res
 
 

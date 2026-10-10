@@ -93,12 +93,36 @@ class FourLines:
 
 
 def test_slip_is_confirmed_by_zoomed_reread_before_accusing():
+    """Two readings disagree about line 1 -> RedPen does not accuse; it asks (query mark) instead."""
     tr = MisreadThenZoom()
     res = GradePage(FourLines(), tr, FakeRenderer()).execute(b"img")
     assert tr.rereads == 1
     assert res.verdict.first_slip is None
-    assert res.steps[0].text == "5(x+9)=80"
+    assert res.steps[0].doubtful is True
+    assert res.uncertain == [0]
     assert res.rechecked is True
+
+
+def test_reread_that_erases_a_real_slip_does_not_win_silently():
+    """real02 case: the student really wrote 5(-4); the zoomed re-read 'corrects' it to 5(-5)."""
+    class Corrector(FakeTranscriber):
+        def reread(self, image, boxes):
+            return [Reading("5((5)^2-3(10))", 0.95), Reading("=5(-5)", 0.95)]
+    tr = Corrector(["5((5)^2-3(10))", "=5(-4)", "=-20"])
+    res = GradePage(FakeSegmenter(), tr, FakeRenderer()).execute(b"img")
+    assert res.uncertain == [1]
+    assert res.steps[1].text == "=5(-4)"  # the first reading is kept and shown, not overwritten
+    assert res.verdict.first_slip is None
+
+
+def test_slip_is_kept_when_both_readings_break_at_the_same_line():
+    class Agree(FakeTranscriber):
+        def reread(self, image, boxes):
+            return [Reading("2x+3=7", 0.95), Reading("2x=11", 0.95)]
+    tr = Agree(["2x+3=7", "2x=10", "x=5"])
+    res = GradePage(FakeSegmenter(), tr, FakeRenderer()).execute(b"img")
+    assert res.verdict.first_slip == 1
+    assert res.uncertain == []
 
 
 def test_genuine_slip_survives_reread():

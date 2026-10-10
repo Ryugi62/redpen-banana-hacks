@@ -73,3 +73,11 @@ def test_hedge_failure_moves_on_without_waiting():
 def test_hedge_all_busy_raises():
     with pytest.raises(VisionUnavailable):
         FallbackTranscriber([Busy(), Busy()], hedge_after=0.1).transcribe(b"", [])
+
+
+def test_deadline_bounds_the_whole_chain():
+    f = FallbackTranscriber([Slow("a", 2.0), Slow("b", 2.0), Slow("c", 2.0)], hedge_after=0.1, deadline_s=0.5)
+    t = time.perf_counter()
+    with pytest.raises(VisionUnavailable):
+        f.transcribe(b"", [])
+    assert time.perf_counter() - t < 1.0

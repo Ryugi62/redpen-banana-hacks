@@ -135,6 +135,7 @@ def eval_synth(model: str, n: int, workers: int):
             "pred_line": pred_gt, "pred_flagged": pred is not None, "mode": res.mode,
             "relations": [r.value for r in res.verdict.relations], "texts": [s.text for s in res.steps],
             "baseline": base, "reads_exact": reads, "hard": i % 4 == 0,
+            "rechecked": res.rechecked, "uncertain": [u for u in res.uncertain],
         }
 
     with ThreadPoolExecutor(workers) as ex:
@@ -170,6 +171,12 @@ def summarise(rows, model, name):
         "model_located_pages": sum(r["mode"] == "model-located" for r in rows),
         "baseline_no_answer": sum(r["baseline"] is None for r in rows),
         "pages_skipped_model_error": len(errors),
+        # three-way outcome: a tutor that asks "check this line?" is better than one that accuses wrongly
+        "pipeline_asked_instead": sum(1 for r in rows if r.get("uncertain") and not r["pred_flagged"]),
+        "pipeline_wrong_accusations": sum(1 for r in rows if r["pred_flagged"] and not correct_pipe(r)),
+        "baseline_wrong_accusations": sum(1 for r in rows if (r["baseline"] or 0) != 0 and not correct_base(r)),
+        "pipeline_missed_slip_silently": sum(1 for r in slipped if not r["pred_flagged"] and not r.get("uncertain")),
+        "baseline_missed_slip": sum(1 for r in slipped if (r["baseline"] or 0) == 0),
     }
     out = os.path.join(HERE, "results", f"{name}-{model}.json")
     os.makedirs(os.path.dirname(out), exist_ok=True)
@@ -203,7 +210,8 @@ def eval_real(model: str, workers: int):
         base = run_baseline(img, model)
         return {"file": lab["file"], "gt": lab["first_slip"], "lines": lab.get("lines"), "pred_line": pred_line,
                 "pred_flagged": pred is not None, "mode": res.mode, "relations": [r.value for r in res.verdict.relations],
-                "texts": [s.text for s in res.steps], "baseline": base, "reads_exact": []}
+                "texts": [s.text for s in res.steps], "baseline": base, "reads_exact": [],
+                "rechecked": res.rechecked, "uncertain": [u for u in res.uncertain]}
 
     with ThreadPoolExecutor(workers) as ex:
         for r in ex.map(one, labels):

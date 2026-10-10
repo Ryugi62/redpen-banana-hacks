@@ -6,6 +6,7 @@ fails (quota, timeout) hands over immediately. Backups are only spent when neede
 """
 from __future__ import annotations
 
+import time
 from concurrent.futures import FIRST_COMPLETED, ThreadPoolExecutor, wait
 from typing import List, Optional
 
@@ -15,9 +16,10 @@ from .gemini import VisionUnavailable
 
 
 class FallbackTranscriber:
-    def __init__(self, transcribers: list, hedge_after: Optional[float] = None):
+    def __init__(self, transcribers: list, hedge_after: Optional[float] = None, deadline_s: Optional[float] = None):
         self.transcribers = transcribers
         self.hedge_after = hedge_after
+        self.deadline_s = deadline_s  # per call; keeps the whole request inside the platform's time limit
         self.used: str = ""
 
     def _name(self, t) -> str:
@@ -54,13 +56,21 @@ class FallbackTranscriber:
             nxt += 1
             pending[pool.submit(getattr(t, fn_name), *args)] = t
 
+        end = time.monotonic() + self.deadline_s if self.deadline_s else None
         try:
             launch()
             while pending:
                 more = nxt < len(ts)
-                done, _ = wait(list(pending), timeout=self.hedge_after if more else None, return_when=FIRST_COMPLETED)
-                if not done:  # everyone running is slow: add a backup
-                    launch()
+                timeout = self.hedge_after if more else None
+                if end is not None:
+                    left = end - time.monotonic()
+                    if left <= 0:
+                        raise VisionUnavailable("deadline: " + ("; ".join(errors) or "models too slow"))
+                    timeout = min(timeout, left) if timeout is not None else left
+                done, _ = wait(list(pending), timeout=timeout, return_when=FIRST_COMPLETED)
+                if not done:
+                    if more and (end is None or time.monotonic() < end):
+                        launch()  # everyone running is slow: add a backup
                     continue
                 for fut in done:
                     t = pending.pop(fut)
