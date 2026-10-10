@@ -48,3 +48,11 @@ def test_transcriber_is_hedged_and_fast_model_first(monkeypatch):
     tr = service.build_transcriber()
     assert tr.hedge_after == service.HEDGE_AFTER_S
     assert tr.transcribers[0].model == "gemma-4-26b-a4b-it"  # the model the README numbers were measured with
+
+
+def test_step_count_does_not_count_the_first_line_as_checked():
+    out = service.regrade({"image": b64_page(), "steps": [
+        {"text": "2x+3=7", "box": [20, 20, 200, 60]},
+        {"text": "2x=4", "box": [20, 100, 200, 140]},
+        {"text": "x=2", "box": [20, 180, 200, 220]}]})
+    assert (out["verdict"]["steps_checked"], out["verdict"]["steps_total"]) == (2, 2)

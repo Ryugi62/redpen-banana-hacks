@@ -91,6 +91,9 @@ def to_json(res: GradeResult, model: str = "") -> Dict[str, Any]:
             "held": v.held,
             "checked": sum(1 for r in maths if r.value in ("start", "equivalent")),
             "maths_lines": len(maths),
+            # honest count: steps = transitions from one line to the next; a "start" line is not a checked step
+            "steps_checked": sum(1 for r in maths if r.value == "equivalent"),
+            "steps_total": sum(1 for r in maths if r.value != "start"),
             "uncertain_lines": [i + 1 for i in res.uncertain],
             "culprit": v.culprit,
             "term_circled": any(m.kind.value == "circle" and m.box is not None for m in res.plan.marks),

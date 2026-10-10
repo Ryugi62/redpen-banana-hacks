@@ -234,3 +234,18 @@ def test_substitution_chain_ending_in_a_given_value_is_an_equation():
     assert v.first_slip == 1
     v = judge(steps("x+x=2x=6", "x=3"))
     assert v.first_slip is None
+
+
+# --- round-4 mock judges: "name = expr" then "= value" lines (7 of 30 real crops look like this) ---
+
+@pytest.mark.parametrize("lines,slip", [
+    (("P(2)=4(2)^3+a(2)^2+6(2)-5", "=4(9)+4a+12-5", "=43+4a"), 1),
+    (("y=2(3)+4", "=11"), 1),
+    (("A=3(4)+1", "=14"), 1),
+    (("y=2(3)+4", "=10"), None),
+    (("P(2)=4(2)^3+a(2)^2+6(2)-5", "=4(8)+4a+12-5", "=39+4a"), None),
+])
+def test_continuation_after_a_named_line_is_checked(lines, slip):
+    v = judge(steps(*lines))
+    assert v.first_slip == slip
+    assert v.relations[1] != Relation.START

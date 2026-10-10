@@ -173,6 +173,8 @@ def _parse_line(t: str) -> Line:
         if "±" in t:
             raise Unsupported("±")
         raw = _parse(t, evaluate=False)
+        if continuation:  # "= 11" continues the line above
+            return Line("expr", (_parse(t),), raw=raw, head=_parse(t), raw_head=raw)
         return Line("expr", (_parse(t),), raw=raw)
     pieces = _split_solutions(t) if re.search(r",|;|\bor\b|\band\b|±|\+-", t) else [t]
     exprs, sides = [], []
@@ -296,6 +298,10 @@ def check_line_holds(anchor: Line, line: Line) -> Optional[bool]:
 
 
 def relate(prev: Line, cur: Line) -> Relation:
+    if prev.kind == "eq" and cur.kind == "expr" and cur.head is not None and prev.sides:
+        # "P(2) = 4(2)^3 + ..." then "= 4(8) + ...": the continuation carries on the right-hand side
+        rhs = prev.sides[0][1]
+        return relate(Line("expr", (_rebuild(rhs),), raw=rhs), cur)
     if prev.kind == "expr" and cur.kind == "expr":
         head = cur.head if cur.head is not None else cur.exprs[0]
         before, after = prev.exprs[0].free_symbols, head.free_symbols

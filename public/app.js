@@ -66,14 +66,21 @@
       $("explain").textContent = (v.explanation || "") + " Fix that line and everything after it.";
     } else {
       card.classList.add("ok");
-      $("bigNum").textContent = `${v.checked}/${v.maths_lines}`;
-      $("bigSub").textContent = v.checked === v.maths_lines ? "steps hold — nice work" : "lines verified (some couldn't be read)";
+      const done = v.steps_checked ?? v.checked, total = v.steps_total ?? v.maths_lines;
       $("hintChip").hidden = true;
-      $("explain").textContent = v.checked === v.maths_lines ? "Every line follows from the one before." : "Open “What RedPen read” and fix the lines marked “can't read”.";
+      if (!total) {
+        $("bigNum").textContent = "Nothing to check";
+        $("bigSub").textContent = "RedPen needs at least two lines of working";
+        $("explain").textContent = "It checks each line against the one before it. Open “What RedPen read” to see what it found.";
+      } else {
+        $("bigNum").textContent = `${done}/${total}`;
+        $("bigSub").textContent = done === total ? "steps hold — nice work" : "steps checked (some couldn't be read)";
+        $("explain").textContent = done === total ? "Every line follows from the one before." : "Open “What RedPen read” and fix the lines marked “can't read”.";
+      }
     }
     const edited = out.steps.map((s, i) => (s.text !== current.read[i] ? i + 1 : 0)).filter(Boolean);
     if (edited.length) {
-      $("explain").textContent += ` Line${edited.length > 1 ? "s" : ""} ${edited.join(", ")} checked as you typed ${edited.length > 1 ? "them" : "it"} (no tick on the old ink).`;
+      $("explain").textContent += ` Line${edited.length > 1 ? "s" : ""} ${edited.join(", ")} checked as you typed ${edited.length > 1 ? "them" : "it"} (shown as “typed …” in the margin).`;
     }
     $("marked").src = out.image;
     $("download").href = out.image;

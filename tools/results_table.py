@@ -63,6 +63,8 @@ def stats(name):
         "pipe_wrong": sum(1 for r in rows if r["pred_flagged"] and not correct_pipe(r)),
         "base_wrong": sum(1 for r in rows if (r["baseline"] or 0) != 0 and not correct_base(r)),
         "asked": sum(1 for r in rows if r.get("uncertain") and not r["pred_flagged"]),
+        "vacuous": sum(1 for r in clean if not r["pred_flagged"] and "relations" in r and not any(x == "equivalent" for x in r["relations"])),
+        "pipe_overall_nonvacuous": pct(sum(1 for r in rows if correct_pipe(r) and not (r["gt"] is None and not r["pred_flagged"] and "relations" in r and not any(x == "equivalent" for x in r["relations"]))), len(rows)),
         "p": p, "b": b, "c": c,
     }
 
@@ -81,6 +83,8 @@ def table(names, other="same model asked directly"):
         out.append(f"| {label} | " + " | ".join(str(s[k]) for s in ss) + " |")
     out.append(f"| Pages where RedPen pointed at a wrong line / {other} | " + " | ".join(f"{s['pipe_wrong']} / {s['base_wrong']}" for s in ss) + " |")
     out.append("| Pages where RedPen asked \"?\" instead of accusing | " + " | ".join(str(s["asked"]) for s in ss) + " |")
+    out.append("| Correct pages RedPen passed without verifying a single step (could not read / new chain) | " + " | ".join(str(s["vacuous"]) for s in ss) + " |")
+    out.append("| Right answer about the page, RedPen, not counting those empty passes | " + " | ".join(s["pipe_overall_nonvacuous"] for s in ss) + " |")
     out.append(f"| Paired comparison (pages only RedPen got right / only {other} got right, exact McNemar p) | " + " | ".join(f"{s['b']} / {s['c']}, " + (f"p = {s['p']:.3f}" if s['p'] >= 0.001 else "p < 0.001") for s in ss) + " |")
     out.append("")
     out.append("Percentages with 95 % Wilson intervals in brackets.")

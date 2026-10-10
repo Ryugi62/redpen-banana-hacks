@@ -39,3 +39,8 @@ def test_progress_text_does_not_pretend_to_know_the_server_stage():
 
 def test_phone_users_can_pick_a_saved_photo():
     assert 'capture="environment"' not in read("index.html")
+
+
+def test_result_card_uses_the_honest_step_count():
+    js = read("app.js")
+    assert "steps_checked" in js and "Nothing to check" in js

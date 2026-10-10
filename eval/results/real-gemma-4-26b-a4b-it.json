@@ -217,7 +217,7 @@
    "mode": "model-located",
    "relations": [
     "start",
-    "start"
+    "equivalent"
    ],
    "texts": [
     "p(1) = 2(1)^3 + 5(1)^2 - 5(1) - 2",
@@ -329,7 +329,7 @@
    "pred_flagged": true,
    "mode": "model-located",
    "relations": [
-    "start",
+    "unreadable",
     "start",
     "not_equivalent"
    ],
@@ -341,7 +341,9 @@
    "baseline": 2,
    "reads_exact": [],
    "rechecked": true,
-   "uncertain": [],
+   "uncertain": [
+    0
+   ],
    "culprit": "41",
    "term_circled": true
   },
@@ -555,7 +557,7 @@
    "mode": "model-located",
    "relations": [
     "start",
-    "start",
+    "equivalent",
     "equivalent"
    ],
    "texts": [
@@ -583,7 +585,7 @@
    "mode": "model-located",
    "relations": [
     "start",
-    "start",
+    "equivalent",
     "equivalent"
    ],
    "texts": [
@@ -810,7 +812,7 @@
    "mode": "model-located",
    "relations": [
     "start",
-    "start"
+    "equivalent"
    ],
    "texts": [
     "P(1) = 2(1)^3 + 5(1)^2 - 5(1) - 2",
