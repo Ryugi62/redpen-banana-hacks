@@ -47,6 +47,7 @@ Reader for both: `gemma-4-26b-a4b-it`, the first model the live site uses. Synth
 | Correct pages wrongly accused, same model asked directly | 19/42 = 45 % (31–60) | 5/18 = 28 % (12–51) |
 | Pages where RedPen pointed at a wrong line / same model asked directly | 3 / 27 | 2 / 8 |
 | Pages where RedPen asked "?" instead of accusing | 6 | 3 |
+| Hint type right, among slips RedPen found on the right line (synthetic only: real pages have no hint labels) | 91/100 | — |
 | Correct pages RedPen passed without verifying a single step (could not read / new chain) | 0 | 5 |
 | Right answer about the page, RedPen, not counting those empty passes | 139/150 = 93 % (87–96) | 21/30 = 70 % (52–83) |
 | Paired comparison (pages only RedPen got right / only same model asked directly got right, exact McNemar p) | 32 / 7, p < 0.001 | 8 / 3, p = 0.227 |

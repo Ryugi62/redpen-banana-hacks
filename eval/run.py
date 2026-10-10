@@ -137,6 +137,7 @@ def eval_synth(model: str, n: int, workers: int, per: int = 12):
             "baseline": base, "reads_exact": reads, "hard": i % 4 == 0,
             "rechecked": res.rechecked, "uncertain": [u for u in res.uncertain],
             "culprit": res.verdict.culprit, "term_circled": any(m.kind.value == "circle" and m.box is not None for m in res.plan.marks),
+            "hint": res.verdict.hint.value if res.verdict.hint else None,
         }
 
     with ThreadPoolExecutor(workers) as ex:
