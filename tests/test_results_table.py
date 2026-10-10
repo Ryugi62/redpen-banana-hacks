@@ -19,5 +19,13 @@ def test_mcnemar_and_wilson():
 def test_answer_leak_detector():
     from eval.answer_leak import mentions
     assert mentions("dividing 30 by 6 should result in 5, not 180", [5])
+    assert mentions("so x = 5", [5]) and mentions("the answer should be 5.", [5])
     assert not mentions("line 3 is wrong; check 15/3", [5])
     assert not mentions("x = 50", [5])
+    assert not mentions("Line 5 is wrong", [5])  # a line number is not the answer
+    assert not mentions("The whole solution is correct", [5])
+
+
+def test_strict_detector_ignores_decimals_that_merely_start_with_the_value():
+    from eval.answer_leak import mentions
+    assert not mentions("x = 5.5", [5])

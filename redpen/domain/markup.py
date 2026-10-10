@@ -17,6 +17,8 @@ def plan_markup(steps: List[Step], verdict: Verdict) -> MarkupPlan:
         elif rel in (Relation.START, Relation.EQUIVALENT):
             if not steps[i].edited:  # never tick ink that is not what was checked
                 marks.append(Mark(MarkKind.TICK, i))
+            else:  # show what was checked instead, in the margin
+                marks.append(Mark(MarkKind.NOTE, i, "typed " + steps[i].text.replace(" ", "")[:24]))
         elif rel == Relation.UNREADABLE:
             marks.append(Mark(MarkKind.QUERY, i))
     if verdict.first_slip is None:

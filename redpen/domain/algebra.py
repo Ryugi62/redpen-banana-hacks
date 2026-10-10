@@ -159,9 +159,14 @@ def _parse_line(t: str) -> Line:
             if continuation:
                 return Line("expr", (_parse(pieces[-1]),), raw=_parse(pieces[-1], evaluate=False), head=_parse(pieces[0]),
                             internal_slip=not ok, raw_head=_parse(pieces[0], evaluate=False))
+            lhs_t = pieces[0]
+        elif any(_parse(p).free_symbols for p in pieces[1:-1]):
+            # "a+b+c = 18+10+c = 42" or "x+x = 2x = 6": the last "=" states an equation (values were
+            # substituted or terms collected first), so the line is pieces[-2] = pieces[-1]
+            ok, lhs_t = True, pieces[-2]
         else:
-            ok = _chain_consistent(pieces[1:])
-        lhs_t, rhs_t = pieces[0], pieces[-1]
+            ok, lhs_t = _chain_consistent(pieces[1:]), pieces[0]
+        rhs_t = pieces[-1]
         lhs, rhs = _parse(lhs_t), _parse(rhs_t)
         return Line("eq", (sp.expand(lhs - rhs),), ((_parse(lhs_t, evaluate=False), _parse(rhs_t, evaluate=False)),), internal_slip=not ok)
     if "=" not in t:

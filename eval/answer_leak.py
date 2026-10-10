@@ -25,7 +25,16 @@ from redpen.adapters.imageio import load_rgb, normalise_bytes
 from redpen.domain.algebra import _solution_set, _symbols, parse_line
 
 
+_STATES = r"(?:=|\bis\b|\bbe\b|\bequals?\b|\bgets?\b|\bgives?\b|\bresults?\s+in\b|\bresulting\s+in\b|\bto\s+get\b)"
+
+
 def mentions(text: str, values) -> bool:
+    """Strict: the correct value is STATED ("x = 5", "should be 5", "results in 5"), not merely any number."""
+    return any(re.search(_STATES + r"\s*\(?\s*" + re.escape(str(v)) + r"(?![0-9/a-zA-Z^(]|\.[0-9])", text, flags=re.I) for v in values)
+
+
+def appears(text: str, values) -> bool:
+    """Loose: the value appears anywhere as a number (used to skip pages whose final answer is already right)."""
     t = text.replace(" ", "")
     return any(re.search(r"(?<![0-9/.])" + re.escape(str(v)) + r"(?![0-9/.])", t) for v in values)
 
@@ -51,7 +60,7 @@ def main():
             vals = [sp.nsimplify(v) for v in _solution_set(l0, syms[0])]
         except Exception:
             continue
-        if mentions(it.lines[-1], vals):
+        if appears(it.lines[-1], vals):
             continue  # the student's own final answer is right: nothing to give away
         img, _ = render_page(it.lines, seed=5000 + r["i"], hard=(r["i"] % 4 == 0))
         buf = io.BytesIO()
@@ -64,7 +73,7 @@ def main():
         pages += 1
         if mentions(out.get("reasoning", ""), vals):
             leaks.append({"i": r["i"], "lines": it.lines, "answer": [str(v) for v in vals], "reasoning": out.get("reasoning", "")})
-    res = {"pages": pages, "reasoning_reveals_answer": len(leaks), "examples": leaks[:5]}
+    res = {"pages": pages, "reasoning_reveals_answer": len(leaks), "examples": leaks}
     json.dump(res, open(os.path.join(HERE, "results", f"{a.results}-answer-leak.json"), "w"), indent=1)
     print(json.dumps({k: res[k] for k in ("pages", "reasoning_reveals_answer")}))
 

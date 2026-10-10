@@ -226,3 +226,11 @@ def test_culprit_term_never_contains_the_fix():
 def test_verdict_carries_the_culprit_term():
     v = judge(steps("2x+3=7", "2x=10", "x=5"))
     assert v.first_slip == 1 and v.culprit == "10"
+
+
+def test_substitution_chain_ending_in_a_given_value_is_an_equation():
+    # real answer sheet (held-out crop 01): a=18, b=10 substituted, "= 42" is the given total
+    v = judge(steps("a+b+c=18+10+c=42", "18+c=42", "c=42-18=24"))
+    assert v.first_slip == 1
+    v = judge(steps("x+x=2x=6", "x=3"))
+    assert v.first_slip is None

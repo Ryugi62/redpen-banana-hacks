@@ -45,5 +45,7 @@ def test_edited_lines_get_no_tick_on_the_original_ink():
     plan = plan_markup(s, judge(s))
     ticks = [m.step for m in plan.marks if m.kind == MarkKind.TICK]
     assert ticks == [0]
+    notes = {m.step: m.text for m in plan.marks if m.kind == MarkKind.NOTE}
+    assert notes == {1: "typed 3x=15", 2: "typed x=5"}
     summary = [m for m in plan.marks if m.kind == MarkKind.SUMMARY][0]
     assert "typed" in summary.text

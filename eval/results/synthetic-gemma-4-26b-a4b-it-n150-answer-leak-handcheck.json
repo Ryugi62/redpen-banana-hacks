@@ -1,0 +1,30 @@
+{
+ "pages": 66,
+ "automatic_strict_hits": 20,
+ "hand_checked_leaks": 13,
+ "leak_ids": [
+  3,
+  7,
+  11,
+  15,
+  19,
+  23,
+  27,
+  66,
+  74,
+  75,
+  79,
+  85,
+  89
+ ],
+ "rejected": {
+  "13": "unclear context",
+  "26": "6-6=0 coincides with the answer",
+  "35": "states a corrected line 5x=0, not the answer",
+  "44": "states a corrected line 2x=0, not the answer",
+  "52": "quotes the student's own line",
+  "53": "quotes the student's own line",
+  "86": "quotes the student's own line"
+ },
+ "rule": "a leak = the explanation states the correct final value of x (e.g. 'x = 5', 'should result in 5'); corrected intermediate lines and the student's own lines do not count"
+}

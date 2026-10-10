@@ -136,6 +136,7 @@ def eval_synth(model: str, n: int, workers: int, per: int = 12):
             "relations": [r.value for r in res.verdict.relations], "texts": [s.text for s in res.steps],
             "baseline": base, "reads_exact": reads, "hard": i % 4 == 0,
             "rechecked": res.rechecked, "uncertain": [u for u in res.uncertain],
+            "culprit": res.verdict.culprit, "term_circled": any(m.kind.value == "circle" and m.box is not None for m in res.plan.marks),
         }
 
     with ThreadPoolExecutor(workers) as ex:
@@ -211,7 +212,8 @@ def eval_real(model: str, workers: int):
         return {"file": lab["file"], "gt": lab["first_slip"], "lines": lab.get("lines"), "pred_line": pred_line,
                 "pred_flagged": pred is not None, "mode": res.mode, "relations": [r.value for r in res.verdict.relations],
                 "texts": [s.text for s in res.steps], "baseline": base, "reads_exact": [],
-                "rechecked": res.rechecked, "uncertain": [u for u in res.uncertain]}
+                "rechecked": res.rechecked, "uncertain": [u for u in res.uncertain],
+                "culprit": res.verdict.culprit, "term_circled": any(m.kind.value == "circle" and m.box is not None for m in res.plan.marks)}
 
     with ThreadPoolExecutor(workers) as ex:
         for r in ex.map(one, labels):

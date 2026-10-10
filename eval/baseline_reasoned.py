@@ -22,6 +22,10 @@ PROMPT = """This photo shows a student's handwritten maths solution. Number the 
 follows correctly from the line before it, showing your reasoning. Finally give first_wrong_line: the number of the FIRST line
 that contains a mistake, or 0 if the whole solution is correct."""
 
+PROMPT_NO_ANSWER = PROMPT + """
+You are tutoring the student: never state the correct answer, the correct value of any line, or a corrected line.
+In your reasoning describe only where and what kind of mistake it is (for example "a sign error when moving a term")."""
+
 SCHEMA = {
     "type": "OBJECT",
     "properties": {
@@ -34,10 +38,10 @@ SCHEMA = {
 }
 
 
-def answer(img: bytes, model: str):
+def answer(img: bytes, model: str, prompt: str = PROMPT):
     tr = CachedTranscriber(model=model, timeout=120)
     try:
-        out = tr._call(PROMPT, load_rgb(img), SCHEMA)
+        out = tr._call(prompt, load_rgb(img), SCHEMA)
     except VisionUnavailable:
         return None
     try:
@@ -51,7 +55,10 @@ def main():
     ap.add_argument("results")
     ap.add_argument("--per", type=int, default=30)
     ap.add_argument("--workers", type=int, default=4)
+    ap.add_argument("--no-answer", action="store_true", help="tell the model not to reveal the answer")
     a = ap.parse_args()
+    prompt = PROMPT_NO_ANSWER if a.no_answer else PROMPT
+    suffix = "-noanswer-baseline" if a.no_answer else "-reasoned-baseline"
     path = os.path.join(HERE, "results", f"{a.results}.json")
     d = json.load(open(path))
     model = d["summary"]["model"]
@@ -61,18 +68,18 @@ def main():
         if "file" in r:  # real crops
             from redpen.adapters.orient import upright_bytes
             img = upright_bytes(normalise_bytes(open(os.path.join(HERE, "real", r["file"]), "rb").read()))
-            return {**r, "baseline_reasoned": answer(img, model)}
+            return {**r, "baseline_reasoned": answer(img, model, prompt)}
         it = items[r["i"]]
         img, _ = render_page(it.lines, seed=5000 + r["i"], hard=(r["i"] % 4 == 0))
-        return {**r, "baseline_reasoned": answer(normalise_bytes(img), model)}
+        return {**r, "baseline_reasoned": answer(normalise_bytes(img), model, prompt)}
 
     with ThreadPoolExecutor(a.workers) as ex:
         rows = list(ex.map(one, d["rows"]))
     for r in rows:
         print(json.dumps({k: r.get(k) for k in ("i", "file", "gt", "pred_line", "baseline", "baseline_reasoned")}), flush=True)
-    out = os.path.join(HERE, "results", f"{a.results}-reasoned-baseline.json")
-    json.dump({"summary": {**d["summary"], "baseline": "reasoned (transcribe + step-by-step, same model)"}, "rows": [
-        {**r, "baseline": r["baseline_reasoned"]} for r in rows]}, open(out, "w"), indent=1)
+    out = os.path.join(HERE, "results", f"{a.results}{suffix}.json")
+    json.dump({"summary": {**d["summary"], "baseline": "reasoned (transcribe + step-by-step, same model)" + (", told not to reveal the answer" if a.no_answer else "")}, "rows": [
+        {**r, "baseline_naive": r.get("baseline"), "baseline": r["baseline_reasoned"]} for r in rows]}, open(out, "w"), indent=1)
     print(out)
 
 
