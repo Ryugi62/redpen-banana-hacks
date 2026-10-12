@@ -114,6 +114,7 @@ Architecture (Clean Architecture, dependencies point inward):
 ## Credits & AI use
 * **Generative AI at runtime:** Google **Gemma 4** (`gemma-4-26b-a4b-it`) as the line reader, with Google **Gemini** flash-lite models as hedged backups, through the Gemini API.
 * **Generative AI for building:** most of the code, tests and this README were written by **Claude (Anthropic) through Claude Code**, working under the author's direction during the hacking window. The idea was planned before the event; all code, data files and media were created inside the hacking window (see the commit history).
+* **Generative AI for the demo video:** narration voice by Microsoft Edge text-to-speech (`en-US-AndrewMultilingualNeural`); screen clips are recordings of the live site.
 * **Data:** Google MathWriting (CC BY-NC-SA 4.0): human glyph strokes for the handwriting renderer, the sample pages and the synthetic test pages (`data/README.md`). The sample images in `public/samples/` and `public/hero.jpg` are derived from it and carry the same licence.
 * **Libraries:** SymPy, NumPy, Pillow. Hosting: Vercel.
 * Code: MIT. `data/glyphs.json`, `public/samples/*`, `public/hero.jpg`: CC BY-NC-SA 4.0.
